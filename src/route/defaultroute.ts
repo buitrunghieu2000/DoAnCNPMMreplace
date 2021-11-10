@@ -1,0 +1,14 @@
+export const defaultRoute = {
+  homepage: "/",
+  shoppage: "/shop",
+  signin: "/signin",
+  signup: "/signup",
+  forgotpass: "/forgotpass",
+  contact: "/contact",
+  cart: "/cart",
+  singleproduct: "/singleproduct/:id",
+  checkout: "/checkout",
+  wishlist: "/wishlist",
+  order: "/order",
+  profile: "/profile",
+};
