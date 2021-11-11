@@ -18,16 +18,24 @@ const ProductDetail = (props: { id: string }) => {
     }
   };
   React.useEffect(() => {
+    window.scrollTo(0, 0);
+
     (async () => {
       const result = await getDetailProductAsync({
         id: props?.id,
       });
+      console.log("asdasds");
       const { data } = result;
       console.log(data);
       setProduct(data);
     })();
-  }, []);
+  }, [props?.id]);
 
+  const renderImage = (image: Array<string>) => {
+    console.log("renderImage", image);
+    if (typeof image === "undefined") return "";
+    return image[0];
+  };
   return (
     <div>
       <section className="ftco-section">
@@ -36,10 +44,7 @@ const ProductDetail = (props: { id: string }) => {
             <div className="col-lg-6 mb-5 ftco-animate">
               <a className="image-popup">
                 <img
-                  src={
-                    // product?.image[0] ||
-                    img
-                  }
+                  src={renderImage(product.image)}
                   className="img-fluid"
                   alt="Colorlib Template"
                 />
@@ -87,7 +92,7 @@ const ProductDetail = (props: { id: string }) => {
               <p>
                 <a
                   onClick={handleAddToCart}
-                  className="btn btn-black py-3 px-5"
+                  className="btn btn-primary py-3 px-5"
                 >
                   Add to Cart
                 </a>

@@ -6,6 +6,7 @@ import { moneyFormater } from "../../utils/moneyFormater";
 import { notifySuccess } from "../../utils/notify";
 import { getDetailProductAsync } from "../../apis/product/getdetailproduct.api";
 import { useHistory } from "react-router";
+import { Link } from "react-router-dom";
 
 const CardProduct = (props: { data?: any }) => {
   const history = useHistory();
@@ -21,13 +22,14 @@ const CardProduct = (props: { data?: any }) => {
 
   const handleClickSingleProduct = (id: string) => {
     history.push(`/singleproduct/${id}`);
-    window.location.reload();
+    // window.location.reload();
     window.scrollTo(0, 0);
   };
   return (
     <div className="product">
-      <a
-        onClick={() => handleClickSingleProduct(props.data?._id)}
+      <Link
+        to={`/singleproduct/${props?.data?._id}`}
+        // onClick={() => handleClickSingleProduct(props.data?._id)}
         className="img-prod"
       >
         <img
@@ -36,7 +38,7 @@ const CardProduct = (props: { data?: any }) => {
           alt="Colorlib Template"
         />
         <div className="overlay"></div>
-      </a>
+      </Link>
       <div className="text py-3 pb-4 px-3 text-center">
         <h3>
           <a href="#">{props.data?.name}</a>

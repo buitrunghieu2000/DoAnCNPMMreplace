@@ -131,10 +131,10 @@ const CartInfo = (props: Props) => {
                   <span>
                     {cartList.length != 0 &&
                       moneyFormater(
-                        cartList?.reduce(
+                        (cartList || []).reduce(
                           (prev: any, current: any) =>
-                            prev.quantity * prev.cost +
-                            current.quantity * current.cost
+                            prev + current.cost * current.quantity,
+                          0
                         )
                       )}
                   </span>
