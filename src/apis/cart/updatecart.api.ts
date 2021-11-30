@@ -1,10 +1,11 @@
 import { ApiMethods, ApiRoutes } from "../defineApi";
 import Repository from "../RepositoryApi";
-import { ReturnResponse } from "../Response";
+import { ReturnListResponse, ReturnResponse } from "../Response";
 
 interface payloadUpdateCart {
   id: string;
   quantity: number;
+  status: number;
 }
 const route: ApiRoutes = {
   method: ApiMethods.PUT, //GET,DELETE su dung param
@@ -12,7 +13,7 @@ const route: ApiRoutes = {
   url: "cart/updateCart",
 };
 export const updateCartAsync = async (
-  payload: payloadUpdateCart
-): Promise<ReturnResponse<any>> => {
+  payload: Array<payloadUpdateCart>
+): Promise<ReturnListResponse<any>> => {
   return Repository(route, payload);
 };

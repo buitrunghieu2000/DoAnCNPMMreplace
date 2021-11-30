@@ -1,8 +1,15 @@
 import React from "react";
 import { IoMdCart } from "react-icons/io";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import reactSelectCjs from "react-select";
+import { logoutUser } from "../../features/auths/slice";
+import { selectCurrentUser } from "../../features/auths/slice/selector";
+import { getCurrentUserAsync } from "../../features/auths/slice/thunk";
+import { useHistory } from "react-router";
 
 const Navbar = () => {
+  const dispatch = useDispatch();
   const toggleDropdown04 = (e: any) => {
     e.target.className =
       "nav-link dropdown-toggle" === e.target.className
@@ -12,6 +19,19 @@ const Navbar = () => {
   const blurDropdown04 = (e: any) => {
     e.target.className = "nav-link dropdown-toggle";
   };
+  const history = useHistory();
+  const user = useSelector(selectCurrentUser);
+  console.log(user);
+  const handleLogout = () => {
+    dispatch(logoutUser());
+    history.push("/");
+  };
+  React.useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      dispatch(getCurrentUserAsync());
+    }
+  }, []);
   return (
     <nav
       className="
@@ -59,7 +79,7 @@ const Navbar = () => {
                 // onBlur={blurDropdown04}
               >
                 <Link className="dropdown-item" to="/shop">
-                  Shop
+                  Product
                 </Link>
                 <Link className="dropdown-item" to="/wishlist">
                   Wishlist
@@ -68,9 +88,9 @@ const Navbar = () => {
                 <Link className="dropdown-item" to="/cart">
                   Cart
                 </Link>
-                <Link className="dropdown-item" to="/checkout">
+                {/* <Link className="dropdown-item" to="/checkout">
                   Checkout
-                </Link>
+                </Link> */}
               </div>
             </li>
             <li className="nav-item">
@@ -84,17 +104,42 @@ const Navbar = () => {
                 Contact
               </Link>
             </li>
-            <li className="nav-item">
-              <Link to="/signin" className="nav-link">
-                SignIn
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/signup" className="nav-link">
-                SignUp
-              </Link>
-            </li>
+            {user ? (
+              <>
+                <li className="nav-item">
+                  <Link className="nav-link " to="/profile">
+                    <img
+                      src={user?.avatar}
+                      height={50}
+                      width={50}
+                      style={{ borderRadius: "50%" }}
+                    />
 
+                    <label className="ms-3 fw-bold" style={{ paddingTop: 20 }}>
+                      {user?.name}
+                    </label>
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <a onClick={handleLogout} style={{ color: "red" }}>
+                    Log out
+                  </a>
+                </li>
+              </>
+            ) : (
+              <>
+                <li className="nav-item">
+                  <Link to="/signin" className="nav-link">
+                    SignIn
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/signup" className="nav-link">
+                    SignUp
+                  </Link>
+                </li>
+              </>
+            )}
             <li className="nav-item cta cta-colored">
               <Link to="/cart" className="nav-link">
                 <IoMdCart />

@@ -4,19 +4,20 @@ import { deleteCartAsync } from "../../../../apis/cart/deletecart.api";
 import { getAllCartAsync } from "../../../../apis/cart/getallcart.api";
 import { updateCartAsync } from "../../../../apis/cart/updatecart.api";
 import { moneyFormater } from "../../../../utils/moneyFormater";
-import { notifySuccess } from "../../../../utils/notify";
-
+import { notifyError, notifySuccess } from "../../../../utils/notify";
+import { useHistory } from "react-router";
 interface Props {}
 
 const CartInfo = (props: Props) => {
-  const [cartList, setCartList] = useState<any>([]);
+  const [cartList, setCartList] = useState<Array<any>>([]);
+  console.log(cartList);
 
   const handleRemoveFromCart = async (id: string, index: number) => {
     const result = await deleteCartAsync({ id });
-    console.log(result);
     if (result.statusCode === 200) {
       notifySuccess("Item removed from cart");
-      document.getElementById(`text-center-${index}`)?.remove();
+      const newCartList = cartList.filter((item) => item._id !== id);
+      setCartList(newCartList);
     }
   };
 
@@ -32,20 +33,52 @@ const CartInfo = (props: Props) => {
     );
   };
 
+  const updateCart = async () => {
+    const payload = cartList.map((item) => {
+      return {
+        id: item._id,
+        quantity: item.quantity,
+        status: item.status,
+      };
+    });
+    const result = await updateCartAsync(payload);
+    console.log(result);
+  };
+
   React.useEffect(() => {
     (async () => {
       const result = await getAllCartAsync();
       const { data } = result;
       console.log(data);
       if (result.statusCode === 200) setCartList(data);
-      console.log(
-        cartList?.reduce(
-          (prev: any, current: any) =>
-            prev.quantity * prev.cost + current.quantity * current.cost
-        )
-      );
     })();
   }, []);
+
+  React.useEffect(() => {
+    window.addEventListener("beforeunload", alertUser);
+    return () => {
+      window.removeEventListener("beforeunload", alertUser);
+    };
+  }, []);
+  const alertUser = async (e: any) => {
+    e.preventDefault();
+    e.returnValue = "";
+    await updateCart();
+  };
+
+  React.useEffect(() => {
+    return () => {
+      updateCart();
+    };
+  });
+  const history = useHistory();
+  const hanldeCheckOut = () => {
+    if (cartList.length > 0) {
+      history.push("/checkout");
+    } else if (cartList.length === 0) {
+      notifyError("Cart is empty");
+    }
+  };
 
   return (
     <div>
@@ -129,31 +162,53 @@ const CartInfo = (props: Props) => {
                 <p className="d-flex">
                   <span>Subtotal</span>
                   <span>
-                    {cartList.length != 0 &&
-                      moneyFormater(
-                        (cartList || []).reduce(
-                          (prev: any, current: any) =>
-                            prev + current.cost * current.quantity,
-                          0
+                    {cartList.length != 0
+                      ? moneyFormater(
+                          (cartList || []).reduce(
+                            (prev: any, current: any) =>
+                              prev + current.cost * current.quantity,
+                            0
+                          )
                         )
-                      )}
+                      : "0 vnd"}
                   </span>
                 </p>
                 <p className="d-flex">
                   <span>Delivery</span>
-                  <span>$0.00</span>
+                  <span>0 VND</span>
                 </p>
                 <hr />
                 <p className="d-flex total-price">
                   <span>Total</span>
-                  <span>$17.60</span>
+                  <span>
+                    {cartList.length != 0
+                      ? moneyFormater(
+                          (cartList || []).reduce(
+                            (prev: any, current: any) =>
+                              prev + current.cost * current.quantity,
+                            0
+                          )
+                        )
+                      : "0 vnd"}
+                  </span>
                 </p>
               </div>
               <p>
-                <Link to="/checkout" className="btn btn-primary py-3 px-4">
+                <button
+                  className="btn btn-primary py-3 px-4"
+                  onClick={hanldeCheckOut}
+                >
                   Proceed to Checkout
-                </Link>
+                </button>
               </p>
+              <div>
+                {/* <button
+                  onClick={updateCart}
+                  className="btn btn-primary py-3 px-4"
+                >
+                  UpDate
+                </button> */}
+              </div>
             </div>
           </div>
         </div>

@@ -11,4 +11,5 @@ export const defaultRoute = {
   wishlist: "/wishlist",
   order: "/order",
   profile: "/profile",
+  resetpass: "/resetpass",
 };

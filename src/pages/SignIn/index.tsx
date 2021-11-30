@@ -1,11 +1,14 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import React from "react";
-import { Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { IoLogoFacebook, IoLogoTwitter } from "react-icons/io";
+import { useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
-import { loginAsync } from "../../apis/auths/login.api";
-import { notifyError, notifySuccess } from "../../utils/notify";
+import { ButtonSpinner } from "../../components/ButtonSpinner";
+import {
+  getCurrentUserAsync,
+  userLoginAsync,
+} from "../../features/auths/slice/thunk";
 import { signInSchema } from "../../validate/auth";
 import "./style.scss";
 
@@ -13,6 +16,7 @@ interface SignInProps {}
 
 export const SignIn = (props: SignInProps) => {
   const history = useHistory();
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -22,17 +26,14 @@ export const SignIn = (props: SignInProps) => {
   });
   const submit = async (data: any, e: any) => {
     e.preventDefault();
-    const result = await loginAsync(data);
-    console.log(result);
-    if ([200, 201].includes(result.statusCode)) {
-      //Luu token
-      localStorage.setItem("token", result.data.token);
-      //Thong bao
-      notifySuccess("Sign in success");
-      //Chuyen trang
-      history.push("/");
-    } else {
-      notifyError("Sign in fail");
+    const result: any = await dispatch(userLoginAsync(data));
+    if (result.payload.statusCode === 200) {
+      dispatch(getCurrentUserAsync());
+      if (result.payload.data.role === 0) {
+        history.push("/");
+      } else if (result.payload.data.role === 1) {
+        window.open(`http://localhost:4000?token=${result.payload.data.token}`);
+      }
     }
   };
 
@@ -73,11 +74,7 @@ export const SignIn = (props: SignInProps) => {
             type="submit"
             disabled={isSubmitting}
           >
-            {!isSubmitting ? (
-              "login"
-            ) : (
-              <span className="spinner-border spinner-border-sm"></span>
-            )}
+            {!isSubmitting ? "login" : <ButtonSpinner />}
           </button>
           <Link to="/forgotpass">Forgot Pass?</Link>
           <p></p>

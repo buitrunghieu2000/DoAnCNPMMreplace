@@ -22,16 +22,11 @@ const CardProduct = (props: { data?: any }) => {
 
   const handleClickSingleProduct = (id: string) => {
     history.push(`/singleproduct/${id}`);
-    // window.location.reload();
     window.scrollTo(0, 0);
   };
   return (
     <div className="product">
-      <Link
-        to={`/singleproduct/${props?.data?._id}`}
-        // onClick={() => handleClickSingleProduct(props.data?._id)}
-        className="img-prod"
-      >
+      <Link to={`/singleproduct/${props?.data?._id}`} className="img-prod">
         <img
           className="img-fluid"
           src={props.data?.image[0]}

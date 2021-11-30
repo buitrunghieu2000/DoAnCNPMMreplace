@@ -3,8 +3,6 @@ import { createCartAsync } from "../../../../apis/cart/createcart.api";
 import { getDetailProductAsync } from "../../../../apis/product/getdetailproduct.api";
 import { moneyFormater } from "../../../../utils/moneyFormater";
 import { notifySuccess } from "../../../../utils/notify";
-const img =
-  "https://vnn-imgs-f.vgcloud.vn/2018/06/09/16/cach-don-gian-phan-biet-trai-cay-chua-hoa-chat-1.jpg";
 const ProductDetail = (props: { id: string }) => {
   const [product, setProduct] = useState<any>({});
   const [quantity, setQuantity] = useState<any>(1);

@@ -1,13 +1,34 @@
+import axios from "axios";
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router";
+import { number } from "yup/lib/locale";
+import { getShipFeeApi } from "../../../../apis/address/getshipfee.api";
 import { getAllCartAsync } from "../../../../apis/cart/getallcart.api";
+import {
+  createOrderAsync,
+  payloadCreatOrder,
+} from "../../../../apis/order/createorder.api";
 import { SelectCustom } from "../../../../components/Select";
+import { selectAllAddress } from "../../../../features/address/slice/selector";
+import { getAllAddressAsync } from "../../../../features/address/slice/thunk";
 import { moneyFormater } from "../../../../utils/moneyFormater";
+import { notifyError, notifySuccess } from "../../../../utils/notify";
+import ModalChangeAddress from "../ModalChangeAddress";
 
 interface Props {}
 
 const CheckoutInfo = (props: Props) => {
   const [cartList, setCartList] = useState<any>([]);
-
+  const [shipFee, setShipFee] = useState<any>(0);
+  const [open, setOpen] = useState(false);
+  const handdleOpen = () => {
+    setOpen(true);
+  };
+  const handdleCancel = () => {
+    setOpen(false);
+  };
+  const history = useHistory();
   React.useEffect(() => {
     (async () => {
       const result = await getAllCartAsync();
@@ -15,6 +36,74 @@ const CheckoutInfo = (props: Props) => {
       if (result.statusCode === 200) setCartList(data);
     })();
   }, []);
+
+  const dispatch = useDispatch();
+  React.useEffect(() => {
+    dispatch(getAllAddressAsync());
+  }, []);
+  const addresses = useSelector(selectAllAddress);
+
+  const createOrder = async (typeOfOrder: number) => {
+    const listCartID: Array<string> = cartList.map((item: any) => item._id);
+    const payload: payloadCreatOrder = {
+      cartId: listCartID,
+      area: {
+        name: "Bùi Trung Hiếu",
+        phone: "0925100721",
+        province: "Bà Rịa - Vũng Tàu",
+        district: "Bà Rịa",
+        address: "28 Lưu Chí Hiếu, Phước Hưng, Thành Phố Bà Rịa",
+      },
+      note: "Đơn hàng của xếp xác nhận lẹ",
+      typePaymentOrder: typeOfOrder,
+    };
+
+    const order = await createOrderAsync(payload);
+    console.log(order);
+    return order;
+  };
+
+  const handleSubmitForm = async (e: any) => {
+    e.preventDefault();
+
+    const typeOfPayment = e.target.optradio.value;
+    console.log(typeOfPayment);
+    if (typeOfPayment) {
+      const result = await createOrder(typeOfPayment);
+      if (typeOfPayment == 1) {
+        window.open(result.data.link);
+        history.push("/");
+        window.scrollTo(0, 0);
+      } else if (typeOfPayment == 0) {
+        history.push("/");
+        window.scrollTo(0, 0);
+      } else if (typeOfPayment == 2) {
+        window.open(result.data.link);
+        history.push("/");
+        window.scrollTo(0, 0);
+      }
+      notifySuccess("Checkout Successfully");
+    } else {
+      notifyError("Choose type of Payment");
+    }
+  };
+
+  const handleChangeAddress = async (e: any) => {
+    const item = addresses?.find((i: any) => i._id === e.value);
+    const totalWeight = cartList.reduce(
+      (prev: any, current: any) => prev + current.weight,
+      0
+    );
+    const result = await getShipFeeApi({
+      province: item.province,
+      district: item.district,
+      weight: totalWeight,
+    });
+    console.log(result);
+    const { data } = result;
+    setShipFee(data.totalShip);
+  };
+
   return (
     <div>
       <section className="ftco-section">
@@ -25,9 +114,19 @@ const CheckoutInfo = (props: Props) => {
                 <h3 className="mb-4 billing-heading">Billing Details</h3>
                 <div className="row align-items-end">
                   <div className="col-md-6">
-                    <div className="form-group">
-                      <label>Delivery Address</label>
-                      <SelectCustom />
+                    <label>Delivery Address</label>
+                    <div className=" form-group d-flex">
+                      <SelectCustom
+                        options={addresses}
+                        handleChange={handleChangeAddress}
+                      />
+                      <button
+                        type="button"
+                        className="btn btn-primary"
+                        onClick={handdleOpen}
+                      >
+                        +
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -50,7 +149,7 @@ const CheckoutInfo = (props: Props) => {
                           </thead>
                           <tbody>
                             {cartList.map((e: any, i: number) => (
-                              <tr className="text-center">
+                              <tr className="text-center" key={i}>
                                 <td className="image-prod">
                                   <div
                                     className="img"
@@ -77,13 +176,12 @@ const CheckoutInfo = (props: Props) => {
                                 <td className="quantity">
                                   <div className="input-group mb-3">
                                     <input
-                                      type="number"
+                                      type="text"
                                       name="quantity"
                                       className="quantity form-control input-number"
                                       defaultValue={e.quantity}
-                                      min="1"
-                                      max="100"
                                       style={{ textAlign: "center" }}
+                                      disabled={true}
                                     />
                                   </div>
                                 </td>
@@ -100,6 +198,7 @@ const CheckoutInfo = (props: Props) => {
                   </div>
                 </div>
               </form>
+              <ModalChangeAddress open={open} cancel={handdleCancel} />
             </div>
             <div className="col-xl-5">
               <div className="row mt-5 pt-3">
@@ -108,28 +207,52 @@ const CheckoutInfo = (props: Props) => {
                     <h3 className="billing-heading mb-4">Cart Total</h3>
                     <p className="d-flex">
                       <span>Subtotal</span>
-                      <span>$20.60</span>
+                      <span>
+                        {cartList.length != 0
+                          ? moneyFormater(
+                              (cartList || []).reduce(
+                                (prev: any, current: any) =>
+                                  prev + current.cost * current.quantity,
+                                0
+                              )
+                            )
+                          : "0 vnd"}
+                      </span>
                     </p>
                     <p className="d-flex">
                       <span>Delivery</span>
-                      <span>$0.00</span>
+                      <span>{moneyFormater(shipFee)}</span>
                     </p>
 
                     <hr />
                     <p className="d-flex total-price">
                       <span>Total</span>
-                      <span>$17.60</span>
+                      <span>
+                        {cartList.length != 0
+                          ? moneyFormater(
+                              (cartList || []).reduce(
+                                (prev: any, current: any) =>
+                                  prev + current.cost * current.quantity,
+                                shipFee
+                              )
+                            )
+                          : "0 vnd"}
+                      </span>
                     </p>
                   </div>
                 </div>
                 <div className="col-md-12">
-                  <div className="cart-detail p-3 p-md-4">
+                  <form
+                    className="cart-detail p-3 p-md-4"
+                    onSubmit={handleSubmitForm}
+                  >
                     <h3 className="billing-heading mb-4">Payment Method</h3>
                     <div className="form-group">
                       <div className="col-md-12">
                         <div className="radio">
                           <label>
                             <input
+                              value={0}
                               type="radio"
                               name="optradio"
                               className="mr-2"
@@ -144,11 +267,12 @@ const CheckoutInfo = (props: Props) => {
                         <div className="radio">
                           <label>
                             <input
+                              value={1}
                               type="radio"
                               name="optradio"
                               className="mr-2"
                             />{" "}
-                            VN Pay
+                            PayPal
                           </label>
                         </div>
                       </div>
@@ -158,31 +282,23 @@ const CheckoutInfo = (props: Props) => {
                         <div className="radio">
                           <label>
                             <input
+                              value={2}
                               type="radio"
                               name="optradio"
                               className="mr-2"
                             />{" "}
-                            Paypal
+                            VN PAY
                           </label>
                         </div>
                       </div>
                     </div>
-                    <div className="form-group">
-                      <div className="col-md-12">
-                        <div className="checkbox">
-                          <label>
-                            <input type="checkbox" className="mr-2" /> I have
-                            read and accept the terms and conditions
-                          </label>
-                        </div>
-                      </div>
-                    </div>
+
                     <p>
-                      <a href="#" className="btn btn-primary py-3 px-4">
+                      <button className="btn btn-primary py-3 px-4">
                         Place an order
-                      </a>
+                      </button>
                     </p>
-                  </div>
+                  </form>
                 </div>
               </div>
             </div>
