@@ -12,7 +12,7 @@ const route: ApiRoutes = {
   // POST, PUT, PATCH su dung payload
   url: "user/updateInformation",
 };
-export const loginAsync = async (
+export const updateInfomatinApi = async (
   payload: payloadUpdateInfomation
 ): Promise<ReturnResponse<any>> => {
   return Repository(route, payload);

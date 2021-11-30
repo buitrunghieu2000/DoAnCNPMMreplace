@@ -41,6 +41,15 @@ export const changPassSchema = yup.object().shape({
     .required("Please enter the required field")
     .min(6, "Password must have at least 6 character"),
 });
+
 export const forgotPassSchema = yup.object().shape({
   email: yup.string().email().required("Please enter the required field"),
+});
+
+export const updateInfoSchema = yup.object().shape({
+  phone: yup
+    .string()
+    .required("Please enter the required field")
+    .matches(/(84|0[1|2|3|4|5|6|7|8|9])+([0-9]{8})\b/),
+  name: yup.string().required("Please enter the required field"),
 });

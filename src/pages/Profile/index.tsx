@@ -1,13 +1,11 @@
 import React, { useState } from "react";
-import "./style.scss";
-import { useHistory } from "react-router";
 import { useForm } from "react-hook-form";
-import ModalChangeInfo from "./components/ModalChangInfo";
-import ModalChangePass from "./components/ModalChangePass";
-import { useDispatch, useSelector } from "react-redux";
-import { getCurrentUserAsync } from "../../features/auths/slice/thunk";
+import { useSelector } from "react-redux";
+import { useHistory } from "react-router";
 import { selectCurrentUser } from "../../features/auths/slice/selector";
-import { changePassAsync } from "../../apis/auths/changePass.api";
+import ModalChangePass from "./components/ModalChangePass";
+import ModalChangeInfo from "./components/ModalChangInfo";
+import "./style.scss";
 
 interface ProfilePageProps {}
 
