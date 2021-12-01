@@ -9,6 +9,7 @@ import {
   getCurrentUserAsync,
   userLoginAsync,
 } from "../../features/auths/slice/thunk";
+import { notifyError } from "../../utils/notify";
 import { signInSchema } from "../../validate/auth";
 import "./style.scss";
 
@@ -28,11 +29,10 @@ export const SignIn = (props: SignInProps) => {
     e.preventDefault();
     const result: any = await dispatch(userLoginAsync(data));
     if (result.payload.statusCode === 200) {
-      dispatch(getCurrentUserAsync());
       if (result.payload.data.role === 0) {
+        dispatch(getCurrentUserAsync());
         history.push("/");
-      } else if (result.payload.data.role === 1) {
-        window.open(`http://localhost:4000?token=${result.payload.data.token}`);
+        // window.open(`http://localhost:4000?token=${result.payload.data.token}`);
       }
     }
   };

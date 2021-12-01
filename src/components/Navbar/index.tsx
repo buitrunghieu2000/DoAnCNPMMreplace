@@ -21,7 +21,6 @@ const Navbar = () => {
   };
   const history = useHistory();
   const user = useSelector(selectCurrentUser);
-  console.log(user);
   const handleLogout = () => {
     dispatch(logoutUser());
     history.push("/");

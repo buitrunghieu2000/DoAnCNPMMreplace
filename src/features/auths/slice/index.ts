@@ -42,7 +42,9 @@ export const authSlice = createSlice({
       state.status = "idle";
       const data = action.payload;
       if (data.statusCode === 200) {
-        if (data.data.token) {
+        if (data.data.role === 1) {
+          notifyError("Access denied");
+        } else if (data.data.token) {
           localStorage.setItem("token", data.data.token);
           notifySuccess(data.message);
         }

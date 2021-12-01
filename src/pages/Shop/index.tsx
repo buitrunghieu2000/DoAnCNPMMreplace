@@ -11,7 +11,7 @@ const ShopPage = () => {
     getData();
   }, []);
   const getData = async (page: number = 1) => {
-    const result = await getAllProductAsync({ limit: 20, skip: page });
+    const result = await getAllProductAsync({ limit: 1, skip: page });
     const { data } = result;
     setList(data);
   };
