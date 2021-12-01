@@ -7,10 +7,12 @@ import {
 import thunk, { ThunkAction } from "redux-thunk";
 import authReducer from "../features/auths/slice";
 import addressReducer from "../features/address/slice";
+import orderReducer from "../features/order/slice";
 
 const reducer = {
   auth: authReducer,
   address: addressReducer,
+  order: orderReducer,
 };
 
 export type IRootState = StateFromReducersMapObject<typeof reducer>;

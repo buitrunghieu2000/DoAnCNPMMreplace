@@ -22,6 +22,13 @@ const CheckoutInfo = (props: Props) => {
   const [cartList, setCartList] = useState<any>([]);
   const [shipFee, setShipFee] = useState<any>(0);
   const [open, setOpen] = useState(false);
+  const [address, setAddress] = useState({
+    name: "",
+    phone: "",
+    province: "",
+    district: "",
+    address: "",
+  });
   const handdleOpen = () => {
     setOpen(true);
   };
@@ -42,19 +49,20 @@ const CheckoutInfo = (props: Props) => {
     dispatch(getAllAddressAsync());
   }, []);
   const addresses = useSelector(selectAllAddress);
+  console.log(address);
 
   const createOrder = async (typeOfOrder: number) => {
     const listCartID: Array<string> = cartList.map((item: any) => item._id);
     const payload: payloadCreatOrder = {
       cartId: listCartID,
       area: {
-        name: "Bùi Trung Hiếu",
-        phone: "0925100721",
-        province: "Bà Rịa - Vũng Tàu",
-        district: "Bà Rịa",
-        address: "28 Lưu Chí Hiếu, Phước Hưng, Thành Phố Bà Rịa",
+        name: address.name,
+        phone: address.phone,
+        province: address.province,
+        district: address.district,
+        address: address.address,
       },
-      note: "Đơn hàng của xếp xác nhận lẹ",
+      note: "Dang ban lam khong lam nay duoc nha",
       typePaymentOrder: typeOfOrder,
     };
 
@@ -90,6 +98,7 @@ const CheckoutInfo = (props: Props) => {
 
   const handleChangeAddress = async (e: any) => {
     const item = addresses?.find((i: any) => i._id === e.value);
+    setAddress(item);
     const totalWeight = cartList.reduce(
       (prev: any, current: any) => prev + current.weight,
       0
