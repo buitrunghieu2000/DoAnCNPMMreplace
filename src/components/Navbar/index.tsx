@@ -57,54 +57,54 @@ const Navbar = () => {
         </button>
 
         <div className="collapse navbar-collapse" id="ftco-nav">
-          <ul className="navbar-nav ml-auto">
-            <li className="nav-item active">
-              <Link to="/" className="nav-link">
-                Home
-              </Link>
-            </li>
-            <li className="nav-item dropdown">
-              <Link
-                className="nav-link dropdown-toggle"
-                to="#"
-                id="dropdown04"
-                onClick={toggleDropdown04}
-              >
-                Shop
-              </Link>
-              <div
-                className="dropdown-menu"
-                aria-labelledby="dropdown04"
-                // onBlur={blurDropdown04}
-              >
-                <Link className="dropdown-item" to="/shop">
-                  Product
-                </Link>
-                <Link className="dropdown-item" to="/wishlist">
-                  Wishlist
-                </Link>
+          {user ? (
+            <>
+              <ul className="navbar-nav ml-auto">
+                <li className="nav-item active">
+                  <Link to="/" className="nav-link">
+                    Home
+                  </Link>
+                </li>
+                <li className="nav-item dropdown">
+                  <Link
+                    className="nav-link dropdown-toggle"
+                    to="#"
+                    id="dropdown04"
+                    onClick={toggleDropdown04}
+                  >
+                    Shop
+                  </Link>
+                  <div
+                    className="dropdown-menu"
+                    aria-labelledby="dropdown04"
+                    // onBlur={blurDropdown04}
+                  >
+                    <Link className="dropdown-item" to="/shop">
+                      Product
+                    </Link>
+                    <Link className="dropdown-item" to="/wishlist">
+                      Wishlist
+                    </Link>
 
-                <Link className="dropdown-item" to="/cart">
-                  Cart
-                </Link>
-                {/* <Link className="dropdown-item" to="/checkout">
-                  Checkout
-                </Link> */}
-              </div>
-            </li>
-            <li className="nav-item">
-              <Link to="/order" className="nav-link">
-                Order
-              </Link>
-            </li>
+                    <Link className="dropdown-item" to="/cart">
+                      Cart
+                    </Link>
+                    <Link className="dropdown-item" to="/checkout">
+                      Checkout
+                    </Link>
+                  </div>
+                </li>
+                <li className="nav-item">
+                  <Link to="/order" className="nav-link">
+                    Order
+                  </Link>
+                </li>
 
-            <li className="nav-item">
-              <Link to="/contact" className="nav-link">
-                Contact
-              </Link>
-            </li>
-            {user ? (
-              <>
+                <li className="nav-item">
+                  <Link to="/contact" className="nav-link">
+                    Contact
+                  </Link>
+                </li>
                 <li className="nav-item">
                   <Link className="nav-link " to="/profile">
                     <img
@@ -124,28 +124,63 @@ const Navbar = () => {
                     Log out
                   </a>
                 </li>
-              </>
-            ) : (
+
+                <li className="nav-item cta cta-colored">
+                  <Link to="/cart" className="nav-link">
+                    <IoMdCart />
+                    {/* <span className='icon-shopping_cart'></span>[0] */}
+                  </Link>
+                </li>
+              </ul>
+            </>
+          ) : (
+            <>
               <>
-                <li className="nav-item">
-                  <Link to="/signin" className="nav-link">
-                    SignIn
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link to="/signup" className="nav-link">
-                    SignUp
-                  </Link>
-                </li>
+                <ul className="navbar-nav ml-auto">
+                  <li className="nav-item active">
+                    <Link to="/" className="nav-link">
+                      Home
+                    </Link>
+                  </li>
+                  <li className="nav-item dropdown">
+                    <Link
+                      className="nav-link dropdown-toggle"
+                      to="#"
+                      id="dropdown04"
+                      onClick={toggleDropdown04}
+                    >
+                      Shop
+                    </Link>
+                    <div
+                      className="dropdown-menu"
+                      aria-labelledby="dropdown04"
+                      // onBlur={blurDropdown04}
+                    >
+                      <Link className="dropdown-item" to="/shop">
+                        Product
+                      </Link>
+                    </div>
+                  </li>
+
+                  <li className="nav-item">
+                    <Link to="/contact" className="nav-link">
+                      Contact
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link to="/signin" className="nav-link">
+                      SignIn
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link to="/signup" className="nav-link">
+                      SignUp
+                    </Link>
+                  </li>
+                </ul>
               </>
-            )}
-            <li className="nav-item cta cta-colored">
-              <Link to="/cart" className="nav-link">
-                <IoMdCart />
-                {/* <span className='icon-shopping_cart'></span>[0] */}
-              </Link>
-            </li>
-          </ul>
+            </>
+          )}
         </div>
       </div>
     </nav>

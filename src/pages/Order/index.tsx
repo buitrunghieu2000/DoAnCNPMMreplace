@@ -40,7 +40,6 @@ const OrderPage = (props: OrderProps) => {
     payload.status = i;
     const result = await getGetOrderByUserApi(payload);
     const { data } = result;
-    console.log(data);
     setOrder(data);
   };
 

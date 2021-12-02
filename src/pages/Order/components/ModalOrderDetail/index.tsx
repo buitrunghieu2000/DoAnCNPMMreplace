@@ -1,15 +1,8 @@
-import { yupResolver } from "@hookform/resolvers/yup";
 import React from "react";
-import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
-import { createAddressAsync } from "../../../../apis/address/createAddress.api";
-import { ButtonSpinner } from "../../../../components/ButtonSpinner";
+import { useSelector } from "react-redux";
 import { ModalLMS } from "../../../../components/Modal";
-import { getAllAddressAsync } from "../../../../features/address/slice/thunk";
 import { selectDetailOrder } from "../../../../features/order/slice/selector";
 import { moneyFormater } from "../../../../utils/moneyFormater";
-import { notifySuccess } from "../../../../utils/notify";
-import { addAddressSchema } from "../../../../validate/auth";
 
 interface Props {
   cancel: Function;

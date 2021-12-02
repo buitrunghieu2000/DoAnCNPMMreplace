@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { IoIosStar, IoIosStarHalf, IoIosStarOutline } from "react-icons/io";
 import { createCartAsync } from "../../../../apis/cart/createcart.api";
 import { getDetailProductAsync } from "../../../../apis/product/getdetailproduct.api";
 import { moneyFormater } from "../../../../utils/moneyFormater";
@@ -22,7 +23,6 @@ const ProductDetail = (props: { id: string }) => {
       const result = await getDetailProductAsync({
         id: props?.id,
       });
-      console.log("asdasds");
       const { data } = result;
       console.log(data);
       setProduct(data);
@@ -33,6 +33,22 @@ const ProductDetail = (props: { id: string }) => {
     console.log("renderImage", image);
     if (typeof image === "undefined") return "";
     return image[0];
+  };
+
+  const renderStar = (star: number) => {
+    const array = [];
+    const a = Math.floor(star);
+    const b = star - a;
+    for (let i = 1; i <= a; i++) {
+      array.push(<IoIosStar />);
+    }
+    if (b > 0) {
+      array.push(<IoIosStarHalf />);
+    }
+    for (let i = Math.ceil(star); i < 5; i++) {
+      array.push(<IoIosStarOutline />);
+    }
+    return array.map((item: any) => item);
   };
   return (
     <div>
@@ -87,6 +103,8 @@ const ProductDetail = (props: { id: string }) => {
                   <p>{product.quantity} available</p>
                 </div>
               </div>
+              {renderStar(product.starAVG)}
+              <p></p>
               <p>
                 <a
                   onClick={handleAddToCart}
