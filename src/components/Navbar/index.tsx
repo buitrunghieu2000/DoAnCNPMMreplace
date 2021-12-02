@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import { IoMdCart } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -9,6 +9,7 @@ import { getCurrentUserAsync } from "../../features/auths/slice/thunk";
 import { useHistory } from "react-router";
 
 const Navbar = () => {
+  const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
   const toggleDropdown04 = (e: any) => {
     e.target.className =
@@ -16,6 +17,7 @@ const Navbar = () => {
         ? "nav-link dropdown-toggle active"
         : "nav-link dropdown-toggle";
   };
+
   const blurDropdown04 = (e: any) => {
     e.target.className = "nav-link dropdown-toggle";
   };

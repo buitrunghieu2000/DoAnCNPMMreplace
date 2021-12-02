@@ -80,7 +80,7 @@ const OrderPage = (props: OrderProps) => {
               <div
                 className="card-header text-white "
                 style={{ backgroundColor: "#82ae46" }}
-              >{`Order number ${i}`}</div>
+              >{`Order number ${item.orderCode}`}</div>
               <div className="card-body ">
                 <h5 className="card-title">{`Address: ${item.area.address}, ${item.area.district}, ${item.area.province}`}</h5>
                 <p className="card-text">{`Total Cost: ${moneyFormater(
