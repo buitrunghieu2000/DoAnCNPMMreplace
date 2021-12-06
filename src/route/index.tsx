@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { FooterPage } from "../components/Footer";
 import Navbar from "../components/Navbar";
 import Subcribe from "../components/Subcribe";
+import CreateProductPage from "../pages/Admin/CreateProduct";
 import { Cart } from "../pages/Cart";
 import CheckoutPage from "../pages/Checkout";
 import { Contact } from "../pages/Contact";
@@ -16,7 +17,6 @@ import { SignIn } from "../pages/SignIn";
 import { SignUp } from "../pages/SignUp";
 import SingleProductPage from "../pages/SingleProduct";
 import WishListPage from "../pages/WishList";
-
 import { defaultRoute } from "./defaultroute";
 interface IRoute {
   exact: Boolean;
@@ -139,6 +139,15 @@ const routes: Array<IRoute> = [
       </>
     ),
     path: defaultRoute.resetpass,
+    exact: true,
+  },
+  {
+    child: (
+      <>
+        <CreateProductPage />
+      </>
+    ),
+    path: defaultRoute.createproduct,
     exact: true,
   },
 ];

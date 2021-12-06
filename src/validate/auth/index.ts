@@ -53,3 +53,12 @@ export const updateInfoSchema = yup.object().shape({
     .matches(/(84|0[1|2|3|4|5|6|7|8|9])+([0-9]{8})\b/),
   name: yup.string().required("Please enter the required field"),
 });
+
+export const createProductSchema = yup.object().shape({
+  name: yup.string().required("Please enter the required field"),
+  detail: yup.string().required("Please enter the required field"),
+  price: yup.string().required("Please enter the required field"),
+  groupProduct: yup.string().required("Please enter the required field"),
+  weight: yup.string().required("Please enter the required field"),
+  quantity: yup.string().required("Please enter the required field"),
+});

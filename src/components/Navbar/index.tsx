@@ -59,7 +59,7 @@ const Navbar = () => {
         </button>
 
         <div className="collapse navbar-collapse" id="ftco-nav">
-          {user ? (
+          {user?.role == 0 ? (
             <>
               <ul className="navbar-nav ml-auto">
                 <li className="nav-item active">
@@ -107,7 +107,7 @@ const Navbar = () => {
                     Contact
                   </Link>
                 </li>
-                <li className="nav-item">
+                <li className="nav-item flex">
                   <Link className="nav-link " to="/profile">
                     <img
                       src={user?.avatar}
@@ -135,52 +135,85 @@ const Navbar = () => {
                 </li>
               </ul>
             </>
+          ) : user?.role === 1 ? (
+            <>
+              <ul className="navbar-nav ml-auto">
+                <li className="nav-item active">
+                  <Link to="/analytics" className="nav-link">
+                    Analytics
+                  </Link>
+                </li>
+
+                <li className="nav-item">
+                  <Link to="/createproduct" className="nav-link">
+                    Create Product
+                  </Link>
+                </li>
+                <li className="nav-item flex">
+                  <Link className="nav-link " to="/profile">
+                    <img
+                      src={user?.avatar}
+                      height={50}
+                      width={50}
+                      style={{ borderRadius: "50%" }}
+                    />
+
+                    <label className="ms-3 fw-bold" style={{ paddingTop: 20 }}>
+                      {user?.name}
+                    </label>
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <a onClick={handleLogout} style={{ color: "red" }}>
+                    Log out
+                  </a>
+                </li>
+              </ul>
+            </>
           ) : (
             <>
-              <>
-                <ul className="navbar-nav ml-auto">
-                  <li className="nav-item active">
-                    <Link to="/" className="nav-link">
-                      Home
+              <ul className="navbar-nav ml-auto">
+                <li className="nav-item active">
+                  <Link to="/" className="nav-link">
+                    Home
+                  </Link>
+                </li>
+                <li className="nav-item dropdown">
+                  <Link
+                    className="nav-link dropdown-toggle"
+                    to="#"
+                    id="dropdown04"
+                    onClick={toggleDropdown04}
+                  >
+                    Shop
+                  </Link>
+                  <div
+                    className="dropdown-menu"
+                    aria-labelledby="dropdown04"
+                    // onBlur={blurDropdown04}
+                  >
+                    <Link className="dropdown-item" to="/shop">
+                      Product
                     </Link>
-                  </li>
-                  <li className="nav-item dropdown">
-                    <Link
-                      className="nav-link dropdown-toggle"
-                      to="#"
-                      id="dropdown04"
-                      onClick={toggleDropdown04}
-                    >
-                      Shop
-                    </Link>
-                    <div
-                      className="dropdown-menu"
-                      aria-labelledby="dropdown04"
-                      // onBlur={blurDropdown04}
-                    >
-                      <Link className="dropdown-item" to="/shop">
-                        Product
-                      </Link>
-                    </div>
-                  </li>
+                  </div>
+                </li>
 
-                  <li className="nav-item">
-                    <Link to="/contact" className="nav-link">
-                      Contact
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link to="/signin" className="nav-link">
-                      SignIn
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link to="/signup" className="nav-link">
-                      SignUp
-                    </Link>
-                  </li>
-                </ul>
-              </>
+                <li className="nav-item">
+                  <Link to="/contact" className="nav-link">
+                    Contact
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/signin" className="nav-link">
+                    SignIn
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/signup" className="nav-link">
+                    SignUp
+                  </Link>
+                </li>
+              </ul>
             </>
           )}
         </div>

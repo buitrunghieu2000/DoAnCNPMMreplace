@@ -9,7 +9,6 @@ import {
   getCurrentUserAsync,
   userLoginAsync,
 } from "../../features/auths/slice/thunk";
-import { notifyError } from "../../utils/notify";
 import { signInSchema } from "../../validate/auth";
 import "./style.scss";
 
@@ -33,6 +32,9 @@ export const SignIn = (props: SignInProps) => {
         dispatch(getCurrentUserAsync());
         history.push("/");
         // window.open(`http://localhost:4000?token=${result.payload.data.token}`);
+      } else if (result.payload.data.role === 1) {
+        dispatch(getCurrentUserAsync());
+        history.push("/createproduct");
       }
     }
   };
