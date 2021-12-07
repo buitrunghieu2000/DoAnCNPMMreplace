@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { number } from "yup";
 import { getAllGroupProductApi } from "../../apis/groupProduct/getAllGroupProduct.api";
-import { getAllProductAsync } from "../../apis/product/getallproduct.api";
+import { getAllProductApi } from "../../apis/product/getallproduct.api";
 import HeroCommon from "../../components/HeroCommon";
 import Pagination from "../../components/Pagination";
 import ShopFilter from "./components/ShopFilter";
@@ -16,7 +16,7 @@ const ShopPage = () => {
     getData();
   }, []);
   const getData = async () => {
-    const result = await getAllProductAsync(query);
+    const result = await getAllProductApi(query);
 
     const { data, numberPage } = result;
     setPage(numberPage);
@@ -24,7 +24,7 @@ const ShopPage = () => {
   };
 
   const handleChangePage = async (page: number) => {
-    const result = await getAllProductAsync({ ...query, skip: page });
+    const result = await getAllProductApi({ ...query, skip: page });
     // setQuery({ ...query, skip: page });
     const { data, numberPage } = result;
     setPage(numberPage);
@@ -32,7 +32,7 @@ const ShopPage = () => {
   };
 
   const handleChangeCategory = async (key: string) => {
-    const result = await getAllProductAsync({
+    const result = await getAllProductApi({
       ...query,
       groupProduct: key,
       skip: 1,

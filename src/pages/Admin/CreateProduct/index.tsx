@@ -80,7 +80,7 @@ const CreateProductPage = (props: CreateProductPageProps) => {
         <p className="text-danger">{errors.groupProduct?.message}</p>
 
         <input
-          type="text"
+          type="number"
           id="weight"
           {...register("weight")}
           className="form-control"
@@ -88,7 +88,7 @@ const CreateProductPage = (props: CreateProductPageProps) => {
         />
         <p className="text-danger">{errors.weight?.message}</p>
         <input
-          type="text"
+          type="number"
           id="quantity"
           {...register("quantity")}
           className="form-control"

@@ -149,6 +149,11 @@ const Navbar = () => {
                     Create Product
                   </Link>
                 </li>
+                <li className="nav-item">
+                  <Link to="/updateproduct" className="nav-link">
+                    Update Product
+                  </Link>
+                </li>
                 <li className="nav-item flex">
                   <Link className="nav-link " to="/profile">
                     <img

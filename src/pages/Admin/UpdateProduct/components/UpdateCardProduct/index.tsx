@@ -1,24 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 
-import { createCartAsync } from "../../apis/cart/createcart.api";
-import { moneyFormater } from "../../utils/moneyFormater";
-import { notifySuccess } from "../../utils/notify";
-import { getDetailProductAsync } from "../../apis/product/getdetailproduct.api";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
 import { IoMdAddCircleOutline } from "react-icons/io";
+import { createCartAsync } from "../../../../../apis/cart/createcart.api";
+import { notifySuccess } from "../../../../../utils/notify";
+import { moneyFormater } from "../../../../../utils/moneyFormater";
+import ModalUpdateProduct from "../ModalUpdateProduct";
 
-const CardProduct = (props: { data?: any }) => {
+const UpdateCardProduct = (props: { data?: any }) => {
   const history = useHistory();
-
-  const handleAddToCart = async () => {
-    const result = await createCartAsync({
-      productId: props.data?._id,
-      quantity: 1,
-    });
-    if (result.statusCode === 200) {
-      notifySuccess(`Added ${result.data.name} to cart`);
-    }
+  const [open, setOpen] = useState(false);
+  const handdleOpen = () => {
+    setOpen(true);
+  };
+  const handdleCancel = () => {
+    setOpen(false);
   };
 
   const handleClickSingleProduct = (id: string) => {
@@ -49,7 +46,7 @@ const CardProduct = (props: { data?: any }) => {
         <div className="bottom-area d-flex px-4">
           <div className="m-auto d-flex">
             <button
-              onClick={handleAddToCart}
+              onClick={handdleOpen}
               className="
 												buy-now
 												d-flex
@@ -65,8 +62,13 @@ const CardProduct = (props: { data?: any }) => {
           </div>
         </div>
       </div>
+      <ModalUpdateProduct
+        open={open}
+        cancel={handdleCancel}
+        id={props.data?._id}
+      />
     </div>
   );
 };
 
-export default CardProduct;
+export default UpdateCardProduct;

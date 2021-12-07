@@ -3,7 +3,7 @@ import { ApiMethods, ApiRoutes } from "../defineApi";
 import Repository from "../RepositoryApi";
 import { ReturnListResponse } from "../Response";
 
-interface payloadGetAllProduct {
+export interface payloadGetAllProduct {
   limit: number;
   skip: number;
   groupProduct?: string;
@@ -14,7 +14,7 @@ const route: ApiRoutes = {
   // POST, PUT, PATCH su dung payload
   url: "product/findAllProduct",
 };
-export const getAllProductAsync = async (
+export const getAllProductApi = async (
   payload: payloadGetAllProduct
 ): Promise<ReturnListResponse<any>> => {
   return Repository(route, payload);

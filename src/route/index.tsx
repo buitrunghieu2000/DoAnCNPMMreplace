@@ -4,6 +4,7 @@ import { FooterPage } from "../components/Footer";
 import Navbar from "../components/Navbar";
 import Subcribe from "../components/Subcribe";
 import CreateProductPage from "../pages/Admin/CreateProduct";
+import UpdateProduct from "../pages/Admin/UpdateProduct";
 import { Cart } from "../pages/Cart";
 import CheckoutPage from "../pages/Checkout";
 import { Contact } from "../pages/Contact";
@@ -148,6 +149,15 @@ const routes: Array<IRoute> = [
       </>
     ),
     path: defaultRoute.createproduct,
+    exact: true,
+  },
+  {
+    child: (
+      <>
+        <UpdateProduct />
+      </>
+    ),
+    path: defaultRoute.updateproduct,
     exact: true,
   },
 ];

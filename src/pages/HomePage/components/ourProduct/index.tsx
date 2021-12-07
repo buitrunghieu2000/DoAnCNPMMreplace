@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { getAllProductAsync } from "../../../../apis/product/getallproduct.api";
+import { getAllProductApi } from "../../../../apis/product/getallproduct.api";
 import CardProduct from "../../../../components/CardProduct";
 
 interface Props {}
@@ -9,7 +9,7 @@ const OurProduct = (props: Props) => {
 
   React.useEffect(() => {
     const getData = async () => {
-      const result = await getAllProductAsync({ limit: 20, skip: 1 });
+      const result = await getAllProductApi({ limit: 20, skip: 1 });
       console.log(result);
       const { data } = result;
       setList(data);

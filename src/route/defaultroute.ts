@@ -13,4 +13,5 @@ export const defaultRoute = {
   profile: "/profile",
   resetpass: "/resetpass",
   createproduct: "/createproduct",
+  updateproduct: "/updateproduct",
 };
