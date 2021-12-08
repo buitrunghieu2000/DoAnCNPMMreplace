@@ -2,9 +2,13 @@ import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { FooterPage } from "../components/Footer";
 import Navbar from "../components/Navbar";
+import { PrivateRoute } from "../components/PrivateRoute";
 import Subcribe from "../components/Subcribe";
+import { DFRole } from "../Constant/DFRole";
 import CreateProductPage from "../pages/Admin/CreateProduct";
 import UpdateProduct from "../pages/Admin/UpdateProduct";
+import UserManagement from "../pages/Admin/UserManagement";
+import userManagement from "../pages/Admin/UserManagement";
 import { Cart } from "../pages/Cart";
 import CheckoutPage from "../pages/Checkout";
 import { Contact } from "../pages/Contact";
@@ -24,11 +28,21 @@ interface IRoute {
   path: string;
   child: React.ReactChild | any;
 }
+
+interface IPrivateRoute {
+  exact: Boolean;
+  path: string;
+  child: React.ReactChild | any;
+  private?: Boolean;
+  option: boolean;
+  roleRoute?: Array<number>;
+}
+
 const routes: Array<IRoute> = [
   {
     child: (
       <>
-        <ShopPage></ShopPage>
+        <ShopPage />
       </>
     ),
     path: defaultRoute.shoppage,
@@ -37,7 +51,7 @@ const routes: Array<IRoute> = [
   {
     child: (
       <>
-        <SingleProductPage></SingleProductPage>
+        <SingleProductPage />
       </>
     ),
     path: defaultRoute.singleproduct,
@@ -46,7 +60,7 @@ const routes: Array<IRoute> = [
   {
     child: (
       <>
-        <HomePage></HomePage>
+        <HomePage />
       </>
     ),
     path: defaultRoute.homepage,
@@ -55,7 +69,7 @@ const routes: Array<IRoute> = [
   {
     child: (
       <>
-        <SignIn></SignIn>
+        <SignIn />
       </>
     ),
     path: defaultRoute.signin,
@@ -64,7 +78,7 @@ const routes: Array<IRoute> = [
   {
     child: (
       <>
-        <SignUp></SignUp>
+        <SignUp />
       </>
     ),
     path: defaultRoute.signup,
@@ -73,7 +87,7 @@ const routes: Array<IRoute> = [
   {
     child: (
       <>
-        <ForgotPass></ForgotPass>
+        <ForgotPass />
       </>
     ),
     path: defaultRoute.forgotpass,
@@ -82,85 +96,182 @@ const routes: Array<IRoute> = [
   {
     child: (
       <>
-        <Contact></Contact>
+        <Contact />
       </>
     ),
     path: defaultRoute.contact,
     exact: true,
   },
+  // {
+  //   child: (
+  //     <>
+  //       <Cart />
+  //     </>
+  //   ),
+  //   path: defaultRoute.cart,
+  //   exact: true,
+  // },
+  // {
+  //   child: (
+  //     <>
+  //       <CheckoutPage/>
+  //     </>
+  //   ),
+  //   path: defaultRoute.checkout,
+  //   exact: true,
+  // },
+  // {
+  //   child: (
+  //     <>
+  //       <WishListPage/>
+  //     </>
+  //   ),
+  //   path: defaultRoute.wishlist,
+  //   exact: true,
+  // },
+  // {
+  //   child: (
+  //     <>
+  //       <OrderPage />
+  //     </>
+  //   ),
+  //   path: defaultRoute.order,
+  //   exact: true,
+  // },
+  // {
+  //   child: (
+  //     <>
+  //       <ProfilePage />
+  //     </>
+  //   ),
+  //   path: defaultRoute.profile,
+  //   exact: true,
+  // },
+  // {
+  //   child: (
+  //     <>
+  //       <ResetPass />
+  //     </>
+  //   ),
+  //   path: defaultRoute.resetpass,
+  //   exact: true,
+  // },
+  // {
+  //   child: (
+  //     <>
+  //       <CreateProductPage />
+  //     </>
+  //   ),
+  //   path: defaultRoute.createproduct,
+  //   exact: true,
+  // },
+  // {
+  //   child: (
+  //     <>
+
+  //     </>
+  //   ),
+  //   path: defaultRoute.updateproduct,
+  //   exact: true,
+  // },
+  // {
+  //   child: (
+  //     <>
+  //       <UserManagement />
+  //     </>
+  //   ),
+  //   path: defaultRoute.usermanagement,
+  //   exact: true,
+  // },
+];
+
+const routesPrivate = [
   {
-    child: (
-      <>
-        <Cart></Cart>
-      </>
-    ),
-    path: defaultRoute.cart,
+    child: <UserManagement />,
+    path: defaultRoute.usermanagement,
     exact: true,
+    option: true,
+    roleRoute: [DFRole.Admin],
   },
   {
-    child: (
-      <>
-        <CheckoutPage></CheckoutPage>
-      </>
-    ),
-    path: defaultRoute.checkout,
-    exact: true,
-  },
-  {
-    child: (
-      <>
-        <WishListPage></WishListPage>
-      </>
-    ),
-    path: defaultRoute.wishlist,
-    exact: true,
-  },
-  {
-    child: (
-      <>
-        <OrderPage />
-      </>
-    ),
-    path: defaultRoute.order,
-    exact: true,
-  },
-  {
-    child: (
-      <>
-        <ProfilePage />
-      </>
-    ),
-    path: defaultRoute.profile,
-    exact: true,
-  },
-  {
-    child: (
-      <>
-        <ResetPass />
-      </>
-    ),
-    path: defaultRoute.resetpass,
-    exact: true,
-  },
-  {
-    child: (
-      <>
-        <CreateProductPage />
-      </>
-    ),
-    path: defaultRoute.createproduct,
-    exact: true,
-  },
-  {
-    child: (
-      <>
-        <UpdateProduct />
-      </>
-    ),
+    child: <UpdateProduct />,
     path: defaultRoute.updateproduct,
     exact: true,
+    option: true,
+    roleRoute: [DFRole.Admin],
+  },
+  {
+    child: <CreateProductPage />,
+    path: defaultRoute.createproduct,
+    exact: true,
+    option: true,
+    roleRoute: [DFRole.Admin],
+  },
+  {
+    child: <ResetPass />,
+    path: defaultRoute.resetpass,
+    exact: true,
+    option: true,
+    roleRoute: [DFRole.Admin, DFRole.User],
+  },
+  {
+    child: <OrderPage />,
+    path: defaultRoute.order,
+    exact: true,
+    option: true,
+    roleRoute: [DFRole.User],
+  },
+  {
+    child: <WishListPage />,
+    path: defaultRoute.wishlist,
+    exact: true,
+    option: true,
+    roleRoute: [DFRole.User],
+  },
+  {
+    child: <CheckoutPage />,
+    path: defaultRoute.checkout,
+    exact: true,
+    option: true,
+    roleRoute: [DFRole.User],
+  },
+  {
+    child: <Cart />,
+    path: defaultRoute.cart,
+    exact: true,
+    option: true,
+    roleRoute: [DFRole.User],
   },
 ];
+
+const renderPrivateRoute = (routes: Array<IPrivateRoute>) => {
+  return routes.map((r, i) => {
+    if (r.exact) {
+      return (
+        <PrivateRoute
+          path={r.path}
+          exact
+          key={i}
+          option={r.option}
+          roleRoute={r?.roleRoute}
+        >
+          {r.child}
+        </PrivateRoute>
+      );
+    } else {
+      return (
+        <PrivateRoute
+          path={r.path}
+          key={i}
+          option={r.option}
+          roleRoute={r?.roleRoute}
+        >
+          {r.child}
+        </PrivateRoute>
+      );
+    }
+  });
+};
 
 const renderRoute = (routes: Array<IRoute>) => {
   return routes.map((r, i) => {
@@ -184,7 +295,10 @@ const Router = () => {
   return (
     <BrowserRouter>
       <Navbar />
-      <Switch>{renderRoute(routes)}</Switch>
+      <Switch>
+        {renderRoute(routes)}
+        {renderPrivateRoute(routesPrivate)}
+      </Switch>
       <Subcribe />
       <FooterPage />
     </BrowserRouter>

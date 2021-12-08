@@ -2,11 +2,11 @@ import React, { useState } from "react";
 
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
-import { IoMdAddCircleOutline } from "react-icons/io";
-import { createCartAsync } from "../../../../../apis/cart/createcart.api";
+
 import { notifySuccess } from "../../../../../utils/notify";
 import { moneyFormater } from "../../../../../utils/moneyFormater";
 import ModalUpdateProduct from "../ModalUpdateProduct";
+import img from "../../../../../images/pencil.png";
 
 const UpdateCardProduct = (props: { data?: any }) => {
   const history = useHistory();
@@ -55,9 +55,7 @@ const UpdateCardProduct = (props: { data?: any }) => {
 												mx-1
 											"
             >
-              <span>
-                <IoMdAddCircleOutline />
-              </span>
+              <img src={img} alt="" style={{ height: "15px", width: "15px" }} />
             </button>
           </div>
         </div>

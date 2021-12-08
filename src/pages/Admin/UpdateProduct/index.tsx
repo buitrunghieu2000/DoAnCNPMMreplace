@@ -10,6 +10,7 @@ const UpdateProduct = () => {
   const [page, setPage] = useState<any>(1);
   // const [groupProduct, setGroupProduct] = useState([]);
   const [query, setQuery] = useState({ limit: 15, skip: 1, groupProduct: "" });
+
   React.useEffect(() => {
     getData();
   }, []);

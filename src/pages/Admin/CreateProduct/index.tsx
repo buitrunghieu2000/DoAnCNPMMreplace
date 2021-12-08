@@ -6,6 +6,7 @@ import { getAllGroupProductApi } from "../../../apis/groupProduct/getAllGroupPro
 import { createProductApi } from "../../../apis/product/createProduct.api";
 import { ButtonSpinner } from "../../../components/ButtonSpinner";
 import { createProductSchema } from "../../../validate/auth";
+import { notifySuccess } from "../../../utils/notify";
 
 interface CreateProductPageProps {}
 
@@ -20,16 +21,18 @@ const CreateProductPage = (props: CreateProductPageProps) => {
 
   const submit = async (data: any, e: any) => {
     e.preventDefault();
-    console.log(data);
-    // const result = await createProductApi(data);
-    // console.log(result);
+
+    const result = await createProductApi(data);
+    if (result.statusCode === 200) {
+      notifySuccess("Create Product Successfully");
+      reset();
+    }
   };
 
   React.useEffect(() => {
     (async () => {
       const result = await getAllGroupProductApi();
       const { data } = result;
-
       setGroupProduct(data);
     })();
   }, []);
@@ -62,14 +65,6 @@ const CreateProductPage = (props: CreateProductPageProps) => {
           placeholder="Price"
         />
         <p className="text-danger">{errors.price?.message}</p>
-        {/* <input
-          type="text"
-          id="groupProduct"
-          {...register("groupProduct")}
-          className="form-control"
-          placeholder="Group Product"
-        />
-        <p className="text-danger">{errors.groupProduct?.message}</p> */}
 
         <Form.Select {...register("groupProduct")}>
           <option>Group Product</option>

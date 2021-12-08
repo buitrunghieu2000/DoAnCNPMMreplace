@@ -14,4 +14,5 @@ export const defaultRoute = {
   resetpass: "/resetpass",
   createproduct: "/createproduct",
   updateproduct: "/updateproduct",
+  usermanagement: "/usermanagement",
 };

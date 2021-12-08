@@ -40,8 +40,8 @@ const ModalUpdateProduct = (props: Props) => {
   const dispatch = useDispatch();
   const submit = async (data: any, e: any) => {
     data.id = props.id;
-    data.quantity = +data.quantity;
-    data.weight = +data.weight;
+    // data.quantity = +data.quantity;
+    // data.weight = +data.weight;
     console.log(data);
     e.preventDefault();
     const result = await updateProductApi(data);
@@ -49,7 +49,12 @@ const ModalUpdateProduct = (props: Props) => {
       notifySuccess("Update product successfully");
       reset();
       props.cancel();
-      dispatch(getAllProductAsync({ skip: 1, limit: 15 }));
+      dispatch(
+        getAllProductAsync({
+          skip: 1,
+          limit: 15,
+        })
+      );
     }
   };
   return (
@@ -119,6 +124,21 @@ const ModalUpdateProduct = (props: Props) => {
               />
               <p className="text-danger">{errors.quantity?.message}</p>
 
+              <div className="custom-file">
+                <input
+                  multiple
+                  type="file"
+                  className="custom-file-input"
+                  id="validatedCustomFile"
+                  {...register("image")}
+                  required
+                />
+                <label className="custom-file-label">Image</label>
+                <div className="invalid-feedback">
+                  Example invalid custom file feedback
+                </div>
+              </div>
+              <p></p>
               <button
                 id="changeinfo"
                 className="btn btn-block login-btn mb-4"

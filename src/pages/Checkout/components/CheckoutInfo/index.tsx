@@ -78,6 +78,7 @@ const CheckoutInfo = (props: Props) => {
     console.log(typeOfPayment);
     if (typeOfPayment) {
       const result = await createOrder(typeOfPayment);
+      console.log("123", result);
       if (typeOfPayment == 1) {
         window.open(result.data.link);
         history.push("/");

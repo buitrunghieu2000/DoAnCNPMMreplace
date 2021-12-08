@@ -1,15 +1,17 @@
+import axiosClient from "../clientAxios";
 import { ApiMethods, ApiRoutes } from "../defineApi";
 import Repository from "../RepositoryApi";
-import { ReturnListResponse, ReturnResponse } from "../Response";
+import { ReturnResponse } from "../Response";
 
 interface payloadUpdateProduct {
   name: string;
   detail: string;
   price: string;
   groupProduct: string;
-  weight: number;
-  quantity: number;
+  weight: string;
+  quantity: string;
   id: string;
+  image: Array<File>;
 }
 const route: ApiRoutes = {
   method: ApiMethods.PUT, //GET,DELETE su dung param
@@ -17,7 +19,22 @@ const route: ApiRoutes = {
   url: "product/updateProduct",
 };
 export const updateProductApi = async (
-  payload: Array<payloadUpdateProduct>
+  payload: payloadUpdateProduct
 ): Promise<ReturnResponse<any>> => {
-  return Repository(route, payload);
+  var bodyFormData = new FormData();
+  bodyFormData.append("name", payload.name);
+  bodyFormData.append("detail", payload.detail);
+  bodyFormData.append("price", payload.price);
+  bodyFormData.append("groupProduct", payload.groupProduct);
+  bodyFormData.append("weight", payload.weight);
+  bodyFormData.append("quantity", payload.quantity);
+  bodyFormData.append("id", payload.id);
+  for (let i = 0; i < payload.image.length; i++) {
+    bodyFormData.append("image", payload.image[i]);
+  }
+  return axiosClient.put("product/updateProduct", bodyFormData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
 };

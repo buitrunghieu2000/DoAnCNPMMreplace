@@ -154,6 +154,11 @@ const Navbar = () => {
                     Update Product
                   </Link>
                 </li>
+                <li className="nav-item">
+                  <Link to="/usermanagement" className="nav-link">
+                    User Management
+                  </Link>
+                </li>
                 <li className="nav-item flex">
                   <Link className="nav-link " to="/profile">
                     <img

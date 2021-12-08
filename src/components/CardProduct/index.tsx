@@ -6,7 +6,7 @@ import { notifySuccess } from "../../utils/notify";
 import { getDetailProductAsync } from "../../apis/product/getdetailproduct.api";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
-import { IoMdAddCircleOutline } from "react-icons/io";
+import { IoMdCart } from "react-icons/io";
 
 const CardProduct = (props: { data?: any }) => {
   const history = useHistory();
@@ -59,7 +59,7 @@ const CardProduct = (props: { data?: any }) => {
 											"
             >
               <span>
-                <IoMdAddCircleOutline />
+                <IoMdCart />
               </span>
             </button>
           </div>

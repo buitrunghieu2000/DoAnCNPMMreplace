@@ -1,4 +1,6 @@
+import axios from "axios";
 import { loginModel } from "../../models/auth.model";
+import axiosClient from "../clientAxios";
 import { ApiMethods, ApiRoutes } from "../defineApi";
 import Repository from "../RepositoryApi";
 import { ReturnResponse } from "../Response";
@@ -20,5 +22,20 @@ const route: ApiRoutes = {
 export const createProductApi = async (
   payload: payloadCreateProduct
 ): Promise<ReturnResponse<any>> => {
-  return Repository(route, payload);
+  var bodyFormData = new FormData();
+  bodyFormData.append("name", payload.name);
+  bodyFormData.append("detail", payload.detail);
+  bodyFormData.append("price", payload.price);
+  bodyFormData.append("groupProduct", payload.groupProduct);
+  bodyFormData.append("weight", payload.weight);
+  bodyFormData.append("quantity", payload.quantity);
+  for (let i = 0; i < payload.image.length; i++) {
+    bodyFormData.append("image", payload.image[i]);
+  }
+
+  return axiosClient.post("product/createProduct", bodyFormData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
 };
