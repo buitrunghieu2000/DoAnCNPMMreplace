@@ -35,7 +35,6 @@ const UserManagement = (props: userManagementProps) => {
             <th scope="col">#</th>
             <th scope="col">Email</th>
             <th scope="col">Phone</th>
-            <th scope="col">Id</th>
           </tr>
         </thead>
         <tbody>
@@ -46,7 +45,6 @@ const UserManagement = (props: userManagementProps) => {
               </th>
               <td onClick={() => handleOpen(item)}>{item.email}</td>
               <td>{item.phone}</td>
-              <td id="userID">{item._id}</td>
             </tr>
           ))}
         </tbody>

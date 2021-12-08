@@ -2,22 +2,32 @@ import React from "react";
 
 import { createCartAsync } from "../../apis/cart/createcart.api";
 import { moneyFormater } from "../../utils/moneyFormater";
-import { notifySuccess } from "../../utils/notify";
+import { notifyError, notifySuccess } from "../../utils/notify";
 import { getDetailProductAsync } from "../../apis/product/getdetailproduct.api";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
 import { IoMdCart } from "react-icons/io";
+import { useSelector } from "react-redux";
+
+import { selectCurrentUser } from "../../features/auths/slice/selector";
 
 const CardProduct = (props: { data?: any }) => {
   const history = useHistory();
-
+  const user = useSelector(selectCurrentUser);
+  console.log(user);
   const handleAddToCart = async () => {
-    const result = await createCartAsync({
-      productId: props.data?._id,
-      quantity: 1,
-    });
-    if (result.statusCode === 200) {
-      notifySuccess(`Added ${result.data.name} to cart`);
+    if (!user) {
+      notifyError("You must sign in");
+    } else if (user.role === 0) {
+      const result = await createCartAsync({
+        productId: props.data?._id,
+        quantity: 1,
+      });
+      if (result.statusCode === 200) {
+        notifySuccess(`Added ${result.data.name} to cart`);
+      }
+    } else if (user.role === 1) {
+      notifyError("Admin dont have authorize");
     }
   };
 
