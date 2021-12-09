@@ -12,7 +12,7 @@ interface IPrivateRoute extends RouteProps {
 }
 export const PrivateRoute = (props: IPrivateRoute) => {
   const { option, roleRoute } = props;
-  console.log("asd", roleRoute);
+  // console.log("asd", roleRoute);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -21,7 +21,7 @@ export const PrivateRoute = (props: IPrivateRoute) => {
 
   const fetchAuth = async () => {
     const res: any = await dispatch(getCurrentUserAsync());
-    console.log("123", res);
+    // console.log("123", res);
     if (res && !res.payload) {
       if (option) {
         history.push("/login");

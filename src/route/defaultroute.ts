@@ -16,4 +16,5 @@ export const defaultRoute = {
   updateproduct: "/updateproduct",
   usermanagement: "/usermanagement",
   analytics: "/analytics",
+  ordermanagement: "/ordermanagement",
 };

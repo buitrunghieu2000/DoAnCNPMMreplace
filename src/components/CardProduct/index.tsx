@@ -28,6 +28,8 @@ const CardProduct = (props: { data?: any }) => {
       }
     } else if (user.role === 1) {
       notifyError("Admin dont have authorize");
+    } else if (user.role === 2) {
+      notifyError("Staff dont have authorize");
     }
   };
 

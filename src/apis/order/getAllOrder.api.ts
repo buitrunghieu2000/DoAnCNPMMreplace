@@ -1,19 +1,21 @@
+import { loginModel } from "../../models/auth.model";
 import { ApiMethods, ApiRoutes } from "../defineApi";
 import Repository from "../RepositoryApi";
 import { ReturnListResponse } from "../Response";
 
-export interface payloadGetStatisticOrder {
-  timeStart: string;
-  timeEnd: string;
+export interface payloadGetAllOrder {
+  skip: number;
+  limit: number;
+  status: number;
 }
 
 const route: ApiRoutes = {
   method: ApiMethods.GET, //GET,DELETE su dung param
   // POST, PUT, PATCH su dung payload
-  url: "statistic/getStatisticByOrderMobile",
+  url: "order/getOrdersByAdmin",
 };
-export const getGetStatisticOrderApi = async (
-  payload: payloadGetStatisticOrder
+export const getGetAllOrderApi = async (
+  payload: payloadGetAllOrder
 ): Promise<ReturnListResponse<any>> => {
   return Repository(route, payload);
 };

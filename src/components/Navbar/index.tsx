@@ -180,6 +180,35 @@ const Navbar = () => {
                 </li>
               </ul>
             </>
+          ) : user?.role === 2 ? (
+            <>
+              <ul className="navbar-nav ml-auto">
+                <li className="nav-item">
+                  <Link to="/ordermanagement" className="nav-link">
+                    Order Management
+                  </Link>
+                </li>
+                <li className="nav-item flex">
+                  <Link className="nav-link " to="/profile">
+                    <img
+                      src={user?.avatar}
+                      height={50}
+                      width={50}
+                      style={{ borderRadius: "50%" }}
+                    />
+
+                    <label className="ms-3 fw-bold" style={{ paddingTop: 20 }}>
+                      {user?.name}
+                    </label>
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <a onClick={handleLogout} style={{ color: "red" }}>
+                    Log out
+                  </a>
+                </li>
+              </ul>
+            </>
           ) : (
             <>
               <ul className="navbar-nav ml-auto">

@@ -16,6 +16,7 @@ import { Contact } from "../pages/Contact";
 import { ForgotPass } from "../pages/ForgotPass";
 import HomePage from "../pages/HomePage";
 import OrderPage from "../pages/Order";
+import OrderManagement from "../pages/OrderManagement";
 import { ProfilePage } from "../pages/Profile";
 import { ResetPass } from "../pages/ResetPass";
 import ShopPage from "../pages/Shop";
@@ -256,6 +257,13 @@ const routesPrivate = [
     exact: true,
     option: true,
     roleRoute: [DFRole.User],
+  },
+  {
+    child: <OrderManagement />,
+    path: defaultRoute.ordermanagement,
+    exact: true,
+    option: true,
+    roleRoute: [DFRole.Staff],
   },
 ];
 

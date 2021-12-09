@@ -35,6 +35,9 @@ export const SignIn = (props: SignInProps) => {
       } else if (result.payload.data.role === 1) {
         dispatch(getCurrentUserAsync());
         history.push("/createproduct");
+      } else if (result.payload.data.role === 2) {
+        dispatch(getCurrentUserAsync());
+        history.push("/order");
       }
     }
   };
