@@ -74,11 +74,7 @@ const CartInfo = (props: Props) => {
   });
   const history = useHistory();
   const hanldeCheckOut = () => {
-    if (cartList.length > 0) {
-      history.push("/checkout");
-    } else if (cartList.length === 0) {
-      notifyError("Cart is empty");
-    }
+    history.push("/checkout");
   };
 
   return (

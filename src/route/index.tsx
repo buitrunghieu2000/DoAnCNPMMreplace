@@ -5,6 +5,7 @@ import Navbar from "../components/Navbar";
 import { PrivateRoute } from "../components/PrivateRoute";
 import Subcribe from "../components/Subcribe";
 import { DFRole } from "../Constant/DFRole";
+import Analytics from "../pages/Admin/Analytics";
 import CreateProductPage from "../pages/Admin/CreateProduct";
 import UpdateProduct from "../pages/Admin/UpdateProduct";
 import UserManagement from "../pages/Admin/UserManagement";
@@ -208,6 +209,13 @@ const routesPrivate = [
     roleRoute: [DFRole.Admin],
   },
   {
+    child: <Analytics />,
+    path: defaultRoute.analytics,
+    exact: true,
+    option: true,
+    roleRoute: [DFRole.Admin],
+  },
+  {
     child: <ResetPass />,
     path: defaultRoute.resetpass,
     exact: true,
@@ -238,6 +246,13 @@ const routesPrivate = [
   {
     child: <Cart />,
     path: defaultRoute.cart,
+    exact: true,
+    option: true,
+    roleRoute: [DFRole.User],
+  },
+  {
+    child: <ProfilePage />,
+    path: defaultRoute.profile,
     exact: true,
     option: true,
     roleRoute: [DFRole.User],
