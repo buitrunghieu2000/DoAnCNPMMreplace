@@ -151,7 +151,7 @@ const Navbar = () => {
                 </li>
                 <li className="nav-item">
                   <Link to="/updateproduct" className="nav-link">
-                    Update Product
+                    List Product
                   </Link>
                 </li>
                 <li className="nav-item">

@@ -17,4 +17,5 @@ export const defaultRoute = {
   usermanagement: "/usermanagement",
   analytics: "/analytics",
   ordermanagement: "/ordermanagement",
+  detailproduct: "/detailproduct/:id",
 };

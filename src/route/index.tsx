@@ -7,6 +7,7 @@ import Subcribe from "../components/Subcribe";
 import { DFRole } from "../Constant/DFRole";
 import Analytics from "../pages/Admin/Analytics";
 import CreateProductPage from "../pages/Admin/CreateProduct";
+import DetailProduct from "../pages/Admin/DetailProduct";
 import UpdateProduct from "../pages/Admin/UpdateProduct";
 import UserManagement from "../pages/Admin/UserManagement";
 import userManagement from "../pages/Admin/UserManagement";
@@ -217,11 +218,18 @@ const routesPrivate = [
     roleRoute: [DFRole.Admin],
   },
   {
+    child: <DetailProduct />,
+    path: defaultRoute.detailproduct,
+    exact: true,
+    option: true,
+    roleRoute: [DFRole.Admin],
+  },
+  {
     child: <ResetPass />,
     path: defaultRoute.resetpass,
     exact: true,
     option: true,
-    roleRoute: [DFRole.Admin, DFRole.User],
+    roleRoute: [DFRole.Admin, DFRole.User, DFRole.Staff],
   },
   {
     child: <OrderPage />,
@@ -256,7 +264,7 @@ const routesPrivate = [
     path: defaultRoute.profile,
     exact: true,
     option: true,
-    roleRoute: [DFRole.User],
+    roleRoute: [DFRole.User, DFRole.Staff, DFRole.Admin],
   },
   {
     child: <OrderManagement />,

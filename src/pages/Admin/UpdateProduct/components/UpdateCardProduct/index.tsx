@@ -7,21 +7,18 @@ import { notifySuccess } from "../../../../../utils/notify";
 import { moneyFormater } from "../../../../../utils/moneyFormater";
 import ModalUpdateProduct from "../ModalUpdateProduct";
 import img from "../../../../../images/pencil.png";
+import { useDispatch } from "react-redux";
+import { getDetailProduct } from "../../../../../features/products/slice";
 
 const UpdateCardProduct = (props: { data?: any }) => {
   const history = useHistory();
-  const [open, setOpen] = useState(false);
-  const handdleOpen = () => {
-    setOpen(true);
-  };
-  const handdleCancel = () => {
-    setOpen(false);
+  const dispatch = useDispatch();
+  const handleClick = () => {
+    dispatch(getDetailProduct(props.data));
+    history.push(`/detailproduct/${props.data._id}`);
+    window.scroll(0, 0);
   };
 
-  const handleClickSingleProduct = (id: string) => {
-    history.push(`/singleproduct/${id}`);
-    window.scrollTo(0, 0);
-  };
   return (
     <div className="product">
       <Link to={`/singleproduct/${props?.data?._id}`} className="img-prod">
@@ -46,7 +43,7 @@ const UpdateCardProduct = (props: { data?: any }) => {
         <div className="bottom-area d-flex px-4">
           <div className="m-auto d-flex">
             <button
-              onClick={handdleOpen}
+              onClick={handleClick}
               className="
 												buy-now
 												d-flex
@@ -60,11 +57,6 @@ const UpdateCardProduct = (props: { data?: any }) => {
           </div>
         </div>
       </div>
-      <ModalUpdateProduct
-        open={open}
-        cancel={handdleCancel}
-        id={props.data?._id}
-      />
     </div>
   );
 };

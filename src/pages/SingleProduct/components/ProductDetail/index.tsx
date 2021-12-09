@@ -1,26 +1,37 @@
 import React, { useState } from "react";
 import { IoIosStar, IoIosStarHalf, IoIosStarOutline } from "react-icons/io";
+import { useSelector } from "react-redux";
 import { createCartAsync } from "../../../../apis/cart/createcart.api";
-import { getDetailProductAsync } from "../../../../apis/product/getdetailproduct.api";
+import { getDetailProductApi } from "../../../../apis/product/getdetailproduct.api";
+import { selectCurrentUser } from "../../../../features/auths/slice/selector";
 import { moneyFormater } from "../../../../utils/moneyFormater";
-import { notifySuccess } from "../../../../utils/notify";
+import { notifyError, notifySuccess } from "../../../../utils/notify";
 const ProductDetail = (props: { id: string }) => {
   const [product, setProduct] = useState<any>({});
+  const user = useSelector(selectCurrentUser);
   const [quantity, setQuantity] = useState<any>(1);
   const handleAddToCart = async () => {
-    const result = await createCartAsync({
-      productId: props.id,
-      quantity: quantity,
-    });
-    if (result.statusCode === 200) {
-      notifySuccess(`Added ${result.data.name} to cart`);
+    if (!user) {
+      notifyError("You must sign in");
+    } else if (user.role === 0) {
+      const result = await createCartAsync({
+        productId: props.id,
+        quantity: quantity,
+      });
+      if (result.statusCode === 200) {
+        notifySuccess(`Added ${result.data.name} to cart`);
+      }
+    } else if (user.role === 1) {
+      notifyError("Admin dont have authorize");
+    } else if (user.role === 2) {
+      notifyError("Staff dont have authorize");
     }
   };
   React.useEffect(() => {
     window.scrollTo(0, 0);
 
     (async () => {
-      const result = await getDetailProductAsync({
+      const result = await getDetailProductApi({
         id: props?.id,
       });
       const { data } = result;

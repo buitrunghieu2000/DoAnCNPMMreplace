@@ -10,6 +10,8 @@ import { updateProductApi } from "../../../../../apis/product/updateProduct.api"
 import { ButtonSpinner } from "../../../../../components/ButtonSpinner";
 import { ModalLMS } from "../../../../../components/Modal";
 import { getCurrentUserAsync } from "../../../../../features/auths/slice/thunk";
+import { getDetailProduct } from "../../../../../features/products/slice";
+import { selectDetailProduct } from "../../../../../features/products/slice/selector";
 import { getAllProductAsync } from "../../../../../features/products/slice/thunk";
 import { notifySuccess } from "../../../../../utils/notify";
 import { createProductSchema } from "../../../../../validate/auth";
@@ -17,7 +19,6 @@ import { createProductSchema } from "../../../../../validate/auth";
 interface Props {
   cancel: Function;
   open: boolean;
-  id: string;
 }
 
 const ModalUpdateProduct = (props: Props) => {
@@ -30,16 +31,28 @@ const ModalUpdateProduct = (props: Props) => {
       setGroupProduct(data);
     })();
   }, []);
-
+  const productDetail = useSelector(selectDetailProduct);
+  console.log(productDetail);
   const {
     register,
     handleSubmit,
     reset,
     formState: { isSubmitting, errors },
-  } = useForm({ resolver: yupResolver(createProductSchema) });
+  } = useForm({
+    resolver: yupResolver(createProductSchema),
+    defaultValues: {
+      name: productDetail?.name,
+      detail: productDetail?.detail,
+      groupProduct: productDetail?.groupProduct?.key,
+      price: productDetail?.price,
+      weight: productDetail?.weight,
+      quantity: productDetail?.quantity,
+      image: "",
+    },
+  });
   const dispatch = useDispatch();
   const submit = async (data: any, e: any) => {
-    data.id = props.id;
+    data.id = productDetail?.id;
     // data.quantity = +data.quantity;
     // data.weight = +data.weight;
     console.log(data);
@@ -74,6 +87,7 @@ const ModalUpdateProduct = (props: Props) => {
                 className="form-control"
                 placeholder="Name"
               />
+
               <p className="text-danger">{errors.name?.message}</p>
               <input
                 type="text"
@@ -131,7 +145,6 @@ const ModalUpdateProduct = (props: Props) => {
                   className="custom-file-input"
                   id="validatedCustomFile"
                   {...register("image")}
-                  required
                 />
                 <label className="custom-file-label">Image</label>
                 <div className="invalid-feedback">

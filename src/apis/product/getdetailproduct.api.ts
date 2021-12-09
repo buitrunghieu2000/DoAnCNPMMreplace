@@ -12,7 +12,7 @@ const route: ApiRoutes = {
   // POST, PUT, PATCH su dung payload
   url: "product/getDetailProduct",
 };
-export const getDetailProductAsync = async (
+export const getDetailProductApi = async (
   payload: payloadGetDetailProduct
 ): Promise<ReturnResponse<any>> => {
   return Repository(route, payload);

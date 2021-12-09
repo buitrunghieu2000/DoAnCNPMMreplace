@@ -6,41 +6,66 @@ import { getAllGroupProductApi } from "../../../apis/groupProduct/getAllGroupPro
 import { createProductApi } from "../../../apis/product/createProduct.api";
 import { ButtonSpinner } from "../../../components/ButtonSpinner";
 import { createProductSchema } from "../../../validate/auth";
-import { notifySuccess } from "../../../utils/notify";
+import { notifyError, notifySuccess } from "../../../utils/notify";
+import { useHistory, useParams } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+import { selectDetailProduct } from "../../../features/products/slice/selector";
+import { getDetailProduct } from "../../../features/products/slice";
+import { updateProductApi } from "../../../apis/product/updateProduct.api";
 
 interface CreateProductPageProps {}
 
-const CreateProductPage = (props: CreateProductPageProps) => {
+const DetailProduct = (props: CreateProductPageProps) => {
+  const { id } = useParams<any>();
+
   const [groupProduct, setGroupProduct] = useState([]);
+  const productDetail = useSelector(selectDetailProduct);
+  console.log(productDetail);
+  const history = useHistory();
   const {
     register,
     handleSubmit,
     reset,
     formState: { isSubmitting, errors },
-  } = useForm({ resolver: yupResolver(createProductSchema) });
+  } = useForm({
+    resolver: yupResolver(createProductSchema),
+    defaultValues: {
+      name: productDetail?.name,
+      detail: productDetail?.detail,
+      groupProduct: productDetail?.groupProduct?.key,
+      price: productDetail?.price,
+      weight: productDetail?.weight,
+      quantity: productDetail?.quantity,
+      image: "",
+    },
+  });
 
   const submit = async (data: any, e: any) => {
     e.preventDefault();
-
-    const result = await createProductApi(data);
+    data.id = id;
+    console.log(data);
+    const result = await updateProductApi(data);
     if (result.statusCode === 200) {
-      notifySuccess("Create Product Successfully");
-      reset();
+      notifySuccess("Update Product Successfully");
+      history.push("/updateproduct");
+    } else {
+      notifyError("Update Product Failed");
     }
   };
-
+  const dispatch = useDispatch();
   React.useEffect(() => {
     (async () => {
       const result = await getAllGroupProductApi();
       const { data } = result;
       setGroupProduct(data);
+      dispatch(getDetailProduct(id));
     })();
   }, []);
 
   return (
     <div className="createProduct container d-flex flex-column w-50">
       <form onSubmit={handleSubmit(submit)}>
-        <p className="navbar-brand">Add Product</p>
+        <p className="navbar-brand">Update Product</p>
         <input
           type="text"
           id="name"
@@ -76,23 +101,23 @@ const CreateProductPage = (props: CreateProductPageProps) => {
 
         <input
           type="number"
-          id="weight"
           onKeyDown={(e: any) => {
             e.preventDefault();
           }}
-          min="0.5"
+          min="1"
+          id="weight"
           {...register("weight")}
           className="form-control"
           placeholder="Weight"
         />
         <p className="text-danger">{errors.weight?.message}</p>
         <input
-          type="number"
-          id="quantity"
           onKeyDown={(e: any) => {
             e.preventDefault();
           }}
           min="1"
+          type="number"
+          id="quantity"
           {...register("quantity")}
           className="form-control"
           placeholder="Quantity"
@@ -106,7 +131,6 @@ const CreateProductPage = (props: CreateProductPageProps) => {
             className="custom-file-input"
             id="validatedCustomFile"
             {...register("image")}
-            required
           />
           <label className="custom-file-label">Image</label>
           <div className="invalid-feedback">
@@ -130,4 +154,4 @@ const CreateProductPage = (props: CreateProductPageProps) => {
   );
 };
 
-export default CreateProductPage;
+export default DetailProduct;

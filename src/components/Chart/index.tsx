@@ -111,7 +111,7 @@ const Chart = (props: { type: string; select: number }) => {
       type: "spline",
     },
     title: {
-      text: "Total Money",
+      text: "Total Money 7 Days",
     },
 
     yAxis: {

@@ -1,20 +1,17 @@
 import React from "react";
-
-import { createCartAsync } from "../../apis/cart/createcart.api";
-import { moneyFormater } from "../../utils/moneyFormater";
-import { notifyError, notifySuccess } from "../../utils/notify";
-import { getDetailProductAsync } from "../../apis/product/getdetailproduct.api";
-import { useHistory } from "react-router";
-import { Link } from "react-router-dom";
 import { IoMdCart } from "react-icons/io";
 import { useSelector } from "react-redux";
-
+import { useHistory } from "react-router";
+import { Link } from "react-router-dom";
+import { createCartAsync } from "../../apis/cart/createcart.api";
 import { selectCurrentUser } from "../../features/auths/slice/selector";
+import { moneyFormater } from "../../utils/moneyFormater";
+import { notifyError, notifySuccess } from "../../utils/notify";
 
 const CardProduct = (props: { data?: any }) => {
   const history = useHistory();
   const user = useSelector(selectCurrentUser);
-  console.log(user);
+
   const handleAddToCart = async () => {
     if (!user) {
       notifyError("You must sign in");

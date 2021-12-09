@@ -34,7 +34,7 @@ export const SignIn = (props: SignInProps) => {
         // window.open(`http://localhost:4000?token=${result.payload.data.token}`);
       } else if (result.payload.data.role === 1) {
         dispatch(getCurrentUserAsync());
-        history.push("/createproduct");
+        history.push("/analytics");
       } else if (result.payload.data.role === 2) {
         dispatch(getCurrentUserAsync());
         history.push("/order");
