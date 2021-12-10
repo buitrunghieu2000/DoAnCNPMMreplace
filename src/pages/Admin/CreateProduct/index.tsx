@@ -8,8 +8,9 @@ import { ButtonSpinner } from "../../../components/ButtonSpinner";
 import { createProductSchema } from "../../../validate/auth";
 import { notifySuccess } from "../../../utils/notify";
 import ModalUpdateGrP from "./component/ModalUpdateGrP";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectAllGroupProduct } from "../../../features/groupProduct/slice/selector";
+import { getAllGroupProductAsync } from "../../../features/groupProduct/slice/thunk";
 
 interface CreateProductPageProps {}
 
@@ -18,6 +19,7 @@ const CreateProductPage = (props: CreateProductPageProps) => {
   const [nameFile, setNameFile] = useState("");
   const [open, setOpen] = useState(false);
   const grProduct = useSelector(selectAllGroupProduct);
+  const dispatch = useDispatch();
   const handdleOpen = () => {
     setOpen(true);
   };
@@ -48,15 +50,10 @@ const CreateProductPage = (props: CreateProductPageProps) => {
     }
   };
 
-  // React.useEffect(() => {
-  //   (async () => {
-  //     const result = await getAllGroupProductApi();
-
-  //     const { data } = result;
-  //     setGroupProduct(data);
-  //   })();
-  // }, []);
-  console.log(groupProduct);
+  React.useEffect(() => {
+    dispatch(getAllGroupProductAsync());
+  }, []);
+  // console.log(groupProduct);
   return (
     <div className="createProduct container d-flex flex-column w-50">
       <form onSubmit={handleSubmit(submit)}>
@@ -109,7 +106,7 @@ const CreateProductPage = (props: CreateProductPageProps) => {
           onKeyDown={(e: any) => {
             e.preventDefault();
           }}
-          min="0.5"
+          min="1"
           {...register("weight")}
           className="form-control"
           placeholder="Weight"
