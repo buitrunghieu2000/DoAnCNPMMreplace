@@ -10,6 +10,7 @@ import addressReducer from "../features/address/slice";
 import orderReducer from "../features/order/slice";
 import productReducer from "../features/products/slice";
 import userReducer from "../features/user/slice";
+import groupProductReducer from "../features/groupProduct/slice";
 
 const reducer = {
   auth: authReducer,
@@ -17,6 +18,7 @@ const reducer = {
   order: orderReducer,
   product: productReducer,
   user: userReducer,
+  groupProduct: groupProductReducer,
 };
 
 export type IRootState = StateFromReducersMapObject<typeof reducer>;

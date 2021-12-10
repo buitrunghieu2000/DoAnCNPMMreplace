@@ -94,9 +94,7 @@ const Navbar = () => {
                 </li>
                 <li
                   className="nav-item dropdown"
-                  // onBlur={blurDropdown04}
                   tabIndex={0}
-                  // onClick={toggl`eDropdown04}
                   ref={ref}
                   onClick={() => setIsComponentVisible(true)}
                 >
@@ -109,26 +107,14 @@ const Navbar = () => {
                   </Link>
                   {isComponentVisible && (
                     <div className="dropdown-menu" aria-labelledby="dropdown04">
-                      <Link
-                        className="dropdown-item"
-                        to="/shop"
-                        onClick={() => setIsComponentVisible(false)}
-                      >
+                      <Link className="dropdown-item" to="/shop">
                         Product
                       </Link>
 
-                      <Link
-                        className="dropdown-item"
-                        to="/cart"
-                        onClick={() => setIsComponentVisible(false)}
-                      >
+                      <Link className="dropdown-item" to="/cart">
                         Cart
                       </Link>
-                      <Link
-                        className="dropdown-item"
-                        to="/checkout"
-                        onClick={() => setIsComponentVisible(false)}
-                      >
+                      <Link className="dropdown-item" to="/checkout">
                         Checkout
                       </Link>
                     </div>
@@ -181,22 +167,47 @@ const Navbar = () => {
                     Analytics
                   </Link>
                 </li>
+                <li
+                  className="nav-item dropdown"
+                  // onBlur={blurDropdown04}
+                  tabIndex={0}
+                  // onClick={toggl`eDropdown04}
+                  ref={ref}
+                  onClick={() => setIsComponentVisible(true)}
+                >
+                  <Link
+                    className="nav-link dropdown-toggle active"
+                    to="#"
+                    id="dropdown04"
+                  >
+                    Product
+                  </Link>
+                  {isComponentVisible && (
+                    <div className="dropdown-menu" aria-labelledby="dropdown04">
+                      <Link
+                        className="dropdown-item"
+                        to="/createproduct"
+                        onClick={() => setIsComponentVisible(false)}
+                      >
+                        Create
+                      </Link>
+                      <Link
+                        className="dropdown-item"
+                        to="/updateproduct"
+                        onClick={() => setIsComponentVisible(false)}
+                      >
+                        List
+                      </Link>
+                    </div>
+                  )}
+                </li>
 
-                <li className="nav-item">
-                  <Link to="/createproduct" className="nav-link">
-                    Create Product
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link to="/updateproduct" className="nav-link">
-                    List Product
-                  </Link>
-                </li>
-                <li className="nav-item">
+                <li className="nav-item active">
                   <Link to="/usermanagement" className="nav-link">
                     User Management
                   </Link>
                 </li>
+
                 <li className="nav-item flex">
                   <Link className="nav-link " to="/profile">
                     <img
@@ -255,24 +266,32 @@ const Navbar = () => {
                     Home
                   </Link>
                 </li>
-                <li className="nav-item dropdown">
+                <li
+                  className="nav-item dropdown"
+                  // onBlur={blurDropdown04}
+                  tabIndex={0}
+                  // onClick={toggl`eDropdown04}
+                  ref={ref}
+                  onClick={() => setIsComponentVisible(true)}
+                >
                   <Link
-                    className="nav-link dropdown-toggle"
+                    className="nav-link dropdown-toggle active"
                     to="#"
                     id="dropdown04"
-                    onClick={toggleDropdown04}
                   >
                     Shop
                   </Link>
-                  <div
-                    className="dropdown-menu"
-                    aria-labelledby="dropdown04"
-                    // onBlur={blurDropdown04}
-                  >
-                    <Link className="dropdown-item" to="/shop">
-                      Product
-                    </Link>
-                  </div>
+                  {isComponentVisible && (
+                    <div className="dropdown-menu" aria-labelledby="dropdown04">
+                      <Link
+                        className="dropdown-item"
+                        to="/shop"
+                        onClick={() => setIsComponentVisible(false)}
+                      >
+                        Product
+                      </Link>
+                    </div>
+                  )}
                 </li>
 
                 <li className="nav-item">

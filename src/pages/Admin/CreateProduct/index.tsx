@@ -7,12 +7,23 @@ import { createProductApi } from "../../../apis/product/createProduct.api";
 import { ButtonSpinner } from "../../../components/ButtonSpinner";
 import { createProductSchema } from "../../../validate/auth";
 import { notifySuccess } from "../../../utils/notify";
+import ModalUpdateGrP from "./component/ModalUpdateGrP";
+import { useSelector } from "react-redux";
+import { selectAllGroupProduct } from "../../../features/groupProduct/slice/selector";
 
 interface CreateProductPageProps {}
 
 const CreateProductPage = (props: CreateProductPageProps) => {
   const [groupProduct, setGroupProduct] = useState([]);
   const [nameFile, setNameFile] = useState("");
+  const [open, setOpen] = useState(false);
+  const grProduct = useSelector(selectAllGroupProduct);
+  const handdleOpen = () => {
+    setOpen(true);
+  };
+  const handdleCancel = () => {
+    setOpen(false);
+  };
   const {
     register,
     handleSubmit,
@@ -37,14 +48,15 @@ const CreateProductPage = (props: CreateProductPageProps) => {
     }
   };
 
-  React.useEffect(() => {
-    (async () => {
-      const result = await getAllGroupProductApi();
-      const { data } = result;
-      setGroupProduct(data);
-    })();
-  }, []);
+  // React.useEffect(() => {
+  //   (async () => {
+  //     const result = await getAllGroupProductApi();
 
+  //     const { data } = result;
+  //     setGroupProduct(data);
+  //   })();
+  // }, []);
+  console.log(groupProduct);
   return (
     <div className="createProduct container d-flex flex-column w-50">
       <form onSubmit={handleSubmit(submit)}>
@@ -73,13 +85,22 @@ const CreateProductPage = (props: CreateProductPageProps) => {
           placeholder="Price"
         />
         <p className="text-danger">{errors.price?.message}</p>
-
-        <Form.Select {...register("groupProduct")}>
-          <option>Group Product</option>
-          {groupProduct.map((item: any, i: number) => (
-            <option key={i}>{item.key}</option>
-          ))}
-        </Form.Select>
+        <div className="d-flex">
+          <Form.Select {...register("groupProduct")}>
+            <option>Group Product</option>
+            {grProduct.map((item: any, i: number) => (
+              <option key={i}>{item.key}</option>
+            ))}
+          </Form.Select>
+          {""}
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={handdleOpen}
+          >
+            +
+          </button>
+        </div>
         <p className="text-danger">{errors.groupProduct?.message}</p>
 
         <input
@@ -137,6 +158,7 @@ const CreateProductPage = (props: CreateProductPageProps) => {
           {!isSubmitting ? "Submit" : <ButtonSpinner />}
         </button>
       </form>
+      <ModalUpdateGrP open={open} cancel={handdleCancel} />
     </div>
   );
 };

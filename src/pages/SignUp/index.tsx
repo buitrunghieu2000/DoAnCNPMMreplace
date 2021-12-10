@@ -8,11 +8,14 @@ import { signUpSchema } from "../../validate/auth";
 import { yupResolver } from "@hookform/resolvers/yup";
 import "./style.scss";
 import { date } from "yup";
+import { getCurrentUserAsync } from "../../features/auths/slice/thunk";
+import { useDispatch } from "react-redux";
 
 interface SignInProps {}
 
 export const SignUp = (props: SignInProps) => {
   const history = useHistory(); //chuyen trang
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -30,6 +33,7 @@ export const SignUp = (props: SignInProps) => {
     if ([200, 201].includes(result.statusCode)) {
       //Luu token
       localStorage.setItem("token", result.data.token);
+      dispatch(getCurrentUserAsync());
       //Thong bao
       notifySuccess("Sign up success");
       //Chuyen trang
