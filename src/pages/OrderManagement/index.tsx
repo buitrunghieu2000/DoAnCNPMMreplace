@@ -14,7 +14,7 @@ import { selectAllOrder } from "../../features/order/slice/selector";
 import { getAllOrderAsync } from "../../features/order/slice/thunk";
 import empty from "../../images/empty.png";
 import { moneyFormater } from "../../utils/moneyFormater";
-import { notifySuccess } from "../../utils/notify";
+import { notifySuccess, notifyError } from "../../utils/notify";
 import { orderStatus } from "../../utils/orderStatus";
 import ModalOrderDetail from "./components/ModalOrderDetail";
 import "./style.scss";
@@ -67,7 +67,19 @@ const OrderManagement = (props: OrderProps) => {
   };
 
   const submit = async (status: number, id: string) => {
-    const result = await updateStatusOrderApi({ id: id, status: status + 1 });
+    if (status === 3 || status === 4) {
+      notifyError("Failed");
+    } else {
+      const result = await updateStatusOrderApi({ id: id, status: status + 1 });
+      if (result.statusCode === 200) {
+        dispatch(getAllOrderAsync(payload));
+        notifySuccess("Change Status Succesfully");
+      }
+    }
+  };
+
+  const cancel = async (status: number, id: string) => {
+    const result = await updateStatusOrderApi({ id: id, status: status });
     if (result.statusCode === 200) {
       dispatch(getAllOrderAsync(payload));
       notifySuccess("Change Status Succesfully");
@@ -103,6 +115,21 @@ const OrderManagement = (props: OrderProps) => {
                 >
                   Next
                 </button>
+
+                {item.status === 0 || item.status === 1 || item.status === 2 ? (
+                  <>
+                    <button
+                      onClick={() => cancel(4, item._id)}
+                      type="submit"
+                      className="btn btn-success"
+                      style={{ backgroundColor: "#82ae46", marginLeft: "10px" }}
+                    >
+                      Canceled
+                    </button>
+                  </>
+                ) : (
+                  <></>
+                )}
               </div>
             </div>
           ))
