@@ -12,6 +12,7 @@ interface CreateProductPageProps {}
 
 const CreateProductPage = (props: CreateProductPageProps) => {
   const [groupProduct, setGroupProduct] = useState([]);
+  const [nameFile, setNameFile] = useState("");
   const {
     register,
     handleSubmit,
@@ -26,6 +27,13 @@ const CreateProductPage = (props: CreateProductPageProps) => {
     if (result.statusCode === 200) {
       notifySuccess("Create Product Successfully");
       reset();
+    }
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      const files = [...e.target.files];
+      setNameFile(files.map((e: any) => e.name).join(","));
     }
   };
 
@@ -107,8 +115,11 @@ const CreateProductPage = (props: CreateProductPageProps) => {
             id="validatedCustomFile"
             {...register("image")}
             required
+            onChange={handleChange}
           />
-          <label className="custom-file-label">Image</label>
+          <label className="custom-file-label">
+            {nameFile === "" ? "Image" : nameFile}
+          </label>
           <div className="invalid-feedback">
             Example invalid custom file feedback
           </div>

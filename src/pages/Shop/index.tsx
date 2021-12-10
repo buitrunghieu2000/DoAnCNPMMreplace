@@ -17,7 +17,7 @@ const ShopPage = () => {
   }, []);
   const getData = async () => {
     const result = await getAllProductApi(query);
-
+    console.log(result);
     const { data, numberPage } = result;
     setPage(numberPage);
     setList(data);
@@ -37,6 +37,7 @@ const ShopPage = () => {
       groupProduct: key,
       skip: 1,
     });
+    console.log("123", result);
     setQuery({
       ...query,
       groupProduct: key,

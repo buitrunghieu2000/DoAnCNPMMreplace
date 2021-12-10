@@ -19,6 +19,7 @@ const DetailProduct = (props: CreateProductPageProps) => {
   const { id } = useParams<any>();
 
   const [groupProduct, setGroupProduct] = useState([]);
+  const [nameFile, setNameFile] = useState("");
   const productDetail = useSelector(selectDetailProduct);
   console.log(productDetail);
   const history = useHistory();
@@ -61,6 +62,13 @@ const DetailProduct = (props: CreateProductPageProps) => {
       dispatch(getDetailProduct(id));
     })();
   }, []);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      const files = [...e.target.files];
+      setNameFile(files.map((e: any) => e.name).join(","));
+    }
+  };
 
   return (
     <div className="createProduct container d-flex flex-column w-50">
@@ -124,15 +132,18 @@ const DetailProduct = (props: CreateProductPageProps) => {
         />
         <p className="text-danger">{errors.quantity?.message}</p>
 
-        <div className="custom-file">
+        <div className="custom-file" style={{ overflow: "hidden" }}>
           <input
             multiple
             type="file"
             className="custom-file-input"
             id="validatedCustomFile"
             {...register("image")}
+            onChange={handleChange}
           />
-          <label className="custom-file-label">Image</label>
+          <label className="custom-file-label">
+            {nameFile === "" ? "Image" : nameFile}
+          </label>
           <div className="invalid-feedback">
             Example invalid custom file feedback
           </div>

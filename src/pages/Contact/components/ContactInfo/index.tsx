@@ -1,5 +1,6 @@
 import React from "react";
 import avatar from "../../../../images/MN.jpg";
+import backgournd from "../../../../images/bg_1.jpg";
 interface Props {}
 
 const ContactInfo = (props: Props) => {
@@ -75,7 +76,7 @@ const ContactInfo = (props: Props) => {
           </div>
 
           <div className="col-md-6 d-flex">
-            <img src={avatar} alt="" />
+            <img src={backgournd} alt="" />
           </div>
         </div>
       </div>
