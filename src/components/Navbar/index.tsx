@@ -8,8 +8,31 @@ import { selectCurrentUser } from "../../features/auths/slice/selector";
 import { getCurrentUserAsync } from "../../features/auths/slice/thunk";
 import { useHistory } from "react-router";
 
+function useComponentVisible(initialIsVisible: any) {
+  const [isComponentVisible, setIsComponentVisible] =
+    useState(initialIsVisible);
+  const ref = useRef<any>(null);
+
+  const handleClickOutside = (event: any) => {
+    if (ref.current && !ref.current.contains(event.target)) {
+      setIsComponentVisible(false);
+    }
+  };
+
+  React.useEffect(() => {
+    document.addEventListener("click", handleClickOutside, true);
+    return () => {
+      document.removeEventListener("click", handleClickOutside, true);
+    };
+  });
+
+  return { ref, isComponentVisible, setIsComponentVisible };
+}
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { ref, isComponentVisible, setIsComponentVisible } =
+    useComponentVisible(true);
   const dispatch = useDispatch();
   const toggleDropdown04 = (e: any) => {
     e.target.className =
@@ -21,6 +44,7 @@ const Navbar = () => {
   const blurDropdown04 = (e: any) => {
     e.target.className = "nav-link dropdown-toggle";
   };
+
   const history = useHistory();
   const user = useSelector(selectCurrentUser);
   const handleLogout = () => {
@@ -33,6 +57,7 @@ const Navbar = () => {
       dispatch(getCurrentUserAsync());
     }
   }, []);
+
   return (
     <nav
       className="
@@ -67,34 +92,47 @@ const Navbar = () => {
                     Home
                   </Link>
                 </li>
-                <li className="nav-item dropdown">
+                <li
+                  className="nav-item dropdown"
+                  // onBlur={blurDropdown04}
+                  tabIndex={0}
+                  // onClick={toggl`eDropdown04}
+                  ref={ref}
+                  onClick={() => setIsComponentVisible(true)}
+                >
                   <Link
-                    className="nav-link dropdown-toggle"
+                    className="nav-link dropdown-toggle active"
                     to="#"
                     id="dropdown04"
-                    onClick={toggleDropdown04}
                   >
                     Shop
                   </Link>
-                  <div
-                    className="dropdown-menu"
-                    aria-labelledby="dropdown04"
-                    // onBlur={blurDropdown04}
-                  >
-                    <Link className="dropdown-item" to="/shop">
-                      Product
-                    </Link>
-                    <Link className="dropdown-item" to="/wishlist">
-                      Wishlist
-                    </Link>
+                  {isComponentVisible && (
+                    <div className="dropdown-menu" aria-labelledby="dropdown04">
+                      <Link
+                        className="dropdown-item"
+                        to="/shop"
+                        onClick={() => setIsComponentVisible(false)}
+                      >
+                        Product
+                      </Link>
 
-                    <Link className="dropdown-item" to="/cart">
-                      Cart
-                    </Link>
-                    <Link className="dropdown-item" to="/checkout">
-                      Checkout
-                    </Link>
-                  </div>
+                      <Link
+                        className="dropdown-item"
+                        to="/cart"
+                        onClick={() => setIsComponentVisible(false)}
+                      >
+                        Cart
+                      </Link>
+                      <Link
+                        className="dropdown-item"
+                        to="/checkout"
+                        onClick={() => setIsComponentVisible(false)}
+                      >
+                        Checkout
+                      </Link>
+                    </div>
+                  )}
                 </li>
                 <li className="nav-item">
                   <Link to="/order" className="nav-link">

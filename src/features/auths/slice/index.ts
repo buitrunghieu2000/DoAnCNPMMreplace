@@ -12,6 +12,9 @@ export const authSlice = createSlice({
   name: "Auth",
   initialState,
   reducers: {
+    changeUser: (state, action: PayloadAction<any>) => {
+      state.user = { ...state.user, avatar: action.payload.image };
+    },
     logoutUser: (state) => {
       state.user = null;
       localStorage.removeItem("token");
@@ -56,5 +59,5 @@ export const authSlice = createSlice({
   },
 });
 
-export const { logoutUser } = authSlice.actions;
+export const { logoutUser, changeUser } = authSlice.actions;
 export default authSlice.reducer;

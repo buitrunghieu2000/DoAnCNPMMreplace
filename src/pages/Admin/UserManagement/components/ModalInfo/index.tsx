@@ -19,19 +19,29 @@ const ModalInfo = (props: Props) => {
     <div>
       {props.open ? (
         <ModalLMS title="INFOMATION" withHeader={true} cancel={props.cancel}>
-          <div className="container mt-5">
+          <div className="container mt-5 mb-3">
             <div className="row d-flex justify-content-center">
               <div className="col-md-7">
                 <div className="card p-3 py-4">
-                  <div className="text-center">
-                    {" "}
-                    <img
-                      src={user?.avatar}
-                      width="100"
-                      className="rounded-circle"
-                    />{" "}
+                  <div style={{ display: "flex", justifyContent: "center" }}>
+                    <div
+                      className="text-center "
+                      style={{ width: "100px", height: "100px" }}
+                    >
+                      {" "}
+                      <img
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          objectFit: "cover",
+                        }}
+                        src={user?.avatar}
+                        className="rounded-circle"
+                      />{" "}
+                    </div>
                   </div>
-                  <div className="text-center mt-3">
+
+                  <div className="text-center mt-3 ">
                     {" "}
                     <h5 className="mt-2 mb-0">{user?.name}</h5>{" "}
                     <span>{user?.phone}</span>
