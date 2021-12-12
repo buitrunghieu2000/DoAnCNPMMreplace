@@ -7,7 +7,7 @@ import { ButtonSpinner } from "../../../../components/ButtonSpinner";
 import { ModalLMS } from "../../../../components/Modal";
 import { selectDetailOrder } from "../../../../features/order/slice/selector";
 import { moneyFormater } from "../../../../utils/moneyFormater";
-import { notifySuccess } from "../../../../utils/notify";
+import { notifyError, notifySuccess } from "../../../../utils/notify";
 
 interface Props {
   cancel: Function;
@@ -30,6 +30,8 @@ const ModalOrderDetail = (props: Props) => {
     if (result.statusCode === 200) {
       notifySuccess("Rating successfully");
       reset();
+    } else {
+      notifyError("Rating Failed, Product has already been rated");
     }
   };
 

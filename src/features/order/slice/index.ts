@@ -1,6 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { OrderStateTypes } from "../type";
-import { getAllAddressAsync, getAllOrderAsync } from "./thunk";
+import {
+  getAllAddressAsync,
+  getAllOrderAsync,
+  getOrderByUserAsync,
+} from "./thunk";
 
 const initialState: Partial<OrderStateTypes> = {
   status: "idle",
@@ -28,6 +32,20 @@ export const orderSlice = createSlice({
       state.listOrder = action.payload;
     },
     [getAllOrderAsync.rejected.toString()]: (state, action) => {
+      state.status = "idle";
+    },
+
+    [getOrderByUserAsync.pending.toString()]: (state) => {
+      state.status = "loading";
+    },
+    [getOrderByUserAsync.fulfilled.toString()]: (
+      state,
+      action: PayloadAction<any>
+    ) => {
+      state.status = "idle";
+      state.listOrder = action.payload;
+    },
+    [getOrderByUserAsync.rejected.toString()]: (state, action) => {
       state.status = "idle";
     },
   },

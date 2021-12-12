@@ -1,12 +1,19 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   getGetOrderByUserApi,
   payloadGetOrderByUser,
 } from "../../apis/order/getOrderByUser.api";
+import { updateStatusOrderApi } from "../../apis/order/updateStatusOrder.api";
 import { getDetailOrder } from "../../features/order/slice";
+import { selectAllOrder } from "../../features/order/slice/selector";
+import {
+  getAllOrderAsync,
+  getOrderByUserAsync,
+} from "../../features/order/slice/thunk";
 import empty from "../../images/empty.png";
 import { moneyFormater } from "../../utils/moneyFormater";
+import { notifySuccess } from "../../utils/notify";
 import { orderStatus } from "../../utils/orderStatus";
 import ModalOrderDetail from "./components/ModalOrderDetail";
 import "./style.scss";
@@ -21,7 +28,7 @@ const payload: payloadGetOrderByUser = {
 
 const OrderPage = (props: OrderProps) => {
   const dispatch = useDispatch();
-  const [order, setOrder] = useState<any>([]);
+
   const [open, setOpen] = useState(false);
 
   const handdleOpen = (data?: any) => {
@@ -38,17 +45,11 @@ const OrderPage = (props: OrderProps) => {
     order.className = "list";
     e.target.className = "list active";
     payload.status = i;
-    const result = await getGetOrderByUserApi(payload);
-    const { data } = result;
-    setOrder(data);
+    dispatch(getOrderByUserAsync(payload));
   };
 
   React.useEffect(() => {
-    (async () => {
-      const result = await getGetOrderByUserApi(payload);
-      const { data } = result;
-      setOrder(data);
-    })();
+    dispatch(getOrderByUserAsync(payload));
     document.getElementById("list-0")?.classList.add("active");
   }, []);
 
@@ -64,29 +65,56 @@ const OrderPage = (props: OrderProps) => {
       </span>
     ));
   };
+
+  const cancel = async (status: number, id: string) => {
+    const result = await updateStatusOrderApi({ id: id, status: status });
+    if (result.statusCode === 200) {
+      dispatch(getOrderByUserAsync(payload));
+      notifySuccess("Change Status Succesfully");
+    }
+  };
+
+  const userProduct = useSelector(selectAllOrder);
+  console.log(userProduct);
   return (
     <div className="orderPage container">
       <div className="orderPage-wrapper">{renderNav()}</div>
       <div className="orderPage-bottom p-4" style={{ overflow: "auto" }}>
-        {order.length === 0 ? (
+        {userProduct?.length === 0 ? (
           <EmtyOrder />
         ) : (
-          order.map((item: any, i: any) => (
-            <div
-              className="card mb-3"
-              onClick={() => handdleOpen(item)}
-              key={i}
-            >
+          userProduct?.map((item: any, i: any) => (
+            <div className="card mb-3" key={i}>
               <div
                 className="card-header text-white "
                 style={{ backgroundColor: "#82ae46" }}
+                onClick={() => handdleOpen(item)}
               >{`Order number ${item.orderCode}`}</div>
               <div className="card-body ">
                 <h5 className="card-title">{`Address: ${item.area.address}, ${item.area.district}, ${item.area.province}`}</h5>
                 <p className="card-text">{`Total Cost: ${moneyFormater(
                   item.totalMoney
                 )}`}</p>
+                <p className="card-text">{`Type of Payment: ${item?.typePayment}`}</p>
               </div>
+              {item.status === 0 ? (
+                <>
+                  <button
+                    onClick={() => cancel(4, item._id)}
+                    type="submit"
+                    className="btn btn-success"
+                    style={{
+                      backgroundColor: "#82ae46",
+                      margin: "10px",
+                      width: "10%",
+                    }}
+                  >
+                    Canceled
+                  </button>
+                </>
+              ) : (
+                <></>
+              )}
             </div>
           ))
         )}
