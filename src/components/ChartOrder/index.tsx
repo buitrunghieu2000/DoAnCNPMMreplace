@@ -1,46 +1,28 @@
-import React, { useRef, useState } from "react";
-import { render } from "react-dom";
-import Highcharts from "highcharts/highstock";
 import HighchartsReact from "highcharts-react-official";
-import {
-  getGetStatisticOrderApi,
-  payloadGetStatisticOrder,
-} from "../../apis/statistic/getStatisticOrder.api";
-import _ from "lodash";
-import dayjs from "dayjs";
-import { useDispatch, useSelector } from "react-redux";
-import { formatDate } from "../../utils/datFormater";
-import { getAllChartAsync } from "../../features/chart/slice/thunk";
-import { selectAllChart } from "../../features/chart/slice/selector";
+import Highcharts from "highcharts/highstock";
+import React from "react";
+import { classNames } from "react-select/dist/declarations/src/utils";
 
-const ChartOrder = (props: { type: string }) => {
-  const dispatch = useDispatch();
-  const timeEnd = formatDate(dayjs().toDate());
-  const timeStart = formatDate(dayjs().subtract(6, "d").toDate());
-
-  const payload: payloadGetStatisticOrder = {
-    timeStart: timeStart,
-    timeEnd: timeEnd,
-  };
-
-  React.useEffect(() => {
-    dispatch(getAllChartAsync(payload));
-  }, []);
-  const statistic = useSelector(selectAllChart);
-
-  const totalOrder = _.map(statistic, "totalOrder");
-
+const ChartStats = (props: {
+  data: any;
+  statsDate: any;
+  headerText: string;
+  yText: string;
+  seriesText: string;
+  className?: string | "";
+}) => {
+  const { data, statsDate, headerText, yText, seriesText, className } = props;
   const options = {
     chart: {
       type: "spline",
     },
     title: {
-      text: "Total Order 7 Days",
+      text: headerText,
     },
 
     yAxis: {
       title: {
-        text: "Total Order",
+        text: yText,
       },
     },
 
@@ -49,15 +31,7 @@ const ChartOrder = (props: { type: string }) => {
       //   rangeDescription: "Range: 2010 to 2017",
       // },
 
-      categories: [
-        "2021-12-03",
-        "2021-12-04",
-        "2021-12-05",
-        "2021-12-06",
-        "2021-12-07",
-        "2021-12-08",
-        "2021-12-09",
-      ],
+      categories: statsDate,
     },
 
     legend: {
@@ -77,17 +51,8 @@ const ChartOrder = (props: { type: string }) => {
 
     series: [
       {
-        name: "Order",
-        data: [
-          totalOrder[0],
-          totalOrder[1],
-          totalOrder[2],
-          totalOrder[3],
-          totalOrder[4],
-          totalOrder[5],
-          totalOrder[6],
-          totalOrder[7],
-        ],
+        name: seriesText,
+        data: data,
       },
     ],
 
@@ -109,31 +74,11 @@ const ChartOrder = (props: { type: string }) => {
     },
   };
 
-  const handleOnchange2 = (e: any) => {
-    const result = e.target.value;
-    const newStartTime = formatDate(dayjs(result).subtract(6, "d").toDate());
-    dispatch(getAllChartAsync({ timeStart: newStartTime, timeEnd: result }));
-  };
-
-  // console.log("123", timeStart);
-  // console.log("456", timeEnd);
   return (
-    <div style={{ flex: "1" }}>
-      <div>
-        <span> </span>
-        <span>Time End: </span>
-        <input
-          type="date"
-          id="end"
-          name="trip-end"
-          defaultValue={timeEnd}
-          max={timeEnd}
-          onChange={handleOnchange2}
-        />
-      </div>
+    <div className={className}>
       <HighchartsReact highcharts={Highcharts} options={options} />
     </div>
   );
 };
 
-export default ChartOrder;
+export default ChartStats;
