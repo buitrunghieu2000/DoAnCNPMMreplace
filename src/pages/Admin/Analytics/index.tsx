@@ -5,7 +5,7 @@ interface AnalyticsProps {}
 const Analytics = (props: AnalyticsProps) => {
   return (
     <div className="container">
-      <div className="d-inline-flex p-2 bd-highlight">
+      <div className="d-flex p-5 bd-highlight">
         <BoxChart select={1} />
         <BoxChart select={2} />
       </div>

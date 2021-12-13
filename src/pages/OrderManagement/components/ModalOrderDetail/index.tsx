@@ -55,42 +55,6 @@ const ModalOrderDetail = (props: Props) => {
                     <p className="card-text">{`Price: ${moneyFormater(
                       item?.price
                     )}`}</p>
-                    {order?.status === 3 && (
-                      <>
-                        <form onSubmit={handleSubmit(submit)}>
-                          <span>Rating</span> {""}
-                          <select {...register("star")} defaultValue="5">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                          </select>
-                          <p></p>
-                          <div className="form-group">
-                            <textarea
-                              defaultValue=""
-                              {...register("content")}
-                              className="form-control"
-                              id="exampleFormControlTextarea1"
-                              placeholder="Comment"
-                            ></textarea>
-                          </div>
-                          <input
-                            {...register("productId")}
-                            value={item?.productId}
-                            hidden
-                          />
-                          <button
-                            type="submit"
-                            className="btn btn-success"
-                            style={{ backgroundColor: "#82ae46" }}
-                          >
-                            {!isSubmitting ? "Submit" : <ButtonSpinner />}
-                          </button>
-                        </form>
-                      </>
-                    )}
                   </div>
                 </div>
               </div>

@@ -32,7 +32,7 @@ function useComponentVisible(initialIsVisible: any) {
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { ref, isComponentVisible, setIsComponentVisible } =
-    useComponentVisible(true);
+    useComponentVisible(false);
   const dispatch = useDispatch();
   const toggleDropdown04 = (e: any) => {
     e.target.className =
