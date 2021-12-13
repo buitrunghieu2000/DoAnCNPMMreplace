@@ -1,3 +1,4 @@
+@import "https://code.highcharts.com/css/highcharts.css";
 .App {
   text-align: center;
 }
@@ -9,8 +10,6 @@
 button {
   font-size: calc(10px + 2vmin);
 }
-
-@import "https://code.highcharts.com/css/highcharts.css";
 
 .highcharts-title {
   fill: #434348;
@@ -30,4 +29,7 @@ button {
   font-family: "Courier New", monospace;
   font-style: italic;
   fill: green;
+}
+body {
+  font-family: "Poppins", sans-serif;
 }

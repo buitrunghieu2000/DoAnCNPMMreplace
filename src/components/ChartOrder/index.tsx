@@ -15,6 +15,7 @@ const ChartStats = (props: {
   const options = {
     chart: {
       type: "spline",
+      styleMode: true,
     },
     title: {
       text: headerText,

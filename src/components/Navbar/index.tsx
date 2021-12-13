@@ -146,7 +146,15 @@ const Navbar = () => {
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <a onClick={handleLogout} style={{ color: "red" }}>
+                  <a
+                    onClick={handleLogout}
+                    style={{
+                      color: "red",
+                      fontFamily: "Poppins",
+                      fontSize: "14px",
+                      fontWeight: 400,
+                    }}
+                  >
                     Log out
                   </a>
                 </li>
@@ -223,7 +231,15 @@ const Navbar = () => {
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <a onClick={handleLogout} style={{ color: "red" }}>
+                  <a
+                    onClick={handleLogout}
+                    style={{
+                      color: "red",
+                      fontFamily: "Poppins",
+                      fontSize: "14px",
+                      fontWeight: 400,
+                    }}
+                  >
                     Log out
                   </a>
                 </li>
@@ -252,7 +268,15 @@ const Navbar = () => {
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <a onClick={handleLogout} style={{ color: "red" }}>
+                  <a
+                    onClick={handleLogout}
+                    style={{
+                      color: "red",
+                      fontFamily: "Poppins",
+                      fontSize: "14px",
+                      fontWeight: 400,
+                    }}
+                  >
                     Log out
                   </a>
                 </li>

@@ -56,6 +56,7 @@ const Analytics = (props: AnalyticsProps) => {
             name="trip-end"
             defaultValue={timeEnd}
             max={timeEnd}
+            min="2021-11-17"
             onChange={handleOnchangeDay}
           />
         </div>
