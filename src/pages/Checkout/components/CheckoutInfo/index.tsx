@@ -1,8 +1,6 @@
-import axios from "axios";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
-import { number } from "yup/lib/locale";
 import { getShipFeeApi } from "../../../../apis/address/getshipfee.api";
 import { getAllCartAsync } from "../../../../apis/cart/getallcart.api";
 import {

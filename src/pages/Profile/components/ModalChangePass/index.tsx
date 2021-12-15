@@ -1,5 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import React, { useState } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router";
 import { changePassAsync } from "../../../../apis/auths/changePass.api";

@@ -1,7 +1,6 @@
 import HighchartsReact from "highcharts-react-official";
 import Highcharts from "highcharts/highstock";
 import React from "react";
-import { classNames } from "react-select/dist/declarations/src/utils";
 
 const ChartStats = (props: {
   data: any;

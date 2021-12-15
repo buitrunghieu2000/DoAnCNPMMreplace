@@ -1,7 +1,7 @@
 import React from "react";
+import { BiCurrentLocation } from "react-icons/bi";
 import {
   IoIosArrowUp,
-  IoIosPhonePortrait,
   IoLogoFacebook,
   IoLogoInstagram,
   IoLogoTwitter,
@@ -9,8 +9,6 @@ import {
   IoMdMail,
   IoMdPhonePortrait,
 } from "react-icons/io";
-
-import { BiCurrentLocation } from "react-icons/bi";
 import { Link } from "react-router-dom";
 
 interface FooterPageProps {}

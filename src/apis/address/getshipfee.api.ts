@@ -1,6 +1,6 @@
 import { ApiMethods, ApiRoutes } from "../defineApi";
 import Repository from "../RepositoryApi";
-import { ReturnListResponse, ReturnResponse } from "../Response";
+import { ReturnResponse } from "../Response";
 
 interface payloadGetShipFee {
   province: string;

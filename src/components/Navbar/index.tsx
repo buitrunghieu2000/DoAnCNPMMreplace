@@ -1,12 +1,11 @@
 import React, { useRef, useState } from "react";
 import { IoMdCart } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
-import reactSelectCjs from "react-select";
 import { logoutUser } from "../../features/auths/slice";
 import { selectCurrentUser } from "../../features/auths/slice/selector";
 import { getCurrentUserAsync } from "../../features/auths/slice/thunk";
-import { useHistory } from "react-router";
 
 function useComponentVisible(initialIsVisible: any) {
   const [isComponentVisible, setIsComponentVisible] =
@@ -30,20 +29,9 @@ function useComponentVisible(initialIsVisible: any) {
 }
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
   const { ref, isComponentVisible, setIsComponentVisible } =
     useComponentVisible(false);
   const dispatch = useDispatch();
-  const toggleDropdown04 = (e: any) => {
-    e.target.className =
-      "nav-link dropdown-toggle" === e.target.className
-        ? "nav-link dropdown-toggle active"
-        : "nav-link dropdown-toggle";
-  };
-
-  const blurDropdown04 = (e: any) => {
-    e.target.className = "nav-link dropdown-toggle";
-  };
 
   const history = useHistory();
   const user = useSelector(selectCurrentUser);
@@ -92,42 +80,58 @@ const Navbar = () => {
                     Home
                   </Link>
                 </li>
-                <li
-                  className="nav-item dropdown"
-                  tabIndex={0}
-                  ref={ref}
-                  onClick={() => setIsComponentVisible(true)}
-                >
+                <li className="nav-item dropdown" tabIndex={0} ref={ref}>
                   <Link
                     className="nav-link dropdown-toggle active"
                     to="#"
                     id="dropdown04"
+                    onClick={() => setIsComponentVisible(true)}
                   >
                     Shop
                   </Link>
                   {isComponentVisible && (
                     <div className="dropdown-menu" aria-labelledby="dropdown04">
-                      <Link className="dropdown-item" to="/shop">
+                      <Link
+                        className="dropdown-item"
+                        to="/shop"
+                        onClick={() => setIsComponentVisible(false)}
+                      >
                         Product
                       </Link>
 
-                      <Link className="dropdown-item" to="/cart">
+                      <Link
+                        className="dropdown-item"
+                        to="/cart"
+                        onClick={() => setIsComponentVisible(false)}
+                      >
                         Cart
                       </Link>
-                      <Link className="dropdown-item" to="/checkout">
+                      <Link
+                        className="dropdown-item"
+                        to="/checkout"
+                        onClick={() => setIsComponentVisible(false)}
+                      >
                         Checkout
                       </Link>
                     </div>
                   )}
                 </li>
                 <li className="nav-item">
-                  <Link to="/order" className="nav-link">
+                  <Link
+                    to="/order"
+                    className="nav-link"
+                    onClick={() => setIsComponentVisible(false)}
+                  >
                     Order
                   </Link>
                 </li>
 
                 <li className="nav-item">
-                  <Link to="/contact" className="nav-link">
+                  <Link
+                    to="/contact"
+                    className="nav-link"
+                    onClick={() => setIsComponentVisible(false)}
+                  >
                     Contact
                   </Link>
                 </li>
@@ -175,16 +179,10 @@ const Navbar = () => {
                     Analytics
                   </Link>
                 </li>
-                <li
-                  className="nav-item dropdown"
-                  // onBlur={blurDropdown04}
-                  tabIndex={0}
-                  // onClick={toggl`eDropdown04}
-                  ref={ref}
-                  onClick={() => setIsComponentVisible(true)}
-                >
+                <li className="nav-item dropdown" tabIndex={0} ref={ref}>
                   <Link
                     className="nav-link dropdown-toggle active"
+                    onClick={() => setIsComponentVisible(true)}
                     to="#"
                     id="dropdown04"
                   >
@@ -290,15 +288,9 @@ const Navbar = () => {
                     Home
                   </Link>
                 </li>
-                <li
-                  className="nav-item dropdown"
-                  // onBlur={blurDropdown04}
-                  tabIndex={0}
-                  // onClick={toggl`eDropdown04}
-                  ref={ref}
-                  onClick={() => setIsComponentVisible(true)}
-                >
+                <li className="nav-item dropdown" tabIndex={0} ref={ref}>
                   <Link
+                    onClick={() => setIsComponentVisible(true)}
                     className="nav-link dropdown-toggle active"
                     to="#"
                     id="dropdown04"

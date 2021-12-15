@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router";
 import { deleteCartAsync } from "../../../../apis/cart/deletecart.api";
 import { getAllCartAsync } from "../../../../apis/cart/getallcart.api";
 import { updateCartAsync } from "../../../../apis/cart/updatecart.api";
-import { moneyFormater } from "../../../../utils/moneyFormater";
-import { notifyError, notifySuccess } from "../../../../utils/notify";
 import empty from "../../../../images/empty.png";
-import { useHistory } from "react-router";
+import { moneyFormater } from "../../../../utils/moneyFormater";
+import { notifySuccess } from "../../../../utils/notify";
 interface Props {}
 
 const CartInfo = (props: Props) => {

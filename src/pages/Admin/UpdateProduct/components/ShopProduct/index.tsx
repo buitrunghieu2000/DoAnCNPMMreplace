@@ -1,7 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
-import { getDetailProduct } from "../../../../../features/products/slice";
-import ModalUpdateProduct from "../ModalUpdateProduct";
 import UpdateCardProduct from "../UpdateCardProduct";
 
 const ShopProduct = (props: { data?: Array<any> }) => {

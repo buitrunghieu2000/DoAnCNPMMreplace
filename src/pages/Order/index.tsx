@@ -1,16 +1,10 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getGetOrderByUserApi,
-  payloadGetOrderByUser,
-} from "../../apis/order/getOrderByUser.api";
+import { payloadGetOrderByUser } from "../../apis/order/getOrderByUser.api";
 import { updateStatusOrderApi } from "../../apis/order/updateStatusOrder.api";
 import { getDetailOrder } from "../../features/order/slice";
 import { selectAllOrder } from "../../features/order/slice/selector";
-import {
-  getAllOrderAsync,
-  getOrderByUserAsync,
-} from "../../features/order/slice/thunk";
+import { getOrderByUserAsync } from "../../features/order/slice/thunk";
 import empty from "../../images/empty.png";
 import { moneyFormater } from "../../utils/moneyFormater";
 import { notifySuccess } from "../../utils/notify";

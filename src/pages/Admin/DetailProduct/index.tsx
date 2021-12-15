@@ -2,16 +2,15 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import React, { useState } from "react";
 import { Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
-import { getAllGroupProductApi } from "../../../apis/groupProduct/getAllGroupProduct.api";
-import { createProductApi } from "../../../apis/product/createProduct.api";
-import { ButtonSpinner } from "../../../components/ButtonSpinner";
-import { createProductSchema } from "../../../validate/auth";
-import { notifyError, notifySuccess } from "../../../utils/notify";
-import { useHistory, useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
-import { selectDetailProduct } from "../../../features/products/slice/selector";
-import { getDetailProduct } from "../../../features/products/slice";
+import { useHistory, useParams } from "react-router";
+import { getAllGroupProductApi } from "../../../apis/groupProduct/getAllGroupProduct.api";
 import { updateProductApi } from "../../../apis/product/updateProduct.api";
+import { ButtonSpinner } from "../../../components/ButtonSpinner";
+import { getDetailProduct } from "../../../features/products/slice";
+import { selectDetailProduct } from "../../../features/products/slice/selector";
+import { notifyError, notifySuccess } from "../../../utils/notify";
+import { createProductSchema } from "../../../validate/auth";
 import "./style.scss";
 
 interface CreateProductPageProps {}

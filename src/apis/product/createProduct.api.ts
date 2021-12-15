@@ -1,8 +1,5 @@
-import axios from "axios";
-import { loginModel } from "../../models/auth.model";
 import axiosClient from "../clientAxios";
 import { ApiMethods, ApiRoutes } from "../defineApi";
-import Repository from "../RepositoryApi";
 import { ReturnResponse } from "../Response";
 
 export interface payloadCreateProduct {

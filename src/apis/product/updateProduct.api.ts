@@ -1,6 +1,5 @@
 import axiosClient from "../clientAxios";
 import { ApiMethods, ApiRoutes } from "../defineApi";
-import Repository from "../RepositoryApi";
 import { ReturnResponse } from "../Response";
 
 interface payloadUpdateProduct {

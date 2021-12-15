@@ -1,4 +1,3 @@
-import { loginModel } from "../../models/auth.model";
 import { ApiMethods, ApiRoutes } from "../defineApi";
 import Repository from "../RepositoryApi";
 import { ReturnResponse } from "../Response";

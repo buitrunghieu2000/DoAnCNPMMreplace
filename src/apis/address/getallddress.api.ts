@@ -1,6 +1,6 @@
 import { ApiMethods, ApiRoutes } from "../defineApi";
 import Repository from "../RepositoryApi";
-import { ReturnListResponse, ReturnResponse } from "../Response";
+import { ReturnListResponse } from "../Response";
 
 const route: ApiRoutes = {
   method: ApiMethods.GET, //GET,DELETE su dung param

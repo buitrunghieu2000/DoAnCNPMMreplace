@@ -2,15 +2,14 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import React, { useState } from "react";
 import { Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
-import { getAllGroupProductApi } from "../../../apis/groupProduct/getAllGroupProduct.api";
+import { useDispatch, useSelector } from "react-redux";
 import { createProductApi } from "../../../apis/product/createProduct.api";
 import { ButtonSpinner } from "../../../components/ButtonSpinner";
-import { createProductSchema } from "../../../validate/auth";
-import { notifySuccess } from "../../../utils/notify";
-import ModalUpdateGrP from "./component/ModalUpdateGrP";
-import { useDispatch, useSelector } from "react-redux";
 import { selectAllGroupProduct } from "../../../features/groupProduct/slice/selector";
 import { getAllGroupProductAsync } from "../../../features/groupProduct/slice/thunk";
+import { notifySuccess } from "../../../utils/notify";
+import { createProductSchema } from "../../../validate/auth";
+import ModalUpdateGrP from "./component/ModalUpdateGrP";
 import "./style.scss";
 interface CreateProductPageProps {}
 

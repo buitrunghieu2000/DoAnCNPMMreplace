@@ -1,14 +1,10 @@
-import React, { useState } from "react";
-
+import React from "react";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
-
-import { notifySuccess } from "../../../../../utils/notify";
-import { moneyFormater } from "../../../../../utils/moneyFormater";
-import ModalUpdateProduct from "../ModalUpdateProduct";
-import img from "../../../../../images/pencil.png";
-import { useDispatch } from "react-redux";
 import { getDetailProduct } from "../../../../../features/products/slice";
+import img from "../../../../../images/pencil.png";
+import { moneyFormater } from "../../../../../utils/moneyFormater";
 
 const UpdateCardProduct = (props: { data?: any }) => {
   const history = useHistory();

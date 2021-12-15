@@ -1,14 +1,13 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import React, { useState } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router";
+import { useDispatch } from "react-redux";
 import { updateInfomatinApi } from "../../../../apis/auths/updateinfomation.api";
 import { ButtonSpinner } from "../../../../components/ButtonSpinner";
 import { ModalLMS } from "../../../../components/Modal";
+import { getCurrentUserAsync } from "../../../../features/auths/slice/thunk";
 import { notifySuccess } from "../../../../utils/notify";
 import { updateInfoSchema } from "../../../../validate/auth";
-import { getCurrentUserAsync } from "../../../../features/auths/slice/thunk";
 interface Props {
   cancel: Function;
   open: boolean;

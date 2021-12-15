@@ -1,20 +1,13 @@
 import React, { useState } from "react";
-import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { getGetAllOrderApi } from "../../apis/order/getAllOrder.api";
-import {
-  getGetOrderByUserApi,
-  payloadGetOrderByUser,
-} from "../../apis/order/getOrderByUser.api";
+import { payloadGetOrderByUser } from "../../apis/order/getOrderByUser.api";
 import { updateStatusOrderApi } from "../../apis/order/updateStatusOrder.api";
-import { updateProductApi } from "../../apis/product/updateProduct.api";
-import { ButtonSpinner } from "../../components/ButtonSpinner";
 import { getDetailOrder } from "../../features/order/slice";
 import { selectAllOrder } from "../../features/order/slice/selector";
 import { getAllOrderAsync } from "../../features/order/slice/thunk";
 import empty from "../../images/empty.png";
 import { moneyFormater } from "../../utils/moneyFormater";
-import { notifySuccess, notifyError } from "../../utils/notify";
+import { notifyError, notifySuccess } from "../../utils/notify";
 import { orderStatus } from "../../utils/orderStatus";
 import ModalOrderDetail from "./components/ModalOrderDetail";
 import "./style.scss";

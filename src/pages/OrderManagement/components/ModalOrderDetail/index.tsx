@@ -1,9 +1,7 @@
 import React from "react";
-import { Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { createRatingApi } from "../../../../apis/rate/createRating.api";
-import { ButtonSpinner } from "../../../../components/ButtonSpinner";
 import { ModalLMS } from "../../../../components/Modal";
 import { selectDetailOrder } from "../../../../features/order/slice/selector";
 import { moneyFormater } from "../../../../utils/moneyFormater";
@@ -40,14 +38,19 @@ const ModalOrderDetail = (props: Props) => {
           {order?.product?.map((item: any, i: number) => (
             <div className="card mb-3" key={i}>
               <div className="row g-0">
-                <div className="col-md-4">
+                <div className="col-md-5" style={{ height: "210px" }}>
                   <img
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                    }}
                     src={item?.image[0]}
                     className="img-fluid rounded-start "
                     alt="..."
                   />
                 </div>
-                <div className="col-md-8">
+                <div className="col-md-7">
                   <div className="card-body">
                     <h5 className="card-title">{item?.name}</h5>
                     <p className="card-text">{`Quantity: ${item?.quantity}`}</p>
