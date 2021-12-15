@@ -1,0 +1,16 @@
+@import "../../../style/Variables.scss";
+
+.updateProduct {
+  background-color: #82ae46;
+  margin: 1rem auto;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  font-family: "Poppins", Arial, sans-serif;
+  &-left {
+    padding: 1rem;
+    flex: 1;
+  }
+  &-right {
+    padding: 1rem;
+    flex: 1;
+  }
+}

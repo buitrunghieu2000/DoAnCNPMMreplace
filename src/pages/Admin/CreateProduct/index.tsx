@@ -11,7 +11,7 @@ import ModalUpdateGrP from "./component/ModalUpdateGrP";
 import { useDispatch, useSelector } from "react-redux";
 import { selectAllGroupProduct } from "../../../features/groupProduct/slice/selector";
 import { getAllGroupProductAsync } from "../../../features/groupProduct/slice/thunk";
-
+import "./style.scss";
 interface CreateProductPageProps {}
 
 const CreateProductPage = (props: CreateProductPageProps) => {
@@ -55,105 +55,112 @@ const CreateProductPage = (props: CreateProductPageProps) => {
   }, []);
   // console.log(groupProduct);
   return (
-    <div className="createProduct container d-flex flex-column w-50">
+    <div className="createProduct container w-50">
       <form onSubmit={handleSubmit(submit)}>
-        <p className="navbar-brand">Add Product</p>
-        <input
-          type="text"
-          id="name"
-          {...register("name")}
-          className="form-control"
-          placeholder="Name"
-        />
-        <p className="text-danger">{errors.name?.message}</p>
-        <input
-          type="text"
-          id="detail"
-          {...register("detail")}
-          className="form-control"
-          placeholder="Detail"
-        />
-        <p className="text-danger">{errors.detail?.message}</p>
-        <input
-          type="text"
-          id="price"
-          {...register("price")}
-          className="form-control"
-          placeholder="Price"
-        />
-        <p className="text-danger">{errors.price?.message}</p>
+        <p className="navbar-brand" style={{ color: "whitesmoke" }}>
+          Add Product
+        </p>
         <div className="d-flex">
-          <Form.Select {...register("groupProduct")}>
-            <option>Group Product</option>
-            {grProduct.map((item: any, i: number) => (
-              <option key={i}>{item.key}</option>
-            ))}
-          </Form.Select>
-          {""}
-          <button
-            type="button"
-            className="btn btn-primary"
-            onClick={handdleOpen}
-          >
-            +
-          </button>
-        </div>
-        <p className="text-danger">{errors.groupProduct?.message}</p>
+          <div className="createProduct-left">
+            <input
+              type="text"
+              id="name"
+              {...register("name")}
+              className="form-control"
+              placeholder="Name"
+            />
+            <p className="text-danger">{errors.name?.message}</p>
 
-        <input
-          type="number"
-          id="weight"
-          onKeyDown={(e: any) => {
-            e.preventDefault();
-          }}
-          min="1"
-          {...register("weight")}
-          className="form-control"
-          placeholder="Weight"
-        />
-        <p className="text-danger">{errors.weight?.message}</p>
-        <input
-          type="number"
-          id="quantity"
-          onKeyDown={(e: any) => {
-            e.preventDefault();
-          }}
-          min="1"
-          {...register("quantity")}
-          className="form-control"
-          placeholder="Quantity"
-        />
-        <p className="text-danger">{errors.quantity?.message}</p>
+            <input
+              type="text"
+              id="price"
+              {...register("price")}
+              className="form-control"
+              placeholder="Price"
+            />
+            <p className="text-danger">{errors.price?.message}</p>
 
-        <div className="custom-file">
-          <input
-            multiple
-            type="file"
-            className="custom-file-input"
-            id="validatedCustomFile"
-            {...register("image")}
-            required
-            onChange={handleChange}
-          />
-          <label className="custom-file-label">
-            {nameFile === "" ? "Image" : nameFile}
-          </label>
-          <div className="invalid-feedback">
-            Example invalid custom file feedback
+            <input
+              type="number"
+              id="weight"
+              onKeyDown={(e: any) => {
+                e.preventDefault();
+              }}
+              min="1"
+              {...register("weight")}
+              className="form-control"
+              placeholder="Weight"
+            />
+            <p className="text-danger">{errors.weight?.message}</p>
+            <input
+              onKeyDown={(e: any) => {
+                e.preventDefault();
+              }}
+              min="1"
+              type="number"
+              id="quantity"
+              {...register("quantity")}
+              className="form-control"
+              placeholder="Quantity"
+            />
+            <p className="text-danger">{errors.quantity?.message}</p>
+
+            <button
+              id="login"
+              className="btn btn-block login-btn mb-4"
+              type="submit"
+              disabled={isSubmitting}
+              style={{ backgroundColor: "#f5a623" }}
+            >
+              {!isSubmitting ? "Submit" : <ButtonSpinner />}
+            </button>
+          </div>
+
+          <div className="createProduct-right">
+            <textarea
+              id="detail"
+              {...register("detail")}
+              className="form-control"
+              placeholder="Detail"
+            />
+            <p className="text-danger">{errors.detail?.message}</p>
+            <div className="d-flex justifycontent-space-between">
+              <Form.Select {...register("groupProduct")}>
+                <option>Group Product</option>
+                {grProduct.map((item: any, i: number) => (
+                  <option key={i}>{item.key}</option>
+                ))}
+              </Form.Select>
+
+              <button
+                style={{ backgroundColor: "#f5a623", marginLeft: "3px" }}
+                type="button"
+                className="btn btn-primary"
+                onClick={handdleOpen}
+              >
+                +
+              </button>
+            </div>
+            <p className="text-danger">{errors.groupProduct?.message}</p>
+            <div className="custom-file">
+              <input
+                multiple
+                type="file"
+                className="custom-file-input"
+                id="validatedCustomFile"
+                {...register("image")}
+                required
+                onChange={handleChange}
+              />
+              <label className="custom-file-label">
+                {nameFile === "" ? "Image" : nameFile}
+              </label>
+              <div className="invalid-feedback">
+                Example invalid custom file feedback
+              </div>
+            </div>
           </div>
         </div>
-
-        <p></p>
-
-        <button
-          id="login"
-          className="btn btn-block login-btn mb-4"
-          type="submit"
-          disabled={isSubmitting}
-          style={{ backgroundColor: "#82ae46" }}
-        >
-          {!isSubmitting ? "Submit" : <ButtonSpinner />}
-        </button>
       </form>
       <ModalUpdateGrP open={open} cancel={handdleCancel} />
     </div>

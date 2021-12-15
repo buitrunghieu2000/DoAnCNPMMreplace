@@ -38,11 +38,11 @@ const ModalUpdateGrP = (props: Props) => {
   return (
     <div>
       {props.open ? (
-        <ModalLMS
-          title="Add Group Product"
-          withHeader={true}
-          cancel={props.cancel}
-        >
+        <ModalLMS title="" withHeader={true} cancel={props.cancel}>
+          <div className="navbar-brand d-flex justify-content-center">
+            Add Group Product
+          </div>
+          <p></p>
           <div className="d-flex justify-content-center">
             <form
               onSubmit={handleSubmit(submit)}

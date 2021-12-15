@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
@@ -8,6 +8,7 @@ import { ModalLMS } from "../../../../components/Modal";
 import { selectDetailOrder } from "../../../../features/order/slice/selector";
 import { moneyFormater } from "../../../../utils/moneyFormater";
 import { notifyError, notifySuccess } from "../../../../utils/notify";
+import { Rating } from "react-simple-star-rating";
 
 interface Props {
   cancel: Function;
@@ -16,24 +17,6 @@ interface Props {
 
 const ModalOrderDetail = (props: Props) => {
   const order = useSelector(selectDetailOrder);
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { isSubmitting, errors },
-  } = useForm();
-  const submit = async (data: any, e: any) => {
-    e.preventDefault();
-    data.orderId = order._id;
-    const Arr = [data];
-    const result = await createRatingApi(Arr);
-    if (result.statusCode === 200) {
-      notifySuccess("Rating successfully");
-      reset();
-    } else {
-      notifyError("Rating Failed, Product has already been rated");
-    }
-  };
 
   return (
     <div>
@@ -58,40 +41,10 @@ const ModalOrderDetail = (props: Props) => {
                       item?.price
                     )}`}</p>
                     {order?.status === 3 && (
-                      <>
-                        <form onSubmit={handleSubmit(submit)}>
-                          <span>Rating</span> {""}
-                          <select {...register("star")} defaultValue="5">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                          </select>
-                          <p></p>
-                          <div className="form-group">
-                            <textarea
-                              defaultValue=""
-                              {...register("content")}
-                              className="form-control"
-                              id="exampleFormControlTextarea1"
-                              placeholder="Comment"
-                            ></textarea>
-                          </div>
-                          <input
-                            {...register("productId")}
-                            value={item?.productId}
-                            hidden
-                          />
-                          <button
-                            type="submit"
-                            className="btn btn-success"
-                            style={{ backgroundColor: "#82ae46" }}
-                          >
-                            {!isSubmitting ? "Submit" : <ButtonSpinner />}
-                          </button>
-                        </form>
-                      </>
+                      <RatingForm
+                        orderId={order._id}
+                        productId={item.productId}
+                      />
                     )}
                   </div>
                 </div>
@@ -106,4 +59,66 @@ const ModalOrderDetail = (props: Props) => {
   );
 };
 
+const RatingForm = (props: { orderId: string; productId: string }) => {
+  const [rating, setRating] = useState(100);
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { isSubmitting, errors },
+  } = useForm();
+
+  const submit = async (data: any, e: any) => {
+    e.preventDefault();
+    data.orderId = props.orderId;
+    data.productId = props.productId;
+    data.star = rating / 20;
+    console.log(data);
+    const Arr = [data];
+    const result = await createRatingApi(Arr);
+    if (result.statusCode === 200) {
+      notifySuccess("Rating successfully");
+      reset();
+    } else {
+      notifyError("Rating Failed, Product has already been rated");
+    }
+  };
+
+  const handleRating = (rate: number) => {
+    setRating(rate);
+    // other logic
+  };
+  return (
+    <>
+      {" "}
+      <form onSubmit={handleSubmit(submit)}>
+        <span>Rating:</span> {""}
+        <Rating
+          initialValue={rating}
+          onClick={handleRating}
+          ratingValue={rating} /* Available Props */
+          allowHalfIcon
+        />
+        <p></p>
+        <div className="form-group">
+          <textarea
+            defaultValue=""
+            {...register("content")}
+            className="form-control"
+            id="exampleFormControlTextarea1"
+            placeholder="Comment"
+          ></textarea>
+        </div>
+        <button
+          type="submit"
+          className="btn btn-success"
+          style={{ backgroundColor: "#82ae46" }}
+        >
+          {!isSubmitting ? "Submit" : <ButtonSpinner />}
+        </button>
+      </form>
+    </>
+  );
+};
 export default ModalOrderDetail;

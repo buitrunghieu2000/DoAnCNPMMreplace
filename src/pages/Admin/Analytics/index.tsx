@@ -2,8 +2,10 @@ import dayjs from "dayjs";
 import _ from "lodash";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { getProductStatisticApi } from "../../../apis/statistic/getProducStatistic.api";
 import { payloadGetStatisticOrder } from "../../../apis/statistic/getStatisticOrder.api";
 import ChartStats from "../../../components/ChartOrder";
+import { ChartPie } from "../../../components/PieChart";
 import { selectAllChart } from "../../../features/chart/slice/selector";
 import { getAllChartAsync } from "../../../features/chart/slice/thunk";
 import { formatDate } from "../../../utils/datFormater";
@@ -11,6 +13,7 @@ import { formatDate } from "../../../utils/datFormater";
 interface AnalyticsProps {}
 
 const Analytics = (props: AnalyticsProps) => {
+  const [productStatistc, setProductStatistic] = useState<any>([]);
   const dispatch = useDispatch();
   const timeEnd = formatDate(dayjs().toDate());
   const timeStart = formatDate(dayjs().subtract(6, "d").toDate());
@@ -31,7 +34,17 @@ const Analytics = (props: AnalyticsProps) => {
 
   React.useEffect(() => {
     dispatch(getAllChartAsync(payload));
+    (async () => {
+      const result = await getProductStatisticApi();
+
+      const { data } = result;
+      setProductStatistic(data);
+    })();
   }, []);
+
+  const name = _.map(productStatistc, "name");
+  const sold = _.map(productStatistc, "sold");
+
   const statistic = useSelector(selectAllChart);
 
   const totalOrder = _.map(statistic, "totalOrder");
@@ -47,20 +60,19 @@ const Analytics = (props: AnalyticsProps) => {
   return (
     <div className="container">
       <div>
-        <div>
-          <span> </span>
-          <span>Time End: </span>
-          <input
-            type="date"
-            id="end"
-            name="trip-end"
-            defaultValue={timeEnd}
-            max={timeEnd}
-            min="2021-11-17"
-            onChange={handleOnchangeDay}
-          />
-        </div>
-
+        <span> </span>
+        <span>Time End: </span>
+        <input
+          type="date"
+          id="end"
+          name="trip-end"
+          defaultValue={timeEnd}
+          max={timeEnd}
+          min="2021-11-17"
+          onChange={handleOnchangeDay}
+        />
+      </div>
+      <div className="d-flex justify-content-between">
         <ChartStats
           data={totalOrder}
           statsDate={statsDay}
@@ -77,6 +89,9 @@ const Analytics = (props: AnalyticsProps) => {
           yText="Total Money"
           seriesText="Money"
         />
+      </div>
+      <div className="d-flex justify-content-center">
+        <ChartPie product={name} sold={sold} />
       </div>
     </div>
   );

@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectDetailProduct } from "../../../features/products/slice/selector";
 import { getDetailProduct } from "../../../features/products/slice";
 import { updateProductApi } from "../../../apis/product/updateProduct.api";
+import "./style.scss";
 
 interface CreateProductPageProps {}
 
@@ -71,95 +72,102 @@ const DetailProduct = (props: CreateProductPageProps) => {
   };
 
   return (
-    <div className="createProduct container d-flex flex-column w-50">
+    <div className="updateProduct container w-50">
       <form onSubmit={handleSubmit(submit)}>
-        <p className="navbar-brand">Update Product</p>
-        <input
-          type="text"
-          id="name"
-          {...register("name")}
-          className="form-control"
-          placeholder="Name"
-        />
-        <p className="text-danger">{errors.name?.message}</p>
-        <input
-          type="text"
-          id="detail"
-          {...register("detail")}
-          className="form-control"
-          placeholder="Detail"
-        />
-        <p className="text-danger">{errors.detail?.message}</p>
-        <input
-          type="text"
-          id="price"
-          {...register("price")}
-          className="form-control"
-          placeholder="Price"
-        />
-        <p className="text-danger">{errors.price?.message}</p>
+        <p className="navbar-brand" style={{ color: "whitesmoke" }}>
+          Update Product
+        </p>
+        <div className="d-flex">
+          <div className="updateProduct-left">
+            <input
+              type="text"
+              id="name"
+              {...register("name")}
+              className="form-control"
+              placeholder="Name"
+            />
+            <p className="text-danger">{errors.name?.message}</p>
 
-        <Form.Select {...register("groupProduct")}>
-          <option>Group Product</option>
-          {groupProduct.map((item: any, i: number) => (
-            <option key={i}>{item.key}</option>
-          ))}
-        </Form.Select>
-        <p className="text-danger">{errors.groupProduct?.message}</p>
+            <input
+              type="text"
+              id="price"
+              {...register("price")}
+              className="form-control"
+              placeholder="Price"
+            />
+            <p className="text-danger">{errors.price?.message}</p>
 
-        <input
-          type="number"
-          onKeyDown={(e: any) => {
-            e.preventDefault();
-          }}
-          min="1"
-          id="weight"
-          {...register("weight")}
-          className="form-control"
-          placeholder="Weight"
-        />
-        <p className="text-danger">{errors.weight?.message}</p>
-        <input
-          onKeyDown={(e: any) => {
-            e.preventDefault();
-          }}
-          min="1"
-          type="number"
-          id="quantity"
-          {...register("quantity")}
-          className="form-control"
-          placeholder="Quantity"
-        />
-        <p className="text-danger">{errors.quantity?.message}</p>
+            <input
+              type="number"
+              onKeyDown={(e: any) => {
+                e.preventDefault();
+              }}
+              min="1"
+              id="weight"
+              {...register("weight")}
+              className="form-control"
+              placeholder="Weight"
+            />
+            <p className="text-danger">{errors.weight?.message}</p>
+            <input
+              onKeyDown={(e: any) => {
+                e.preventDefault();
+              }}
+              min="1"
+              type="number"
+              id="quantity"
+              {...register("quantity")}
+              className="form-control"
+              placeholder="Quantity"
+            />
+            <p className="text-danger">{errors.quantity?.message}</p>
 
-        <div className="custom-file" style={{ overflow: "hidden" }}>
-          <input
-            multiple
-            type="file"
-            className="custom-file-input"
-            id="validatedCustomFile"
-            {...register("image")}
-            onChange={handleChange}
-          />
-          <label className="custom-file-label">
-            {nameFile === "" ? "Image" : nameFile}
-          </label>
-          <div className="invalid-feedback">
-            Example invalid custom file feedback
+            <p></p>
+
+            <button
+              id="login"
+              className="btn btn-block login-btn mb-4"
+              type="submit"
+              disabled={isSubmitting}
+              style={{ backgroundColor: "#f5a623" }}
+            >
+              {!isSubmitting ? "Submit" : <ButtonSpinner />}
+            </button>
+          </div>
+          <div className="updateProduct-right">
+            <textarea
+              id="detail"
+              {...register("detail")}
+              className="form-control"
+              placeholder="Detail"
+            />
+            <p className="text-danger">{errors.detail?.message}</p>
+            <Form.Select {...register("groupProduct")}>
+              <option>Group Product</option>
+              {groupProduct.map((item: any, i: number) => (
+                <option key={i}>{item.key}</option>
+              ))}
+            </Form.Select>
+            <p className="text-danger">{errors.groupProduct?.message}</p>
+
+            <div className="custom-file" style={{ overflow: "hidden" }}>
+              <input
+                multiple
+                type="file"
+                className="custom-file-input"
+                id="validatedCustomFile"
+                {...register("image")}
+                onChange={handleChange}
+              />
+              <label className="custom-file-label">
+                {nameFile === "" ? "Image" : nameFile}
+              </label>
+              <div className="invalid-feedback">
+                Example invalid custom file feedback
+              </div>
+            </div>
           </div>
         </div>
-
-        <p></p>
-
-        <button
-          id="login"
-          className="btn btn-block login-btn mb-4"
-          type="submit"
-          disabled={isSubmitting}
-          style={{ backgroundColor: "#82ae46" }}
-        >
-          {!isSubmitting ? "Submit" : <ButtonSpinner />}
-        </button>
       </form>
     </div>
   );
