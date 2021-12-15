@@ -29,7 +29,7 @@ const UserManagement = (props: userManagementProps) => {
 
   return (
     <div className="userManagement container">
-      <table className="table table-dark table-striped">
+      <table className="table table-success table-striped table-hover">
         <thead>
           <tr>
             <th scope="col">#</th>
@@ -40,7 +40,7 @@ const UserManagement = (props: userManagementProps) => {
         <tbody>
           {user.map((item: any, i: number) => (
             <tr key={i}>
-              <th style={{ verticalAlign: "middle" }}>{i}</th>
+              <td>{i}</td>
               <td onClick={() => handleOpen(item)}>{item.email}</td>
               <td>{item.phone}</td>
             </tr>
