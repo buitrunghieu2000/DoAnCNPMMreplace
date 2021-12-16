@@ -12,6 +12,7 @@ import { selectAllAddress } from "../../../../features/address/slice/selector";
 import { getAllAddressAsync } from "../../../../features/address/slice/thunk";
 import { moneyFormater } from "../../../../utils/moneyFormater";
 import { notifyError, notifySuccess } from "../../../../utils/notify";
+import { EmtyCart } from "../../../Cart/components/CartInfo";
 import ModalChangeAddress from "../ModalChangeAddress";
 
 interface Props {}
@@ -20,6 +21,7 @@ const CheckoutInfo = (props: Props) => {
   const [cartList, setCartList] = useState<any>([]);
   const [shipFee, setShipFee] = useState<any>(0);
   const [open, setOpen] = useState(false);
+  const [chooseAdd, setChooseAdd] = useState(false);
   const [address, setAddress] = useState({
     name: "",
     phone: "",
@@ -47,7 +49,7 @@ const CheckoutInfo = (props: Props) => {
     dispatch(getAllAddressAsync());
   }, []);
   const addresses = useSelector(selectAllAddress);
-  console.log(address);
+  // console.log(address);
 
   const createOrder = async (typeOfOrder: number) => {
     const listCartID: Array<string> = cartList.map((item: any) => item._id);
@@ -65,33 +67,39 @@ const CheckoutInfo = (props: Props) => {
     };
 
     const order = await createOrderAsync(payload);
-    console.log(order);
+    // console.log(order);
     return order;
   };
-
+  console.log(`1,2,3`);
   const handleSubmitForm = async (e: any) => {
     e.preventDefault();
 
     const typeOfPayment = e.target.optradio.value;
-    console.log(typeOfPayment);
+
     if (typeOfPayment) {
-      const result = await createOrder(typeOfPayment);
-      console.log("123", result);
-      if (typeOfPayment == 1) {
-        window.open(result.data.link);
-        history.push("/");
-        window.scrollTo(0, 0);
-      } else if (typeOfPayment == 0) {
-        history.push("/");
-        window.scrollTo(0, 0);
-      } else if (typeOfPayment == 2) {
-        window.open(result.data.link);
-        history.push("/");
-        window.scrollTo(0, 0);
+      if (cartList.length === 0) {
+        notifyError("Cart is empty");
+      } else if (cartList.length != 0 && chooseAdd === true) {
+        const result = await createOrder(typeOfPayment);
+        // console.log("123", result);
+        if (typeOfPayment == 1) {
+          window.open(result.data.link);
+          history.push("/");
+          window.scrollTo(0, 0);
+        } else if (typeOfPayment == 0) {
+          history.push("/");
+          window.scrollTo(0, 0);
+        } else if (typeOfPayment == 2) {
+          window.open(result.data.link);
+          history.push("/");
+          window.scrollTo(0, 0);
+        }
+        notifySuccess("Checkout successfully");
+      } else {
+        notifyError("Choose address");
       }
-      notifySuccess("Checkout Successfully");
     } else {
-      notifyError("Choose type of Payment");
+      notifyError("Choose type of payment");
     }
   };
 
@@ -107,9 +115,10 @@ const CheckoutInfo = (props: Props) => {
       district: item.district,
       weight: totalWeight,
     });
-    console.log(result);
+    // console.log(result);
     const { data } = result;
     setShipFee(data.totalShip);
+    setChooseAdd(true);
   };
 
   return (
@@ -132,6 +141,7 @@ const CheckoutInfo = (props: Props) => {
                         type="button"
                         className="btn btn-primary"
                         onClick={handdleOpen}
+                        style={{ marginLeft: "4px" }}
                       >
                         +
                       </button>
@@ -140,71 +150,75 @@ const CheckoutInfo = (props: Props) => {
                 </div>
 
                 <label>List items</label>
-                <div className="cart-detail cart-total p-3 p-md-4">
-                  <div className="row">
-                    <div className="col-md-12 ftco-animate">
-                      <div className="cart-list">
-                        <table className="table">
-                          <thead className="thead-primary">
-                            <tr className="text-center">
-                              <th>Product imgage</th>
-                              <th>Product name</th>
-                              <th>Weight</th>
-                              <th>Price</th>
-                              <th>Quantity</th>
-                              <th>Total</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {cartList.map((e: any, i: number) => (
-                              <tr className="text-center" key={i}>
-                                <td className="image-prod">
-                                  <div
-                                    className="img"
-                                    style={{
-                                      backgroundImage: `url(${e.image[0]})`,
-                                    }}
-                                  ></div>
-                                </td>
-
-                                <td
-                                  className="product-name"
-                                  style={{ margin: "auto" }}
-                                >
-                                  <h3>{e.name}</h3>
-                                </td>
-                                <td className="product-weight">
-                                  <h3>{e.weight} kg</h3>
-                                </td>
-
-                                <td className="price">
-                                  {moneyFormater(e.cost)}
-                                </td>
-
-                                <td className="quantity">
-                                  <div className="input-group mb-3">
-                                    <input
-                                      type="text"
-                                      name="quantity"
-                                      className="quantity form-control input-number"
-                                      defaultValue={e.quantity}
-                                      style={{ textAlign: "center" }}
-                                      disabled={true}
-                                    />
-                                  </div>
-                                </td>
-
-                                <td className="total">
-                                  {moneyFormater(e.totalCost)}
-                                </td>
+                {cartList.length === 0 ? (
+                  <EmtyCart />
+                ) : (
+                  <div className="cart-detail cart-total p-3 p-md-4">
+                    <div className="row">
+                      <div className="col-md-12 ftco-animate">
+                        <div className="cart-list">
+                          <table className="table">
+                            <thead className="thead-primary">
+                              <tr className="text-center">
+                                <th>Product imgage</th>
+                                <th>Product name</th>
+                                <th>Weight</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Total</th>
                               </tr>
-                            ))}
-                          </tbody>
-                        </table>
+                            </thead>
+                            <tbody>
+                              {cartList.map((e: any, i: number) => (
+                                <tr className="text-center" key={i}>
+                                  <td className="image-prod">
+                                    <div
+                                      className="img"
+                                      style={{
+                                        backgroundImage: `url(${e.image[0]})`,
+                                      }}
+                                    ></div>
+                                  </td>
+
+                                  <td
+                                    className="product-name"
+                                    style={{ margin: "auto" }}
+                                  >
+                                    <h3>{e.name}</h3>
+                                  </td>
+                                  <td className="product-weight">
+                                    <h3>{e.weight} kg</h3>
+                                  </td>
+
+                                  <td className="price">
+                                    {moneyFormater(e.cost)}
+                                  </td>
+
+                                  <td className="quantity">
+                                    <div className="input-group mb-3">
+                                      <input
+                                        type="text"
+                                        name="quantity"
+                                        className="quantity form-control input-number"
+                                        defaultValue={e.quantity}
+                                        style={{ textAlign: "center" }}
+                                        disabled={true}
+                                      />
+                                    </div>
+                                  </td>
+
+                                  <td className="total">
+                                    {moneyFormater(e.totalCost)}
+                                  </td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
+                )}
               </form>
               <ModalChangeAddress open={open} cancel={handdleCancel} />
             </div>

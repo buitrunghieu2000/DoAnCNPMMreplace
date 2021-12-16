@@ -1,5 +1,5 @@
-import { iteratorSymbol } from "immer/dist/internal";
 import React, { useState } from "react";
+import { Table } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { getAllUserApi } from "../../../apis/user/getAllUser.api";
 import { getDetailUser } from "../../../features/user/slice";
@@ -29,12 +29,12 @@ const UserManagement = (props: userManagementProps) => {
 
   return (
     <div className="userManagement container">
-      <table className="table table-success table-striped table-hover">
+      <Table striped bordered hover>
         <thead>
           <tr>
-            <th scope="col">#</th>
-            <th scope="col">Email</th>
-            <th scope="col">Phone</th>
+            <th>#</th>
+            <th>Email</th>
+            <th>Phone</th>
           </tr>
         </thead>
         <tbody>
@@ -46,7 +46,8 @@ const UserManagement = (props: userManagementProps) => {
             </tr>
           ))}
         </tbody>
-      </table>
+      </Table>
+
       <ModalInfo open={open} cancel={handleCancel} />
     </div>
   );

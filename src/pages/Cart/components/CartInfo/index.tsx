@@ -222,7 +222,7 @@ const CartInfo = (props: Props) => {
   );
 };
 
-const EmtyCart = () => {
+export const EmtyCart = () => {
   return (
     <div className="orderPage-bottom-empty">
       <div className="orderPage-bottom-empty-image">
