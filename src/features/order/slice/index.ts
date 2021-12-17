@@ -1,10 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { OrderStateTypes } from "../type";
-import {
-  getAllAddressAsync,
-  getAllOrderAsync,
-  getOrderByUserAsync,
-} from "./thunk";
+import { getAllOrderAsync, getOrderByUserAsync } from "./thunk";
 
 const initialState: Partial<OrderStateTypes> = {
   status: "idle",
