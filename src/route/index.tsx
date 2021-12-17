@@ -11,7 +11,9 @@ import DetailProduct from "../pages/Admin/DetailProduct";
 import UpdateProduct from "../pages/Admin/UpdateProduct";
 import UserManagement from "../pages/Admin/UserManagement";
 import userManagement from "../pages/Admin/UserManagement";
+
 import { Cart } from "../pages/Cart";
+import ChatSocket from "../pages/Chat";
 import CheckoutPage from "../pages/Checkout";
 import { Contact } from "../pages/Contact";
 import { ForgotPass } from "../pages/ForgotPass";
@@ -26,6 +28,7 @@ import { SignUp } from "../pages/SignUp";
 import SingleProductPage from "../pages/SingleProduct";
 import WishListPage from "../pages/WishList";
 import { defaultRoute } from "./defaultroute";
+
 interface IRoute {
   exact: Boolean;
   path: string;
@@ -103,6 +106,15 @@ const routes: Array<IRoute> = [
       </>
     ),
     path: defaultRoute.contact,
+    exact: true,
+  },
+  {
+    child: (
+      <>
+        <ChatSocket />
+      </>
+    ),
+    path: defaultRoute.chat,
     exact: true,
   },
   // {

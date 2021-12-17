@@ -18,4 +18,5 @@ export const defaultRoute = {
   analytics: "/analytics",
   ordermanagement: "/ordermanagement",
   detailproduct: "/detailproduct/:id",
+  chat: "/chat",
 };

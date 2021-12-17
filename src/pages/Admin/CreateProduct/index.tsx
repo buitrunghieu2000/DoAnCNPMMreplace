@@ -11,6 +11,7 @@ import { notifySuccess } from "../../../utils/notify";
 import { createProductSchema } from "../../../validate/auth";
 import ModalUpdateGrP from "./component/ModalUpdateGrP";
 import "./style.scss";
+
 interface CreateProductPageProps {}
 
 const CreateProductPage = (props: CreateProductPageProps) => {

@@ -22,7 +22,7 @@ const ModalInfo = (props: Props) => {
           <div className="container mt-5 mb-3">
             <div className="row d-flex justify-content-center">
               <div className="col-md-7">
-                <div className="card p-3 py-4">
+                <div className="card p-3 py-4" style={{ marginBottom: "30px" }}>
                   <div style={{ display: "flex", justifyContent: "center" }}>
                     <div
                       className="text-center "

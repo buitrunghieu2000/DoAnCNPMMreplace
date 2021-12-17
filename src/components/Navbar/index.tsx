@@ -80,6 +80,11 @@ const Navbar = () => {
                     Home
                   </Link>
                 </li>
+                <li className="nav-item active">
+                  <Link to="/chat" className="nav-link">
+                    Chat
+                  </Link>
+                </li>
                 <li className="nav-item dropdown" tabIndex={0} ref={ref}>
                   <Link
                     className="nav-link dropdown-toggle active"
