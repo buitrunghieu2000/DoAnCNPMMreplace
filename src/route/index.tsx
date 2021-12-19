@@ -108,96 +108,6 @@ const routes: Array<IRoute> = [
     path: defaultRoute.contact,
     exact: true,
   },
-  {
-    child: (
-      <>
-        <ChatSocket />
-      </>
-    ),
-    path: defaultRoute.chat,
-    exact: true,
-  },
-  // {
-  //   child: (
-  //     <>
-  //       <Cart />
-  //     </>
-  //   ),
-  //   path: defaultRoute.cart,
-  //   exact: true,
-  // },
-  // {
-  //   child: (
-  //     <>
-  //       <CheckoutPage/>
-  //     </>
-  //   ),
-  //   path: defaultRoute.checkout,
-  //   exact: true,
-  // },
-  // {
-  //   child: (
-  //     <>
-  //       <WishListPage/>
-  //     </>
-  //   ),
-  //   path: defaultRoute.wishlist,
-  //   exact: true,
-  // },
-  // {
-  //   child: (
-  //     <>
-  //       <OrderPage />
-  //     </>
-  //   ),
-  //   path: defaultRoute.order,
-  //   exact: true,
-  // },
-  // {
-  //   child: (
-  //     <>
-  //       <ProfilePage />
-  //     </>
-  //   ),
-  //   path: defaultRoute.profile,
-  //   exact: true,
-  // },
-  // {
-  //   child: (
-  //     <>
-  //       <ResetPass />
-  //     </>
-  //   ),
-  //   path: defaultRoute.resetpass,
-  //   exact: true,
-  // },
-  // {
-  //   child: (
-  //     <>
-  //       <CreateProductPage />
-  //     </>
-  //   ),
-  //   path: defaultRoute.createproduct,
-  //   exact: true,
-  // },
-  // {
-  //   child: (
-  //     <>
-
-  //     </>
-  //   ),
-  //   path: defaultRoute.updateproduct,
-  //   exact: true,
-  // },
-  // {
-  //   child: (
-  //     <>
-  //       <UserManagement />
-  //     </>
-  //   ),
-  //   path: defaultRoute.usermanagement,
-  //   exact: true,
-  // },
 ];
 
 const routesPrivate = [
@@ -257,6 +167,15 @@ const routesPrivate = [
     option: true,
     roleRoute: [DFRole.User],
   },
+
+  {
+    child: <ChatSocket />,
+    path: defaultRoute.chat,
+    exact: true,
+    option: true,
+    roleRoute: [DFRole.User, DFRole.Admin],
+  },
+
   {
     child: <CheckoutPage />,
     path: defaultRoute.checkout,

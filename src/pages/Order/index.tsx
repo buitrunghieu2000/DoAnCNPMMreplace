@@ -50,6 +50,7 @@ const OrderPage = (props: OrderProps) => {
   const renderNav = () => {
     return orderStatus.map((e: any, i: number) => (
       <span
+        style={{ cursor: "pointer" }}
         onClick={(event: any) => onClickMyNhan(event, i)}
         className="list"
         key={i}
@@ -80,6 +81,7 @@ const OrderPage = (props: OrderProps) => {
           userProduct?.map((item: any, i: any) => (
             <div className="card mb-3" key={i}>
               <div
+                id="order-orderCode"
                 className="card-header text-white "
                 style={{ backgroundColor: "#82ae46" }}
                 onClick={() => handdleOpen(item)}

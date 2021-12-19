@@ -1,9 +1,62 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { selectCurrentUser } from "../../features/auths/slice/selector";
+import { getCurrentUserAsync } from "../../features/auths/slice/thunk";
+import { selectAllChart } from "../../features/chart/slice/selector";
+import img from "../../images/imageAvatar.png";
+import {
+  selectAllMessage,
+  selectAllRoom,
+} from "../../features/chat/slice/selector";
+import {
+  getAllMessageAsync,
+  getAllRoomAsync,
+} from "../../features/chat/slice/thunk";
 import "./style.scss";
 
 interface ChatProps {}
 
 const ChatSocket = (props: ChatProps) => {
+  const [avatar, setAvatar] = useState<any>("");
+  const [name, setName] = useState("");
+
+  const dispatch = useDispatch();
+  const chatRoom = useSelector(selectAllRoom);
+  const message = useSelector(selectAllMessage);
+  const curUser = useSelector(selectCurrentUser);
+
+  React.useEffect(() => {
+    (async () => {
+      dispatch(getCurrentUserAsync());
+      if (curUser.role === 1) {
+        dispatch(getAllRoomAsync());
+      } else if (curUser.role === 0) {
+        dispatch(
+          getAllMessageAsync({
+            idRoom: "61b9bba6437befdd57b05427",
+            skip: 1,
+            limit: 15,
+          })
+        );
+      } else {
+        return "";
+      }
+    })();
+  }, []);
+
+  console.log(chatRoom);
+  const handleClick = (roomId: string, avatar: string, name: string) => {
+    dispatch(
+      getAllMessageAsync({
+        idRoom: roomId,
+        skip: 1,
+        limit: 15,
+      })
+    );
+    setAvatar(avatar);
+    setName(name);
+  };
+
   return (
     <div>
       <div className="container">
@@ -13,7 +66,7 @@ const ChatSocket = (props: ChatProps) => {
               <div className="settings-tray">
                 <img
                   className="profile-image"
-                  src="https://www.clarity-enhanced.net/wp-content/uploads/2020/06/filip.jpg"
+                  src={curUser.avatar}
                   alt="Profile img"
                 />
                 <span className="settings-tray--right">
@@ -28,97 +81,44 @@ const ChatSocket = (props: ChatProps) => {
                   <input placeholder="Search here" type="text" />
                 </div>
               </div>
-              <div className="friend-drawer friend-drawer--onhover">
-                <img
-                  className="profile-image"
-                  src="https://www.clarity-enhanced.net/wp-content/uploads/2020/06/robocop.jpg"
-                  alt=""
-                />
-                <div className="text">
-                  <h6>Robo Cop</h6>
-                  <p className="text-muted">Hey, you're arrested!</p>
+              {chatRoom.map((item: any, i: number) => (
+                <div
+                  className="friend-drawer friend-drawer--onhover"
+                  key={i}
+                  onClick={() =>
+                    handleClick(item.idRoom, item.avatar, item.name)
+                  }
+                >
+                  <img className="profile-image" src={item.avatar} alt="" />
+                  <div className="text">
+                    <h6>{item.name}</h6>
+                    <p className="text-muted">{item.message}</p>
+                  </div>
+                  <span className="time text-muted small">13:21</span>
                 </div>
-                <span className="time text-muted small">13:21</span>
-              </div>
-
-              <div className="friend-drawer friend-drawer--onhover">
-                <img
-                  className="profile-image"
-                  src="https://www.clarity-enhanced.net/wp-content/uploads/2020/06/optimus-prime.jpeg"
-                  alt=""
-                />
-                <div className="text">
-                  <h6>Optimus</h6>
-                  <p className="text-muted">Wanna grab a beer?</p>
-                </div>
-                <span className="time text-muted small">00:32</span>
-              </div>
-
-              <div className="friend-drawer friend-drawer--onhover ">
-                <img
-                  className="profile-image"
-                  src="https://www.clarity-enhanced.net/wp-content/uploads/2020/06/real-terminator.png"
-                  alt=""
-                />
-                <div className="text">
-                  <h6>Skynet</h6>
-                  <p className="text-muted">Seen that canned piece of s?</p>
-                </div>
-                <span className="time text-muted small">13:21</span>
-              </div>
-
-              <div className="friend-drawer friend-drawer--onhover">
-                <img
-                  className="profile-image"
-                  src="https://www.clarity-enhanced.net/wp-content/uploads/2020/06/termy.jpg"
-                  alt=""
-                />
-                <div className="text">
-                  <h6>Termy</h6>
-                  <p className="text-muted">Im studying spanish...</p>
-                </div>
-                <span className="time text-muted small">13:21</span>
-              </div>
-
-              <div className="friend-drawer friend-drawer--onhover">
-                <img
-                  className="profile-image"
-                  src="https://www.clarity-enhanced.net/wp-content/uploads/2020/06/rick.jpg"
-                  alt=""
-                />
-                <div className="text">
-                  <h6>Richard</h6>
-                  <p className="text-muted">I'm not sure...</p>
-                </div>
-                <span className="time text-muted small">13:21</span>
-              </div>
-
-              <div className="friend-drawer friend-drawer--onhover">
-                <img
-                  className="profile-image"
-                  src="https://www.clarity-enhanced.net/wp-content/uploads/2020/06/rachel.jpeg"
-                  alt=""
-                />
-                <div className="text">
-                  <h6>XXXXX</h6>
-                  <p className="text-muted">Hi, wanna see something?</p>
-                </div>
-                <span className="time text-muted small">13:21</span>
-              </div>
+              ))}
             </div>
-            <div className="col-md-8">
+            <div
+              className="col-md-8"
+              style={{
+                height: "80vh",
+                overflowY: "scroll",
+                overflowX: "hidden",
+              }}
+            >
               <div className="settings-tray">
                 <div className="friend-drawer no-gutters friend-drawer--grey">
-                  <img
-                    className="profile-image"
-                    src="https://www.clarity-enhanced.net/wp-content/uploads/2020/06/robocop.jpg"
-                    alt=""
-                  />
+                  {avatar == "" ? (
+                    ``
+                  ) : (
+                    <img className="profile-image" src={avatar} alt="" />
+                  )}
+
                   <div className="text">
-                    <h6>Robo Cop</h6>
-                    <p className="text-muted">
+                    <h6>{name == "" ? `` : name}</h6>
+                    {/* <p className="text-muted">
                       Layin' down the law since like before Christ...
-                    </p>
+                    </p> */}
                   </div>
                   <span className="settings-tray--right">
                     <i className="material-icons">cached</i>
@@ -127,56 +127,29 @@ const ChatSocket = (props: ChatProps) => {
                   </span>
                 </div>
               </div>
-              <div className="chat-panel">
-                <div className="row no-gutters">
-                  <div className="col-md-3">
-                    <div className="chat-bubble chat-bubble--left">
-                      Hello dude!
-                    </div>
-                  </div>
-                </div>
-                <div className="row no-gutters">
-                  <div className="col-md-3 offset-md-9">
-                    <div className="chat-bubble chat-bubble--right">
-                      Hello dude!
-                    </div>
-                  </div>
-                </div>
-                <div className="row no-gutters">
-                  <div className="col-md-3 offset-md-9">
-                    <div className="chat-bubble chat-bubble--right">
-                      Hello dude!
-                    </div>
-                  </div>
-                </div>
-                <div className="row no-gutters">
-                  <div className="col-md-3">
-                    <div className="chat-bubble chat-bubble--left">
-                      Hello dude!
-                    </div>
-                  </div>
-                </div>
-                <div className="row no-gutters">
-                  <div className="col-md-3">
-                    <div className="chat-bubble chat-bubble--left">
-                      Hello dude!
-                    </div>
-                  </div>
-                </div>
-                <div className="row no-gutters">
-                  <div className="col-md-3">
-                    <div className="chat-bubble chat-bubble--left">
-                      Hello dude!
-                    </div>
-                  </div>
-                </div>
-                <div className="row no-gutters">
-                  <div className="col-md-3 offset-md-9">
-                    <div className="chat-bubble chat-bubble--right">
-                      Hello dude!
-                    </div>
-                  </div>
-                </div>
+              <div className="chat-panel" style={{ height: "100%" }}>
+                {message.map((item: any) => (
+                  <>
+                    {curUser._id !== item.creatorUser ? (
+                      <div className="row no-gutters">
+                        <div className="col-md-3">
+                          <div className="chat-bubble chat-bubble--left">
+                            {item.message}
+                          </div>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="row no-gutters">
+                        <div className="col-md-3 offset-md-9">
+                          <div className="chat-bubble chat-bubble--right">
+                            {item.message}
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </>
+                ))}
+
                 <div className="row">
                   <div className="col-12">
                     <div className="chat-box-tray">

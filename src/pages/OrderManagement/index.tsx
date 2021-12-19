@@ -49,6 +49,7 @@ const OrderManagement = (props: OrderProps) => {
   const renderNav = () => {
     return orderStatus.map((e: any, i: number) => (
       <span
+        style={{ cursor: "pointer" }}
         onClick={(event: any) => onClickMyNhan(event, i)}
         className="list"
         key={i}
@@ -91,7 +92,7 @@ const OrderManagement = (props: OrderProps) => {
               <div
                 onClick={() => handdleOpen(item)}
                 className="card-header text-white "
-                style={{ backgroundColor: "#82ae46" }}
+                style={{ backgroundColor: "#82ae46", cursor: "pointer" }}
               >{`Order number ${item.orderCode}`}</div>
               <div className="card-body ">
                 <h5 className="card-title">{`Address: ${item.area.address}, ${item.area.district}, ${item.area.province}`}</h5>

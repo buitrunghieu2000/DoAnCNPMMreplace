@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { logoutUser } from "../../features/auths/slice";
 import { selectCurrentUser } from "../../features/auths/slice/selector";
 import { getCurrentUserAsync } from "../../features/auths/slice/thunk";
+import "./style.scss";
 
 function useComponentVisible(initialIsVisible: any) {
   const [isComponentVisible, setIsComponentVisible] =
@@ -149,13 +150,18 @@ const Navbar = () => {
                       style={{ borderRadius: "50%" }}
                     />
 
-                    <label className="ms-3 fw-bold" style={{ paddingTop: 20 }}>
+                    <label
+                      id="nav-userName"
+                      className="ms-3 fw-bold"
+                      style={{ paddingTop: 20 }}
+                    >
                       {user?.name}
                     </label>
                   </Link>
                 </li>
                 <li className="nav-item">
                   <a
+                    id="nav-logOut"
                     onClick={handleLogout}
                     style={{
                       color: "red",
@@ -218,6 +224,11 @@ const Navbar = () => {
                     User Management
                   </Link>
                 </li>
+                <li className="nav-item active">
+                  <Link to="/chat" className="nav-link">
+                    Chat
+                  </Link>
+                </li>
 
                 <li className="nav-item flex">
                   <Link className="nav-link " to="/profile">
@@ -228,13 +239,18 @@ const Navbar = () => {
                       style={{ borderRadius: "50%" }}
                     />
 
-                    <label className="ms-3 fw-bold" style={{ paddingTop: 20 }}>
+                    <label
+                      id="nav-userName"
+                      className="ms-3 fw-bold"
+                      style={{ paddingTop: 20 }}
+                    >
                       {user?.name}
                     </label>
                   </Link>
                 </li>
                 <li className="nav-item">
                   <a
+                    id="nav-logOut"
                     onClick={handleLogout}
                     style={{
                       color: "red",
@@ -265,13 +281,18 @@ const Navbar = () => {
                       style={{ borderRadius: "50%" }}
                     />
 
-                    <label className="ms-3 fw-bold" style={{ paddingTop: 20 }}>
+                    <label
+                      id="nav-userName"
+                      className="ms-3 fw-bold"
+                      style={{ paddingTop: 20 }}
+                    >
                       {user?.name}
                     </label>
                   </Link>
                 </li>
                 <li className="nav-item">
                   <a
+                    id="nav-logOut"
                     onClick={handleLogout}
                     style={{
                       color: "red",

@@ -62,7 +62,9 @@ const UserManagement = (props: userManagementProps) => {
           {allUser.map((item: any, i: number) => (
             <tr key={i}>
               <td>{i}</td>
-              <td onClick={() => handleOpen(item)}>{item.email}</td>
+              <td id="userManagement-email" onClick={() => handleOpen(item)}>
+                {item.email}
+              </td>
               <td>{item.phone}</td>
             </tr>
           ))}
