@@ -66,6 +66,19 @@ const ModalOrderDetail = (props: Props) => {
 const RatingForm = (props: { orderId: string; productId: string }) => {
   const [rating, setRating] = useState(100);
 
+  const arr = [
+    "Terrible",
+    "Terrible+",
+    "Bad",
+    "Bad+",
+    "Average",
+    "Average+",
+    "Great",
+    "Great+",
+    "Awesome",
+    "Awesome+",
+  ];
+
   const {
     register,
     handleSubmit,
@@ -103,6 +116,8 @@ const RatingForm = (props: { orderId: string; productId: string }) => {
           onClick={handleRating}
           ratingValue={rating} /* Available Props */
           allowHalfIcon
+          tooltipArray={arr}
+          showTooltip
         />
         <p></p>
         <div className="form-group">

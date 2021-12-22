@@ -30,10 +30,7 @@ export const ProfilePage = (props: ProfilePageProps) => {
     setOpen2(false);
   };
   const history = useHistory();
-  const { register, handleSubmit } = useForm();
-  const submit = async (data: any, e: any) => {
-    e.preventDefault();
-  };
+
   const user = useSelector(selectCurrentUser);
   const onChangeAvatar = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files?.length > 0) {
@@ -46,6 +43,7 @@ export const ProfilePage = (props: ProfilePageProps) => {
       }
     }
   };
+  console.log(user);
 
   return (
     <div className="profilePage container">
