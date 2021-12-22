@@ -26,6 +26,7 @@ const ShopFilter = (props: Props) => {
         <ul className="product-category">
           <li>
             <a
+              style={{ cursor: "pointer" }}
               className="category"
               id={`category-0`}
               onClick={() => handleClick("", 0)}
@@ -36,6 +37,7 @@ const ShopFilter = (props: Props) => {
           {props.groupProducts.map((item: any, i: number) => (
             <li key={i}>
               <a
+                style={{ cursor: "pointer" }}
                 className="category"
                 id={`category-${i + 1}`}
                 onClick={() => handleClick(item.key, i + 1)}

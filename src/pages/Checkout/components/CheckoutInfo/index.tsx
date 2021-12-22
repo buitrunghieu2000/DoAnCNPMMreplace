@@ -81,7 +81,7 @@ const CheckoutInfo = (props: Props) => {
         notifyError("Cart is empty");
       } else if (cartList.length != 0 && chooseAdd === true) {
         const result = await createOrder(typeOfPayment);
-        // console.log("123", result);
+        console.log("123", result);
         if (typeOfPayment == 1) {
           window.open(result.data.link);
           history.push("/");
