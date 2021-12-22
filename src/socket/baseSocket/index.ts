@@ -5,7 +5,12 @@ class SocketService {
 
   public connect(url: string): Promise<any> {
     return new Promise((rs, rj) => {
-      this.socket = io(url);
+      this.socket = io(url, {
+        transports: ["websocket", "polling"],
+        secure: true,
+        reconnection: true,
+        rejectUnauthorized: false,
+      });
 
       console.log(this.socket);
 
@@ -21,6 +26,10 @@ class SocketService {
       });
     });
   }
+
+  public disconnectSocket = () => {
+    this.socket.disconnect();
+  };
 }
 
 export default new SocketService();

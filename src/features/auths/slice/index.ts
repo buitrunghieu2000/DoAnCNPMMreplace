@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { notifyError, notifySuccess } from "../../../utils/notify";
 import { AuthStateTypes } from "../type";
 import { getCurrentUserAsync, userLoginAsync } from "./thunk";
+import SocketService from "../../../socket/baseSocket";
 
 const initialState: Partial<AuthStateTypes> = {
   user: null,
@@ -18,6 +19,7 @@ export const authSlice = createSlice({
     logoutUser: (state) => {
       state.user = null;
       localStorage.removeItem("token");
+      SocketService.disconnectSocket();
       notifySuccess("Logout Successfully");
     },
   },

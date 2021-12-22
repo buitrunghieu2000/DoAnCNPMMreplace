@@ -6,6 +6,7 @@ import { PrivateRoute } from "../components/PrivateRoute";
 import Subcribe from "../components/Subcribe";
 import { DFRole } from "../Constant/DFRole";
 import Analytics from "../pages/Admin/Analytics";
+import AdminChat from "../pages/Admin/Chat";
 import CreateProductPage from "../pages/Admin/CreateProduct";
 import DetailProduct from "../pages/Admin/DetailProduct";
 import UpdateProduct from "../pages/Admin/UpdateProduct";
@@ -13,7 +14,7 @@ import UserManagement from "../pages/Admin/UserManagement";
 import userManagement from "../pages/Admin/UserManagement";
 
 import { Cart } from "../pages/Cart";
-import ChatSocket from "../pages/Chat";
+
 import CheckoutPage from "../pages/Checkout";
 import { Contact } from "../pages/Contact";
 import { ForgotPass } from "../pages/ForgotPass";
@@ -147,6 +148,13 @@ const routesPrivate = [
     roleRoute: [DFRole.Admin],
   },
   {
+    child: <AdminChat />,
+    path: defaultRoute.adminchat,
+    exact: true,
+    option: true,
+    roleRoute: [DFRole.Admin, DFRole.User],
+  },
+  {
     child: <ResetPass />,
     path: defaultRoute.resetpass,
     exact: true,
@@ -166,14 +174,6 @@ const routesPrivate = [
     exact: true,
     option: true,
     roleRoute: [DFRole.User],
-  },
-
-  {
-    child: <ChatSocket />,
-    path: defaultRoute.chat,
-    exact: true,
-    option: true,
-    roleRoute: [DFRole.User, DFRole.Admin],
   },
 
   {

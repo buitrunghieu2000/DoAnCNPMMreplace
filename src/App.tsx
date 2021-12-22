@@ -6,24 +6,24 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { ToastContainer } from "react-toastify";
 import SocketService from "./socket/baseSocket";
 import "react-toastify/dist/ReactToastify.css";
+
 import io from "socket.io-client";
 
 function App() {
   const token = localStorage.getItem("token");
-  const urlSocket = `https://befreshfood.tk?fcm=123&token=Bearer ${token}`;
-  const connectSocket = async () => {
-    // (window as any).global = window;
-    const socket = io(urlSocket);
-    console.log(socket);
-
-    // const socket = await SocketService.connect(urlSocket).catch((err) => {
-    //   console.log("Error: ", err);
-    // });
+  const connectSocket = async (url: string) => {
+    const socket = await SocketService.connect(url).catch((err) => {
+      console.log("Error: ", err);
+    });
   };
 
   useEffect(() => {
-    connectSocket();
-  }, []);
+    if (token) {
+      console.log(`123`, token);
+      const urlSocket = `https://befreshfood.tk/?token=Bearer ${token}`;
+      connectSocket(urlSocket);
+    }
+  }, [token]);
   return (
     <div>
       <Router></Router>

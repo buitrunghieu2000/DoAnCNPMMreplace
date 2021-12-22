@@ -82,7 +82,7 @@ const Navbar = () => {
                   </Link>
                 </li>
                 <li className="nav-item active">
-                  <Link to="/chat" className="nav-link">
+                  <Link to="/adminchat" className="nav-link">
                     Chat
                   </Link>
                 </li>
@@ -225,7 +225,7 @@ const Navbar = () => {
                   </Link>
                 </li>
                 <li className="nav-item active">
-                  <Link to="/chat" className="nav-link">
+                  <Link to="/adminchat" className="nav-link">
                     Chat
                   </Link>
                 </li>

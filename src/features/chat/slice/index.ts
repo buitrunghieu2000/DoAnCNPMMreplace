@@ -11,7 +11,15 @@ const initialState: Partial<ChatStateTypes> = {
 export const statisticSlice = createSlice({
   name: "Auth",
   initialState,
-  reducers: {},
+  reducers: {
+    addMessage: (state, action: PayloadAction<any>) => {
+      state.message = [action.payload, ...state.message];
+    },
+    revMessage: (state) => {
+      state.message = [];
+      state.room = [];
+    },
+  },
   extraReducers: {
     [getAllMessageAsync.pending.toString()]: (state) => {
       state.status = "loading";
@@ -42,5 +50,5 @@ export const statisticSlice = createSlice({
     },
   },
 });
-
+export const { addMessage, revMessage } = statisticSlice.actions;
 export default statisticSlice.reducer;

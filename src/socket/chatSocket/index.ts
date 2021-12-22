@@ -1,7 +1,7 @@
 import { Socket } from "socket.io-client";
 import { EVENTSOCKET } from "../event.socket";
 
-class WebRTCSocket {
+class ChatSocket {
   public async sendMessageCSS(
     socket: any,
     payload: {
@@ -11,7 +11,7 @@ class WebRTCSocket {
     socket.emit(EVENTSOCKET.SEND_MESSAGE_CSS, payload);
   }
 
-  public async sendMessageSSC(socket: any, listener: () => void) {
+  public async sendMessageSSC(socket: any, listener: (data: any) => void) {
     socket.on(EVENTSOCKET.SEND_MESSAGE_SSC, listener);
   }
 
@@ -34,4 +34,4 @@ class WebRTCSocket {
   }
 }
 
-export default new WebRTCSocket();
+export default new ChatSocket();
