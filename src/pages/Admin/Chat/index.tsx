@@ -97,9 +97,7 @@ const AdminChat = (props: ChatProps) => {
   };
 
   const handleLeaveRoom = () => {
-    if (historyRoom != "") {
-      chatSocket.leaveRoomCSS(baseSocket.socket, { idRoom: historyRoom });
-    }
+    baseSocket.disconnectSocket();
   };
 
   const onMessage = () => {
