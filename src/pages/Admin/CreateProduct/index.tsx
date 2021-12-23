@@ -2,6 +2,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import React, { useState } from "react";
 import { Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { createProductApi } from "../../../apis/product/createProduct.api";
 import { ButtonSpinner } from "../../../components/ButtonSpinner";
@@ -53,12 +54,13 @@ const CreateProductPage = (props: CreateProductPageProps) => {
   React.useEffect(() => {
     dispatch(getAllGroupProductAsync());
   }, []);
-  // console.log(groupProduct);
+
+  const { t, i18n } = useTranslation();
   return (
     <div className="createProduct container w-50">
       <form onSubmit={handleSubmit(submit)}>
         <p className="navbar-brand" style={{ color: "whitesmoke" }}>
-          Add Product
+          {t("admin.CreateProduct.HeaderTitle")}
         </p>
         <div className="d-flex">
           <div className="createProduct-left">
@@ -67,7 +69,7 @@ const CreateProductPage = (props: CreateProductPageProps) => {
               id="name"
               {...register("name")}
               className="form-control"
-              placeholder="Name"
+              placeholder={t("admin.CreateProduct.Title1")}
             />
             <p className="text-danger">{errors.name?.message}</p>
 
@@ -76,7 +78,7 @@ const CreateProductPage = (props: CreateProductPageProps) => {
               id="price"
               {...register("price")}
               className="form-control"
-              placeholder="Price"
+              placeholder={t("admin.CreateProduct.Title2")}
             />
             <p className="text-danger">{errors.price?.message}</p>
 
@@ -89,7 +91,7 @@ const CreateProductPage = (props: CreateProductPageProps) => {
               min="1"
               {...register("weight")}
               className="form-control"
-              placeholder="Weight"
+              placeholder={t("admin.CreateProduct.Title3")}
             />
             <p className="text-danger">{errors.weight?.message}</p>
             <input
@@ -101,7 +103,7 @@ const CreateProductPage = (props: CreateProductPageProps) => {
               id="quantity"
               {...register("quantity")}
               className="form-control"
-              placeholder="Quantity"
+              placeholder={t("admin.CreateProduct.Title4")}
             />
             <p className="text-danger">{errors.quantity?.message}</p>
 
@@ -112,7 +114,11 @@ const CreateProductPage = (props: CreateProductPageProps) => {
               disabled={isSubmitting}
               style={{ backgroundColor: "#f5a623" }}
             >
-              {!isSubmitting ? "Submit" : <ButtonSpinner />}
+              {!isSubmitting ? (
+                t("admin.CreateProduct.Button")
+              ) : (
+                <ButtonSpinner />
+              )}
             </button>
           </div>
 
@@ -121,12 +127,12 @@ const CreateProductPage = (props: CreateProductPageProps) => {
               id="detail"
               {...register("detail")}
               className="form-control"
-              placeholder="Detail"
+              placeholder={t("admin.CreateProduct.Title5")}
             />
             <p className="text-danger">{errors.detail?.message}</p>
             <div className="d-flex justifycontent-space-between">
               <Form.Select {...register("groupProduct")}>
-                <option>Group Product</option>
+                <option>{t("admin.CreateProduct.Title6")}</option>
                 {grProduct.map((item: any, i: number) => (
                   <option key={i}>{item.key}</option>
                 ))}

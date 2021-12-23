@@ -1,4 +1,6 @@
+import { t } from "i18next";
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { getAllProductApi } from "../../../../apis/product/getallproduct.api";
 import { getProductReccomendAsync } from "../../../../apis/product/getproductrecommend.api";
 import CardProduct from "../../../../components/CardProduct";
@@ -6,6 +8,7 @@ import CardProduct from "../../../../components/CardProduct";
 interface Props {}
 
 const OurProduct = (props: Props) => {
+  const { t, i18n } = useTranslation();
   const [list, setList] = useState<any>([]);
 
   React.useEffect(() => {
@@ -29,9 +32,9 @@ const OurProduct = (props: Props) => {
 							ftco-animate
 						"
           >
-            <span className="subheading">Featured Products</span>
-            <h2 className="mb-4">RECOMMEND PRODUCT</h2>
-            <p>Fresh Food from around the world</p>
+            <span className="subheading">{t("homePage.Banner3.Title1")}</span>
+            <h2 className="mb-4">{t("homePage.Banner3.Title2")}</h2>
+            <p>{t("homePage.Banner3.Title3")}</p>
           </div>
         </div>
       </div>

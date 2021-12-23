@@ -1,6 +1,7 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { IoLogoFacebook, IoLogoTwitter } from "react-icons/io";
 import { useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
@@ -15,6 +16,7 @@ import "./style.scss";
 interface SignInProps {}
 
 export const SignIn = (props: SignInProps) => {
+  const { t, i18n } = useTranslation();
   const history = useHistory();
   const dispatch = useDispatch();
   const {
@@ -55,13 +57,13 @@ export const SignIn = (props: SignInProps) => {
           onSubmit={handleSubmit(submit)}
           className="signInPage-form-content"
         >
-          <p>Sign into your account</p>
+          <p>{t("signin.Title1")}</p>
           <input
             type="email"
             {...register("email")}
             id="email"
             className="form-control"
-            placeholder="Email address"
+            placeholder={t("signin.Input1")}
           />
           <p className="text-danger">{errors.email?.message}</p>
           <input
@@ -69,7 +71,7 @@ export const SignIn = (props: SignInProps) => {
             id="password"
             {...register("password")}
             className="form-control"
-            placeholder="Password"
+            placeholder={t("signin.Input2")}
           />
           <p className="text-danger">{errors.password?.message}</p>
 
@@ -79,15 +81,17 @@ export const SignIn = (props: SignInProps) => {
             type="submit"
             disabled={isSubmitting}
           >
-            {!isSubmitting ? "login" : <ButtonSpinner />}
+            {!isSubmitting ? t("signin.Button1") : <ButtonSpinner />}
           </button>
-          <Link to="/forgotpass">Forgot Pass?</Link>
+          <Link to="/forgotpass">{t("signin.Button2")}</Link>
           <p></p>
           <p>
-            Dont have account? <Link to="/signup">Register here</Link>
+            {t("signin.Title2")}
+
+            <Link to="/signup">{t("signin.Button3")}</Link>
           </p>
           <p>
-            SignIn with{" "}
+            {t("signin.Title3")}{" "}
             <a href="#">
               <IoLogoTwitter />
             </a>

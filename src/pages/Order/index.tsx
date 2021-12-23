@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { payloadGetOrderByUser } from "../../apis/order/getOrderByUser.api";
 import { updateStatusOrderApi } from "../../apis/order/updateStatusOrder.api";
@@ -21,6 +22,8 @@ const payload: payloadGetOrderByUser = {
 };
 
 const OrderPage = (props: OrderProps) => {
+  const { t, i18n } = useTranslation();
+
   const dispatch = useDispatch();
 
   const [open, setOpen] = useState(false);
@@ -48,17 +51,52 @@ const OrderPage = (props: OrderProps) => {
   }, []);
 
   const renderNav = () => {
-    return orderStatus.map((e: any, i: number) => (
-      <span
-        style={{ cursor: "pointer" }}
-        onClick={(event: any) => onClickMyNhan(event, i)}
-        className="list"
-        key={i}
-        id={`list-${i}`}
-      >
-        {e.en}
-      </span>
-    ));
+    return (
+      <>
+        <span
+          style={{ cursor: "pointer" }}
+          onClick={(event: any) => onClickMyNhan(event, 0)}
+          className="list"
+          id={`list-${0}`}
+        >
+          {t("order.Title1")}
+        </span>
+        <span
+          style={{ cursor: "pointer" }}
+          onClick={(event: any) => onClickMyNhan(event, 1)}
+          className="list"
+          id={`list-${1}`}
+        >
+          {t("order.Title2")}
+        </span>
+        <span
+          style={{ cursor: "pointer" }}
+          onClick={(event: any) => onClickMyNhan(event, 2)}
+          className="list"
+          id={`list-${2}`}
+        >
+          {t("order.Title3")}
+        </span>
+
+        <span
+          style={{ cursor: "pointer" }}
+          onClick={(event: any) => onClickMyNhan(event, 3)}
+          className="list"
+          id={`list-${3}`}
+        >
+          {t("order.Title4")}
+        </span>
+
+        <span
+          style={{ cursor: "pointer" }}
+          onClick={(event: any) => onClickMyNhan(event, 4)}
+          className="list"
+          id={`list-${4}`}
+        >
+          {t("order.Title5")}
+        </span>
+      </>
+    );
   };
 
   const cancel = async (status: number, id: string) => {
@@ -70,7 +108,6 @@ const OrderPage = (props: OrderProps) => {
   };
 
   const userProduct = useSelector(selectAllOrder);
-  console.log(userProduct);
   return (
     <div className="orderPage container">
       <div className="orderPage-wrapper">{renderNav()}</div>
@@ -85,13 +122,17 @@ const OrderPage = (props: OrderProps) => {
                 className="card-header text-white "
                 style={{ backgroundColor: "#82ae46" }}
                 onClick={() => handdleOpen(item)}
-              >{`Order number ${item.orderCode}`}</div>
+              >{`${t("order.OrderDetail.HeaderTitle")}${item.orderCode}`}</div>
               <div className="card-body ">
-                <h5 className="card-title">{`Address: ${item.area.address}, ${item.area.district}, ${item.area.province}`}</h5>
-                <p className="card-text">{`Total Cost: ${moneyFormater(
-                  item.totalMoney
-                )}`}</p>
-                <p className="card-text">{`Type of Payment: ${item?.typePayment}`}</p>
+                <h5 className="card-title">{`${t("order.OrderDetail.Title1")}${
+                  item.area.address
+                }, ${item.area.district}, ${item.area.province}`}</h5>
+                <p className="card-text">{`${t(
+                  "order.OrderDetail.Title2"
+                )}${moneyFormater(item.totalMoney)}`}</p>
+                <p className="card-text">{`${t("order.OrderDetail.Title3")}${
+                  item?.typePayment
+                }`}</p>
               </div>
               {item.status === 0 ? (
                 <>
@@ -105,7 +146,7 @@ const OrderPage = (props: OrderProps) => {
                       width: "10%",
                     }}
                   >
-                    Canceled
+                    {t("order.OrderDetail.Button")}
                   </button>
                 </>
               ) : (
@@ -121,12 +162,13 @@ const OrderPage = (props: OrderProps) => {
 };
 
 const EmtyOrder = () => {
+  const { t, i18n } = useTranslation();
   return (
     <div className="orderPage-bottom-empty">
       <div className="orderPage-bottom-empty-image">
         <img src={empty} alt="" />
       </div>
-      <h3>Empty Orders</h3>
+      <h3>{t("cart.Banner1.Title3")}</h3>
     </div>
   );
 };

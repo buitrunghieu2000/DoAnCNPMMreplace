@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { BiCurrentLocation } from "react-icons/bi";
 import {
   IoIosArrowUp,
@@ -14,6 +15,7 @@ import { Link } from "react-router-dom";
 interface FooterPageProps {}
 
 export const FooterPage = (props: FooterPageProps) => {
+  const { t, i18n } = useTranslation();
   return (
     <footer className="ftco-footer ftco-section">
       <div className="container">
@@ -29,11 +31,8 @@ export const FooterPage = (props: FooterPageProps) => {
         <div className="row mb-5">
           <div className="col-md">
             <div className="ftco-footer-widget mb-4">
-              <h2 className="ftco-heading-2">Vegefoods</h2>
-              <p>
-                Far far away, behind the word mountains, far from the countries
-                VietNam .
-              </p>
+              <h2 className="ftco-heading-2">{t("footer.Title1")}</h2>
+              <p>{t("footer.Caption1")}</p>
               <ul
                 className="
 									ftco-footer-social
@@ -74,26 +73,26 @@ export const FooterPage = (props: FooterPageProps) => {
           </div>
           <div className="col-md">
             <div className="ftco-footer-widget mb-4 ml-md-5">
-              <h2 className="ftco-heading-2">Menu</h2>
+              <h2 className="ftco-heading-2">{t("footer.Title2")}</h2>
               <ul className="list-unstyled">
                 <li>
                   <Link to="/Shop" className="py-2 d-block">
-                    Shop
+                    {t("footer.Caption2.Content1")}
                   </Link>
                 </li>
                 <li>
                   <Link to="/Contact" className="py-2 d-block">
-                    About
+                    {t("footer.Caption2.Content2")}
                   </Link>
                 </li>
                 <li>
                   <Link to="/" className="py-2 d-block">
-                    Journal
+                    {t("footer.Caption2.Content3")}
                   </Link>
                 </li>
                 <li>
                   <Link to="/Contact" className="py-2 d-block">
-                    Contact Us
+                    {t("footer.Caption2.Content4")}
                   </Link>
                 </li>
               </ul>
@@ -101,39 +100,39 @@ export const FooterPage = (props: FooterPageProps) => {
           </div>
           <div className="col-md-4">
             <div className="ftco-footer-widget mb-4">
-              <h2 className="ftco-heading-2">Help</h2>
+              <h2 className="ftco-heading-2">{t("footer.Title3")}</h2>
               <div className="d-flex">
                 <ul className="list-unstyled mr-l-5 pr-l-3 mr-4">
                   <li>
                     <Link to="/" className="py-2 d-block">
-                      Shipping Information
+                      {t("footer.Caption3.Content1")}
                     </Link>
                   </li>
                   <li>
                     <Link to="/" className="py-2 d-block">
-                      Returns &amp; Exchange
+                      {t("footer.Caption3.Content2")}
                     </Link>
                   </li>
                   <li>
                     <Link to="/" className="py-2 d-block">
-                      Terms &amp; Conditions
+                      {t("footer.Caption3.Content3")}
                     </Link>
                   </li>
                   <li>
                     <Link to="/" className="py-2 d-block">
-                      Privacy Policy
+                      {t("footer.Caption3.Content4")}
                     </Link>
                   </li>
                 </ul>
                 <ul className="list-unstyled">
                   <li>
                     <Link to="/" className="py-2 d-block">
-                      FAQs
+                      {t("footer.Caption3.Content5")}
                     </Link>
                   </li>
                   <li>
                     <Link to="/Contact" className="py-2 d-block">
-                      Contact
+                      {t("footer.Caption3.Content6")}
                     </Link>
                   </li>
                 </ul>
@@ -142,7 +141,7 @@ export const FooterPage = (props: FooterPageProps) => {
           </div>
           <div className="col-md">
             <div className="ftco-footer-widget mb-4">
-              <h2 className="ftco-heading-2">Have a Questions?</h2>
+              <h2 className="ftco-heading-2">{t("footer.Title4")}</h2>
               <div className="block-23 mb-3">
                 <ul>
                   <li>

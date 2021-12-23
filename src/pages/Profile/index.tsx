@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { updateAvatarApi } from "../../apis/auths/updateAvatar.api";
@@ -45,6 +46,8 @@ export const ProfilePage = (props: ProfilePageProps) => {
   };
   console.log(user);
 
+  const { t, i18n } = useTranslation();
+
   return (
     <div className="profilePage container">
       <div className="profilePage-wrapper">
@@ -64,11 +67,13 @@ export const ProfilePage = (props: ProfilePageProps) => {
         <div className="profilePage-wrapper-bottomBackground">
           <div className="signInPage-form-content">
             <h3>
-              Name <span style={{ color: "#82ae46" }}>{user?.name}</span>
+              {t("profile.Name")}{" "}
+              <span style={{ color: "#82ae46" }}>{user?.name}</span>
             </h3>
 
             <h3>
-              Phone <span style={{ color: "#82ae46" }}>{user?.phone}</span>
+              {t("profile.Phone")}{" "}
+              <span style={{ color: "#82ae46" }}>{user?.phone}</span>
             </h3>
 
             <button
@@ -81,7 +86,7 @@ export const ProfilePage = (props: ProfilePageProps) => {
                 color: "white",
               }}
             >
-              Change Info
+              {t("profile.Modal1.Title")}
             </button>
             <button
               onClick={handdleOpen2}
@@ -93,7 +98,7 @@ export const ProfilePage = (props: ProfilePageProps) => {
                 color: "white",
               }}
             >
-              Change Password
+              {t("profile.Modal2.Title")}
             </button>
           </div>
           <ModalChangeInfo open={open} cancel={handdleCancel} />

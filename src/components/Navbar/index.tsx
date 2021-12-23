@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { IoMdCart } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
@@ -30,6 +31,8 @@ function useComponentVisible(initialIsVisible: any) {
 }
 
 const Navbar = () => {
+  const { t, i18n } = useTranslation();
+
   const { ref, isComponentVisible, setIsComponentVisible } =
     useComponentVisible(false);
   const dispatch = useDispatch();
@@ -47,6 +50,10 @@ const Navbar = () => {
     }
   }, []);
 
+  const changeLanguage = (language: any) => {
+    i18n.changeLanguage(language);
+  };
+
   return (
     <nav
       className="
@@ -60,6 +67,20 @@ const Navbar = () => {
         <Link className="navbar-brand" to="/">
           Freshfoods
         </Link>
+        <button
+          onClick={() => changeLanguage("en")}
+          className="btn btn-success"
+          style={{ backgroundColor: "#82ae46", marginLeft: "10px" }}
+        >
+          EN
+        </button>
+        <button
+          onClick={() => changeLanguage("vi")}
+          className="btn btn-success"
+          style={{ backgroundColor: "#82ae46" }}
+        >
+          VN
+        </button>
         <button
           className="navbar-toggler"
           type="button"
@@ -78,12 +99,12 @@ const Navbar = () => {
               <ul className="navbar-nav ml-auto">
                 <li className="nav-item active">
                   <Link to="/" className="nav-link">
-                    Home
+                    {t("navbar.Home")}
                   </Link>
                 </li>
                 <li className="nav-item active">
                   <Link to="/adminchat" className="nav-link">
-                    Chat
+                    {t("navbar.Chat")}
                   </Link>
                 </li>
                 <li className="nav-item dropdown" tabIndex={0} ref={ref}>
@@ -93,7 +114,7 @@ const Navbar = () => {
                     id="dropdown04"
                     onClick={() => setIsComponentVisible(true)}
                   >
-                    Shop
+                    {t("navbar.Shop")}
                   </Link>
                   {isComponentVisible && (
                     <div className="dropdown-menu" aria-labelledby="dropdown04">
@@ -102,7 +123,7 @@ const Navbar = () => {
                         to="/shop"
                         onClick={() => setIsComponentVisible(false)}
                       >
-                        Product
+                        {t("navbar.Product")}
                       </Link>
 
                       <Link
@@ -110,14 +131,14 @@ const Navbar = () => {
                         to="/cart"
                         onClick={() => setIsComponentVisible(false)}
                       >
-                        Cart
+                        {t("navbar.Cart")}
                       </Link>
                       <Link
                         className="dropdown-item"
                         to="/checkout"
                         onClick={() => setIsComponentVisible(false)}
                       >
-                        Checkout
+                        {t("navbar.CheckOut")}
                       </Link>
                     </div>
                   )}
@@ -128,7 +149,7 @@ const Navbar = () => {
                     className="nav-link"
                     onClick={() => setIsComponentVisible(false)}
                   >
-                    Order
+                    {t("navbar.Order")}
                   </Link>
                 </li>
 
@@ -138,7 +159,7 @@ const Navbar = () => {
                     className="nav-link"
                     onClick={() => setIsComponentVisible(false)}
                   >
-                    Contact
+                    {t("navbar.Contact")}
                   </Link>
                 </li>
                 <li className="nav-item flex">
@@ -170,7 +191,7 @@ const Navbar = () => {
                       fontWeight: 400,
                     }}
                   >
-                    Log out
+                    {t("navbar.Logout")}
                   </a>
                 </li>
 
@@ -187,7 +208,7 @@ const Navbar = () => {
               <ul className="navbar-nav ml-auto">
                 <li className="nav-item active">
                   <Link to="/analytics" className="nav-link">
-                    Analytics
+                    {t("navbar.Analytics")}
                   </Link>
                 </li>
                 <li className="nav-item dropdown" tabIndex={0} ref={ref}>
@@ -197,7 +218,7 @@ const Navbar = () => {
                     to="#"
                     id="dropdown04"
                   >
-                    Product
+                    {t("navbar.Product")}
                   </Link>
                   {isComponentVisible && (
                     <div className="dropdown-menu" aria-labelledby="dropdown04">
@@ -206,14 +227,14 @@ const Navbar = () => {
                         to="/createproduct"
                         onClick={() => setIsComponentVisible(false)}
                       >
-                        Create
+                        {t("navbar.Create")}
                       </Link>
                       <Link
                         className="dropdown-item"
                         to="/updateproduct"
                         onClick={() => setIsComponentVisible(false)}
                       >
-                        List
+                        {t("navbar.List")}
                       </Link>
                     </div>
                   )}
@@ -221,12 +242,12 @@ const Navbar = () => {
 
                 <li className="nav-item active">
                   <Link to="/usermanagement" className="nav-link">
-                    User Management
+                    {t("navbar.UserManagement")}
                   </Link>
                 </li>
                 <li className="nav-item active">
                   <Link to="/adminchat" className="nav-link">
-                    Chat
+                    {t("navbar.Chat")}
                   </Link>
                 </li>
 
@@ -259,7 +280,7 @@ const Navbar = () => {
                       fontWeight: 400,
                     }}
                   >
-                    Log out
+                    {t("navbar.Logout")}
                   </a>
                 </li>
               </ul>
@@ -269,7 +290,7 @@ const Navbar = () => {
               <ul className="navbar-nav ml-auto">
                 <li className="nav-item">
                   <Link to="/ordermanagement" className="nav-link">
-                    Order Management
+                    {t("navbar.OrderManagement")}
                   </Link>
                 </li>
                 <li className="nav-item flex">
@@ -301,7 +322,7 @@ const Navbar = () => {
                       fontWeight: 400,
                     }}
                   >
-                    Log out
+                    {t("navbar.Logout")}
                   </a>
                 </li>
               </ul>
@@ -311,7 +332,7 @@ const Navbar = () => {
               <ul className="navbar-nav ml-auto">
                 <li className="nav-item active">
                   <Link to="/" className="nav-link">
-                    Home
+                    {t("navbar.Home")}
                   </Link>
                 </li>
                 <li className="nav-item dropdown" tabIndex={0} ref={ref}>
@@ -321,7 +342,7 @@ const Navbar = () => {
                     to="#"
                     id="dropdown04"
                   >
-                    Shop
+                    {t("navbar.Shop")}
                   </Link>
                   {isComponentVisible && (
                     <div className="dropdown-menu" aria-labelledby="dropdown04">
@@ -330,7 +351,7 @@ const Navbar = () => {
                         to="/shop"
                         onClick={() => setIsComponentVisible(false)}
                       >
-                        Product
+                        {t("navbar.Product")}
                       </Link>
                     </div>
                   )}
@@ -338,17 +359,17 @@ const Navbar = () => {
 
                 <li className="nav-item">
                   <Link to="/contact" className="nav-link">
-                    Contact
+                    {t("navbar.Contact")}
                   </Link>
                 </li>
                 <li className="nav-item">
                   <Link to="/signin" className="nav-link">
-                    SignIn
+                    {t("navbar.Login")}
                   </Link>
                 </li>
                 <li className="nav-item">
                   <Link to="/signup" className="nav-link">
-                    SignUp
+                    {t("navbar.Signup")}
                   </Link>
                 </li>
               </ul>

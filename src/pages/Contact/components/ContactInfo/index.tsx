@@ -1,9 +1,11 @@
 import React from "react";
 import avatar from "../../../../images/MN.jpg";
 import backgournd from "../../../../images/bg_1.jpg";
+import { useTranslation } from "react-i18next";
 interface Props {}
 
 const ContactInfo = (props: Props) => {
+  const { t, i18n } = useTranslation();
   return (
     <section className="ftco-section contact-section bg-light">
       <div className="container">
@@ -12,14 +14,15 @@ const ContactInfo = (props: Props) => {
           <div className="col-md-3 d-flex">
             <div className="info bg-white p-4">
               <p>
-                <span>Address:</span> 28 Luu Chi Hieu street, Ba Ria city
+                <span>{t("contact.Banner2.Title1")}:</span> 28 Luu Chi Hieu
+                street, Ba Ria city
               </p>
             </div>
           </div>
           <div className="col-md-3 d-flex">
             <div className="info bg-white p-4">
               <p>
-                <span>Phone:</span>{" "}
+                <span>{t("contact.Banner2.Title2")}:</span>{" "}
                 <a href="tel://1234567920">+ 0925 100 721</a>
               </p>
             </div>
@@ -47,21 +50,21 @@ const ContactInfo = (props: Props) => {
                 <input
                   type="text"
                   className="form-control"
-                  placeholder="Your Name"
+                  placeholder={t("contact.Info.Input1")}
                 />
               </div>
               <div className="form-group">
                 <input
                   type="text"
                   className="form-control"
-                  placeholder="Your Email"
+                  placeholder={t("contact.Info.Input2")}
                 />
               </div>
               <div className="form-group">
                 <input
                   type="text"
                   className="form-control"
-                  placeholder="Subject"
+                  placeholder={t("contact.Info.Input3")}
                 />
               </div>
               <div className="form-group">
@@ -69,7 +72,7 @@ const ContactInfo = (props: Props) => {
               </div>
               <div className="form-group">
                 <button type="submit" className="btn btn-primary py-3 px-5">
-                  Send Message
+                  {t("contact.Info.Button")}
                 </button>
               </div>
             </form>

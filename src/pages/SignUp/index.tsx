@@ -10,10 +10,12 @@ import "./style.scss";
 import { date } from "yup";
 import { getCurrentUserAsync } from "../../features/auths/slice/thunk";
 import { useDispatch } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 interface SignInProps {}
 
 export const SignUp = (props: SignInProps) => {
+  const { t, i18n } = useTranslation();
   const history = useHistory(); //chuyen trang
   const dispatch = useDispatch();
   const {
@@ -56,13 +58,13 @@ export const SignUp = (props: SignInProps) => {
           onSubmit={handleSubmit(submit)}
           className="signUpPage-form-content"
         >
-          <p>Sign up your account</p>
+          <p>{t("signup.Title1")}</p>
           <input
             type="email"
             {...register("email")}
             id="email"
             className="form-control"
-            placeholder="Email address"
+            placeholder={t("signup.Input1")}
           />
           <p className="text-danger">{errors.email?.message}</p>
           <input
@@ -70,7 +72,7 @@ export const SignUp = (props: SignInProps) => {
             {...register("name")}
             id="name"
             className="form-control"
-            placeholder="Full Name"
+            placeholder={t("signup.Input2")}
           />
           <p className="text-danger">{errors.name?.message}</p>
           <input
@@ -78,7 +80,7 @@ export const SignUp = (props: SignInProps) => {
             id="phone"
             {...register("phone")}
             className="form-control"
-            placeholder="Phone"
+            placeholder={t("signup.Input3")}
           />
 
           <p className="text-danger">{errors.phone?.message}</p>
@@ -87,7 +89,7 @@ export const SignUp = (props: SignInProps) => {
             {...register("password")}
             id="password"
             className="form-control"
-            placeholder="Password"
+            placeholder={t("signup.Input4")}
           />
           <p className="text-danger">{errors.password?.message}</p>
           <input
@@ -95,7 +97,7 @@ export const SignUp = (props: SignInProps) => {
             {...register("confirmPassword")}
             id="confirmPassword"
             className="form-control"
-            placeholder="Confirm Password"
+            placeholder={t("signup.Input5")}
           />
           <p className="text-danger">{errors.confirmPassword?.message}</p>
           <button
@@ -105,16 +107,16 @@ export const SignUp = (props: SignInProps) => {
             disabled={isSubmitting}
           >
             {!isSubmitting ? (
-              "Register"
+              t("signup.Button1")
             ) : (
               <span className="spinner-border spinner-border-sm"></span>
             )}
           </button>
           <p>
-            Already have account? <Link to="/signin">Signin here</Link>
+            {t("signup.Title2")} <Link to="/signin">{t("signup.Button2")}</Link>
           </p>
           <p>
-            Signin with{" "}
+            {t("signup.Title3")}{" "}
             <a href="#">
               <IoLogoTwitter />
             </a>

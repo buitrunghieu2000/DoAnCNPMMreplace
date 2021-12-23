@@ -1,6 +1,7 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import { updateInfomatinApi } from "../../../../apis/auths/updateinfomation.api";
 import { ButtonSpinner } from "../../../../components/ButtonSpinner";
@@ -31,19 +32,25 @@ const ModalChangeInfo = (props: Props) => {
       dispatch(getCurrentUserAsync());
     }
   };
+  const { t, i18n } = useTranslation();
+
   return (
     <div>
       {props.open ? (
-        <ModalLMS title="Change InFo" withHeader={true} cancel={props.cancel}>
+        <ModalLMS
+          title={t("profile.Modal1.HeaderTitle")}
+          withHeader={true}
+          cancel={props.cancel}
+        >
           <div className="changeInfo">
             <form onSubmit={handleSubmit(submit)} className="changInfomation">
-              <p>INFOMATION</p>
+              <p>{t("profile.Modal1.SubTitle")}</p>
               <input
                 type=""
                 {...register("phone")}
                 id="phone"
                 className="form-control"
-                placeholder="Phone"
+                placeholder={t("profile.Modal1.Input1")}
               />
               <p className="text-danger">{errors.phone?.message}</p>
               <input
@@ -51,7 +58,7 @@ const ModalChangeInfo = (props: Props) => {
                 id="name"
                 {...register("name")}
                 className="form-control"
-                placeholder="Name"
+                placeholder={t("profile.Modal1.Input2")}
               />
               <p className="text-danger">{errors.name?.message}</p>
 
@@ -61,7 +68,7 @@ const ModalChangeInfo = (props: Props) => {
                 type="submit"
                 style={{ backgroundColor: "#82ae46" }}
               >
-                {isSubmitting ? <ButtonSpinner /> : "Submit"}
+                {isSubmitting ? <ButtonSpinner /> : t("profile.Modal1.Button")}
               </button>
             </form>
           </div>

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Table } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllUserApi } from "../../../apis/user/getAllUser.api";
 import { getDetailUser } from "../../../features/user/slice";
@@ -33,6 +34,8 @@ const UserManagement = (props: userManagementProps) => {
     setActive(value);
     dispatch(getAllUserAsync({ skip: 1, limit: 10, role: value ? 2 : 0 }));
   };
+
+  const { t, i18n } = useTranslation();
   return (
     <div className="userManagement container">
       <div className="roleChoose d-flex ">
@@ -40,13 +43,13 @@ const UserManagement = (props: userManagementProps) => {
           className={`roleChoose-role ${!active ? "active" : ""}`}
           onClick={() => handleChangeRole(false)}
         >
-          User
+          {t("admin.UserManagement.Button1")}
         </a>
         <a
           className={`roleChoose-role ${active ? "active" : ""}`}
           onClick={() => handleChangeRole(true)}
         >
-          Staff
+          {t("admin.UserManagement.Button2")}
         </a>
       </div>
 
@@ -55,7 +58,7 @@ const UserManagement = (props: userManagementProps) => {
           <tr>
             <th>#</th>
             <th>Email</th>
-            <th>Phone</th>
+            <th>{t("admin.UserManagement.Title")}</th>
           </tr>
         </thead>
         <tbody>

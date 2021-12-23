@@ -1,6 +1,7 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import { createGroupProductApi } from "../../../../../apis/groupProduct/createGroupProduct.api";
 import { getAllGroupProductApi } from "../../../../../apis/groupProduct/getAllGroupProduct.api";
@@ -15,6 +16,7 @@ interface Props {
 }
 
 const ModalUpdateGrP = (props: Props) => {
+  const { t, i18n } = useTranslation();
   const {
     register,
     handleSubmit,
@@ -40,7 +42,7 @@ const ModalUpdateGrP = (props: Props) => {
       {props.open ? (
         <ModalLMS title="" withHeader={true} cancel={props.cancel}>
           <div className="navbar-brand d-flex justify-content-center">
-            Add Group Product
+            {t("admin.CreateProduct.Modal.HeaderTitle")}
           </div>
           <p></p>
           <div className="d-flex justify-content-center">
@@ -53,7 +55,7 @@ const ModalUpdateGrP = (props: Props) => {
                 {...register("name")}
                 id="name"
                 className="form-control"
-                placeholder="Name"
+                placeholder={t("admin.CreateProduct.Modal.Title1")}
               />
               <p></p>
               <button
@@ -63,7 +65,11 @@ const ModalUpdateGrP = (props: Props) => {
                 style={{ backgroundColor: "#82ae46" }}
                 disabled={isSubmitting}
               >
-                {isSubmitting ? <ButtonSpinner /> : "Submit"}
+                {isSubmitting ? (
+                  <ButtonSpinner />
+                ) : (
+                  t("admin.CreateProduct.Modal.Button")
+                )}
               </button>
             </form>
           </div>

@@ -1,6 +1,7 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router";
 import { changePassAsync } from "../../../../apis/auths/changePass.api";
 import { ButtonSpinner } from "../../../../components/ButtonSpinner";
@@ -40,22 +41,30 @@ const ModalChangePass = (props: Props) => {
     });
   };
 
+  const { t, i18n } = useTranslation();
+
   return (
     <div>
       {props.open2 ? (
-        <ModalLMS title="Change InFo" withHeader={true} cancel={props.cancel2}>
+        <ModalLMS
+          title={t("profile.Modal2.HeaderTitle")}
+          withHeader={true}
+          cancel={props.cancel2}
+        >
           <div className="d-flex justify-content-center">
             <form
               onSubmit={handleSubmit(submit)}
               className="d-flex flex-column w-50"
             >
-              <p>Change Pass</p>
+              <p style={{ textAlign: "center" }}>
+                {t("profile.Modal2.SubTitle")}
+              </p>
               <input
                 type="password"
                 {...register("oldPassword")}
                 id="phone"
                 className="form-control"
-                placeholder="Old Password"
+                placeholder={t("profile.Modal2.Input1")}
               />
               <p className="text-danger">{errors.oldPassword?.message}</p>
               <input
@@ -63,7 +72,7 @@ const ModalChangePass = (props: Props) => {
                 id="name"
                 {...register("newPassword")}
                 className="form-control"
-                placeholder="New Password"
+                placeholder={t("profile.Modal2.Input2")}
               />
               <p className="text-danger">{errors.newPassword?.message}</p>
 
@@ -74,7 +83,7 @@ const ModalChangePass = (props: Props) => {
                 style={{ backgroundColor: "#82ae46" }}
                 disabled={isSubmitting}
               >
-                {isSubmitting ? <ButtonSpinner /> : "Submit"}
+                {isSubmitting ? <ButtonSpinner /> : t("profile.Modal1.Button")}
               </button>
             </form>
           </div>

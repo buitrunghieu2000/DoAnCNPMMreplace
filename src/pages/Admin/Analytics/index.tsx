@@ -1,6 +1,7 @@
 import dayjs from "dayjs";
 import _ from "lodash";
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductStatisticApi } from "../../../apis/statistic/getProducStatistic.api";
 import { payloadGetStatisticOrder } from "../../../apis/statistic/getStatisticOrder.api";
@@ -56,12 +57,12 @@ const Analytics = (props: AnalyticsProps) => {
     dispatch(getAllChartAsync({ timeStart: newStartTime, timeEnd: result }));
     setStatsDay(Arr(result));
   };
-
+  const { t, i18n } = useTranslation();
   return (
     <div className="container">
       <div>
         <span> </span>
-        <span>Time End: </span>
+        <span>{t("admin.Analytics.TimeEnd")} </span>
         <input
           type="date"
           id="end"
@@ -76,18 +77,18 @@ const Analytics = (props: AnalyticsProps) => {
         <ChartStats
           data={totalOrder}
           statsDate={statsDay}
-          headerText="Total Order 7 Days"
-          yText="Total Order"
-          seriesText="Order"
+          headerText={t("admin.Analytics.ChartTitle1")}
+          yText={t("admin.Analytics.SubTitle1")}
+          seriesText={t("admin.Analytics.Caption1")}
           className="mb-5"
         />
 
         <ChartStats
           data={totalMoney}
           statsDate={statsDay}
-          headerText="Total Money 7 Days"
-          yText="Total Money"
-          seriesText="Money"
+          headerText={t("admin.Analytics.ChartTitle2")}
+          yText={t("admin.Analytics.SubTitle2")}
+          seriesText={t("admin.Analytics.Caption2")}
         />
       </div>
       <div className="d-flex justify-content-center">

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { Rating } from "react-simple-star-rating";
 import { createRatingApi } from "../../../../apis/rate/createRating.api";
@@ -15,12 +16,17 @@ interface Props {
 }
 
 const ModalOrderDetail = (props: Props) => {
+  const { t, i18n } = useTranslation();
   const order = useSelector(selectDetailOrder);
 
   return (
     <div>
       {props.open ? (
-        <ModalLMS title="Order Detail" withHeader={true} cancel={props.cancel}>
+        <ModalLMS
+          title={t("order.Modal.HeaderTitle")}
+          withHeader={true}
+          cancel={props.cancel}
+        >
           {order?.product?.map((item: any, i: number) => (
             <div className="card mb-3" key={i}>
               <div className="row g-0">
@@ -39,11 +45,15 @@ const ModalOrderDetail = (props: Props) => {
                 <div className="col-md-7">
                   <div className="card-body">
                     <h5 className="card-title">{item?.name}</h5>
-                    <p className="card-text">{`Quantity: ${item?.quantity}`}</p>
-                    <p className="card-text">{`Weight: ${item?.weight} kg`}</p>
-                    <p className="card-text">{`Price: ${moneyFormater(
-                      item?.price
-                    )}`}</p>
+                    <p className="card-text">{`${t("order.Modal.Title1")}${
+                      item?.quantity
+                    }`}</p>
+                    <p className="card-text">{`${t("order.Modal.Title2")}${
+                      item?.weight
+                    } kg`}</p>
+                    <p className="card-text">{`${t(
+                      "order.Modal.Title3"
+                    )}${moneyFormater(item?.price)}`}</p>
                     {order?.status === 3 && (
                       <RatingForm
                         orderId={order._id}
@@ -65,18 +75,18 @@ const ModalOrderDetail = (props: Props) => {
 
 const RatingForm = (props: { orderId: string; productId: string }) => {
   const [rating, setRating] = useState(100);
-
+  const { t, i18n } = useTranslation();
   const arr = [
-    "Terrible",
-    "Terrible+",
-    "Bad",
-    "Bad+",
-    "Average",
-    "Average+",
-    "Great",
-    "Great+",
-    "Awesome",
-    "Awesome+",
+    `${t("order.Rating.Level1")}`,
+    `${t("order.Rating.Level2")}`,
+    `${t("order.Rating.Level3")}`,
+    `${t("order.Rating.Level4")}`,
+    `${t("order.Rating.Level5")}`,
+    `${t("order.Rating.Level6")}`,
+    `${t("order.Rating.Level7")}`,
+    `${t("order.Rating.Level8")}`,
+    `${t("order.Rating.Level9")}`,
+    `${t("order.Rating.Level10")}`,
   ];
 
   const {
@@ -106,11 +116,12 @@ const RatingForm = (props: { orderId: string; productId: string }) => {
     setRating(rate);
     // other logic
   };
+
   return (
     <>
       {" "}
       <form onSubmit={handleSubmit(submit)}>
-        <span>Rating:</span> {""}
+        <span>{t("order.Modal.Title4")}</span>
         <Rating
           initialValue={rating}
           onClick={handleRating}
@@ -126,7 +137,7 @@ const RatingForm = (props: { orderId: string; productId: string }) => {
             {...register("content")}
             className="form-control"
             id="exampleFormControlTextarea1"
-            placeholder="Comment"
+            placeholder={t("order.Modal.Input")}
           ></textarea>
         </div>
         <button
@@ -134,7 +145,7 @@ const RatingForm = (props: { orderId: string; productId: string }) => {
           className="btn btn-success"
           style={{ backgroundColor: "#82ae46" }}
         >
-          {!isSubmitting ? "Submit" : <ButtonSpinner />}
+          {!isSubmitting ? t("order.Modal.Button") : <ButtonSpinner />}
         </button>
       </form>
     </>

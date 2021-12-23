@@ -1,5 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { createRatingApi } from "../../../../apis/rate/createRating.api";
 import { ModalLMS } from "../../../../components/Modal";
@@ -30,11 +31,15 @@ const ModalOrderDetail = (props: Props) => {
       reset();
     }
   };
-
+  const { t, i18n } = useTranslation();
   return (
     <div>
       {props.open ? (
-        <ModalLMS title="Order Detail" withHeader={true} cancel={props.cancel}>
+        <ModalLMS
+          title={t("order.Modal.HeaderTitle")}
+          withHeader={true}
+          cancel={props.cancel}
+        >
           {order?.product?.map((item: any, i: number) => (
             <div className="card mb-3" key={i}>
               <div className="row g-0">
@@ -53,11 +58,15 @@ const ModalOrderDetail = (props: Props) => {
                 <div className="col-md-7">
                   <div className="card-body">
                     <h5 className="card-title">{item?.name}</h5>
-                    <p className="card-text">{`Quantity: ${item?.quantity}`}</p>
-                    <p className="card-text">{`Weight: ${item?.weight} kg`}</p>
-                    <p className="card-text">{`Price: ${moneyFormater(
-                      item?.price
-                    )}`}</p>
+                    <p className="card-text">{`${t("order.Modal.Title1")}${
+                      item?.quantity
+                    }`}</p>
+                    <p className="card-text">{`${t("order.Modal.Title2")}${
+                      item?.weight
+                    } kg`}</p>
+                    <p className="card-text">{`${t(
+                      "order.Modal.Title3"
+                    )}${moneyFormater(item?.price)}`}</p>
                   </div>
                 </div>
               </div>

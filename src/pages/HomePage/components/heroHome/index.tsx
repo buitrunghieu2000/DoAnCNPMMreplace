@@ -1,26 +1,10 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import Slider from "react-slick";
 import bg1 from "../../../../images/bg_1.jpg";
 import bg2 from "../../../../images/bg_2.jpg";
 const ServiceHome = () => {
-  // const heroBanner: Array<{ title: string; caption: string }> = [
-  // 	{
-  // 		title: 'Free Shipping',
-  // 		caption: 'Free Shipping',
-  // 	},
-  // 	{
-  // 		title: '>Always Fresh',
-  // 		caption: 'Product well package',
-  // 	},
-  // 	{
-  // 		title: 'Superior Quality',
-  // 		caption: 'Quality Products',
-  // 	},
-  // 	{
-  // 		title: 'Support',
-  // 		caption: '24/7 Support',
-  // 	},
-  // ];
+  const { t, i18n } = useTranslation();
   const settings = {
     dots: true,
     infinite: true,
@@ -51,20 +35,10 @@ const ServiceHome = () => {
                   data-scrollax-parent="true"
                 >
                   <div className="col-md-12 text-center">
-                    <h1 className="mb-2">
-                      We serve Fresh Vegestables &amp; Fruits
-                    </h1>
+                    <h1 className="mb-2">{t("homePage.Banner1.Title1")}</h1>
                     <h2 className="subheading mb-4">
-                      We deliver organic vegetables &amp; fruits
+                      {t("homePage.Banner1.Title2")}
                     </h2>
-                    {/* <p>
-											<a
-												href='#'
-												className='btn btn-primary'
-											>
-												View Details
-											</a>
-										</p> */}
                   </div>
                 </div>
               </div>
@@ -88,9 +62,9 @@ const ServiceHome = () => {
                   data-scrollax-parent="true"
                 >
                   <div className="col-sm-12 text-center">
-                    <h1 className="mb-2">100% Fresh &amp; Organic Foods</h1>
+                    <h1 className="mb-2">{t("homePage.Banner1.Title3")}</h1>
                     <h2 className="subheading mb-4">
-                      We deliver organic vegetables &amp; fruits
+                      {t("homePage.Banner1.Title2")}
                     </h2>
                     {/* <p>
                       <a href="#" className="btn btn-primary">

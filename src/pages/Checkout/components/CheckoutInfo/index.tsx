@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { getShipFeeApi } from "../../../../apis/address/getshipfee.api";
@@ -70,7 +71,7 @@ const CheckoutInfo = (props: Props) => {
     // console.log(order);
     return order;
   };
-  console.log(`1,2,3`);
+
   const handleSubmitForm = async (e: any) => {
     e.preventDefault();
 
@@ -121,6 +122,8 @@ const CheckoutInfo = (props: Props) => {
     setChooseAdd(true);
   };
 
+  const { t, i18n } = useTranslation();
+
   return (
     <div>
       <section className="ftco-section">
@@ -128,10 +131,12 @@ const CheckoutInfo = (props: Props) => {
           <div className="row justify-content-center">
             <div className="col-xl-7 ftco-animate">
               <form action="#" className="billing-form">
-                <h3 className="mb-4 billing-heading">Billing Details</h3>
+                <h3 className="mb-4 billing-heading">
+                  {t("checkout.HeaderTiltle")}
+                </h3>
                 <div className="row align-items-end">
                   <div className="col-md-6">
-                    <label>Delivery Address</label>
+                    <label>{t("checkout.SubTitle1")}</label>
                     <div className=" form-group d-flex">
                       <SelectCustom
                         options={addresses}
@@ -149,7 +154,7 @@ const CheckoutInfo = (props: Props) => {
                   </div>
                 </div>
 
-                <label>List items</label>
+                <label>{t("checkout.SubTitle2")}</label>
                 {cartList.length === 0 ? (
                   <EmtyCart />
                 ) : (
@@ -160,12 +165,12 @@ const CheckoutInfo = (props: Props) => {
                           <table className="table">
                             <thead className="thead-primary">
                               <tr className="text-center">
-                                <th>Product imgage</th>
-                                <th>Product name</th>
-                                <th>Weight</th>
-                                <th>Price</th>
-                                <th>Quantity</th>
-                                <th>Total</th>
+                                <th>{t("checkout.CartInfo.Title1")}</th>
+                                <th>{t("checkout.CartInfo.Title2")}</th>
+                                <th>{t("checkout.CartInfo.Title3")}</th>
+                                <th>{t("checkout.CartInfo.Title4")}</th>
+                                <th>{t("checkout.CartInfo.Title5")}</th>
+                                <th>{t("checkout.CartInfo.Title6")}</th>
                               </tr>
                             </thead>
                             <tbody>
@@ -226,9 +231,11 @@ const CheckoutInfo = (props: Props) => {
               <div className="row mt-5 pt-3">
                 <div className="col-md-12 d-flex mb-5">
                   <div className="cart-detail cart-total p-3 p-md-4">
-                    <h3 className="billing-heading mb-4">Cart Total</h3>
+                    <h3 className="billing-heading mb-4">
+                      {t("checkout.Banner2.Title1")}
+                    </h3>
                     <p className="d-flex">
-                      <span>Subtotal</span>
+                      <span>{t("checkout.Banner2.Title2")}</span>
                       <span>
                         {cartList.length != 0
                           ? moneyFormater(
@@ -242,13 +249,13 @@ const CheckoutInfo = (props: Props) => {
                       </span>
                     </p>
                     <p className="d-flex">
-                      <span>Delivery</span>
+                      <span>{t("checkout.Banner2.Title3")}</span>
                       <span>{moneyFormater(shipFee)}</span>
                     </p>
 
                     <hr />
                     <p className="d-flex total-price">
-                      <span>Total</span>
+                      <span>{t("checkout.Banner2.Title4")}</span>
                       <span>
                         {cartList.length != 0
                           ? moneyFormater(
@@ -268,7 +275,9 @@ const CheckoutInfo = (props: Props) => {
                     className="cart-detail p-3 p-md-4"
                     onSubmit={handleSubmitForm}
                   >
-                    <h3 className="billing-heading mb-4">Payment Method</h3>
+                    <h3 className="billing-heading mb-4">
+                      {t("checkout.Banner3.Title")}
+                    </h3>
                     <div className="form-group">
                       <div className="col-md-12">
                         <div className="radio">
@@ -317,7 +326,7 @@ const CheckoutInfo = (props: Props) => {
 
                     <p>
                       <button className="btn btn-primary py-3 px-4">
-                        Place an order
+                        {t("checkout.Banner3.Button")}
                       </button>
                     </p>
                   </form>

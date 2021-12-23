@@ -1,7 +1,9 @@
 import React from "react";
 import Chart from "react-google-charts";
+import { useTranslation } from "react-i18next";
 
 export const ChartPie = (props: { product: any; sold: any }) => {
+  const { t, i18n } = useTranslation();
   return (
     <>
       <Chart
@@ -18,7 +20,7 @@ export const ChartPie = (props: { product: any; sold: any }) => {
           [props.product[4], props.sold[4]],
         ]}
         options={{
-          title: "Popularity of Products in FreshFood",
+          title: t("admin.Analytics.ChartTitle3"),
         }}
         rootProps={{ "data-testid": "1" }}
       />

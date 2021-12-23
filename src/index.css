@@ -46,7 +46,6 @@
 }
 
 html {
-  font-family: "Poppins", sans-serif;
   line-height: 1.15;
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -67,7 +66,7 @@ section {
 
 body {
   margin: 0;
-  font-family: "Poppins", Arial, sans-serif !important;
+  font-family: "Roboto Slab", serif !important;
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
@@ -197,7 +196,6 @@ pre,
 code,
 kbd,
 samp {
-  font-family: "Poppins", Arial, sans-serif;
   font-size: 1em;
 }
 
@@ -257,7 +255,7 @@ select,
 optgroup,
 textarea {
   margin: 0;
-  font-family: "Poppins", Arial, sans-serif;
+
   font-size: inherit;
   line-height: inherit;
 }
@@ -378,7 +376,7 @@ h6,
 .h5,
 .h6 {
   margin-bottom: 0.5rem;
-  font-family: "Poppins", Arial, sans-serif;
+
   font-weight: 500;
   line-height: 1.2;
   color: inherit;
@@ -6206,7 +6204,7 @@ a.close.disabled {
   z-index: 1070;
   display: block;
   margin: 0;
-  font-family: "Poppins", Arial, sans-serif;
+
   font-style: normal;
   font-weight: 400;
   line-height: 1.5;
@@ -6320,7 +6318,7 @@ a.close.disabled {
   z-index: 1060;
   display: block;
   max-width: 276px;
-  font-family: "Poppins", Arial, sans-serif;
+
   font-style: normal;
   font-weight: 400;
   line-height: 1.5;
@@ -10150,10 +10148,6 @@ button.bg-dark:focus {
   }
 }
 
-.text-monospace {
-  font-family: "Poppins", Arial, sans-serif;
-}
-
 .text-justify {
   text-align: justify !important;
 }
@@ -10466,7 +10460,6 @@ a.text-dark:focus {
 }
 
 body {
-  font-family: "Poppins", Arial, sans-serif;
   background: #fff;
   font-size: 15px;
   line-height: 1.8;
@@ -10505,7 +10498,6 @@ h5,
   line-height: 1.5;
   font-weight: 400;
   color: #000000;
-  font-family: "Poppins", Arial, sans-serif;
 }
 
 .text-primary {
@@ -10788,7 +10780,7 @@ h5,
   font-weight: 800;
   color: #fff;
   font-size: 30px;
-  font-family: "Poppins", Arial, sans-serif;
+
   letter-spacing: 3px;
   text-transform: uppercase;
 }
@@ -10983,7 +10975,6 @@ h5,
   color: #fff;
   line-height: 1.3;
   font-weight: 400;
-  font-family: "Poppins", Arial, sans-serif;
 }
 @media (max-width: 767.98px) {
   .owl-carousel.home-slider .slider-item .slider-text h1 {
@@ -11250,7 +11241,7 @@ h5,
 
 .deal-of-the-day h3 {
   font-size: 30px;
-  font-family: "Poppins", Arial, sans-serif;
+
   font-style: italic;
 }
 .deal-of-the-day h3 a {
@@ -11424,7 +11415,6 @@ h5,
   font-weight: 300;
   text-transform: uppercase;
   letter-spacing: 1px;
-  font-family: "Poppins", Arial, sans-serif;
 }
 .product .text h3 a {
   color: #000000;
@@ -12111,7 +12101,7 @@ textarea.form-control {
   font-size: 18px;
   display: block;
   margin-bottom: 10px;
-  font-family: "Poppins", Arial, sans-serif;
+
   font-style: italic;
   color: #82ae46;
 }
@@ -12120,7 +12110,6 @@ textarea.form-control {
   font-size: 40px;
   font-weight: 600;
   color: #000000;
-  font-family: "Poppins", Arial, sans-serif;
 }
 @media (max-width: 767.98px) {
   .heading-section h2 {
@@ -12205,7 +12194,7 @@ textarea.form-control {
   font-size: 15px;
   text-transform: uppercase;
   font-weight: 500;
-  font-family: "Poppins", Arial, sans-serif;
+
   color: #000000;
 }
 .ftco-services .services .media-body span {
@@ -12233,7 +12222,6 @@ textarea.form-control {
 }
 .ftco-category .category-wrap .text h2 {
   font-size: 18px;
-  font-family: "Poppins", Arial, sans-serif;
 }
 .ftco-category .category-wrap .text h2 a {
   color: #fff;
@@ -12247,7 +12235,7 @@ textarea.form-control {
 }
 .ftco-category .category-wrap-2 .text h2 {
   color: #82ae46;
-  font-family: "Poppins", Arial, sans-serif;
+
   font-style: italic;
   font-size: 24px;
 }

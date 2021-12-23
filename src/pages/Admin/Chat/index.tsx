@@ -40,7 +40,7 @@ const AdminChat = (props: ChatProps) => {
   const token = localStorage.getItem("token");
   React.useEffect(() => {
     if (token) {
-      console.log(`123`, token);
+      // console.log(`123`, token);
       const urlSocket = `https://befreshfood.tk/?token=Bearer ${token}`;
       connectSocket(urlSocket);
     }
@@ -106,6 +106,9 @@ const AdminChat = (props: ChatProps) => {
         dispatch(addMessage(data));
       });
     }
+  };
+  window.onhashchange = () => {
+    baseSocket.disconnectSocket();
   };
 
   return (

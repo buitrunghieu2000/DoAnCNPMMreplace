@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router";
 import { deleteCartAsync } from "../../../../apis/cart/deletecart.api";
 import { getAllCartAsync } from "../../../../apis/cart/getallcart.api";
@@ -9,6 +10,7 @@ import { notifySuccess } from "../../../../utils/notify";
 interface Props {}
 
 const CartInfo = (props: Props) => {
+  const { t, i18n } = useTranslation();
   const [cartList, setCartList] = useState<Array<any>>([]);
   console.log(cartList);
 
@@ -91,12 +93,12 @@ const CartInfo = (props: Props) => {
                       <thead className="thead-primary">
                         <tr className="text-center">
                           <th>&nbsp;</th>
-                          <th>Image</th>
-                          <th>Product name</th>
-                          <th>Weight</th>
-                          <th>Price</th>
-                          <th>Quantity</th>
-                          <th>Total</th>
+                          <th>{t("cart.CartInfo.Title1")}</th>
+                          <th>{t("cart.CartInfo.Title2")}</th>
+                          <th>{t("cart.CartInfo.Title3")}</th>
+                          <th>{t("cart.CartInfo.Title4")}</th>
+                          <th>{t("cart.CartInfo.Title5")}</th>
+                          <th>{t("cart.CartInfo.Title6")}</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -161,9 +163,9 @@ const CartInfo = (props: Props) => {
               <div className="row justify-content-start">
                 <div className="col-lg-4 mt-5 cart-wrap ftco-animate">
                   <div className="cart-total mb-3">
-                    <h3>Cart Totals</h3>
+                    <h3>{t("cart.Banner2.Title1")}</h3>
                     <p className="d-flex">
-                      <span>Subtotal</span>
+                      <span>{t("cart.Banner2.Title2")}</span>
                       <span>
                         {cartList.length != 0
                           ? moneyFormater(
@@ -177,12 +179,12 @@ const CartInfo = (props: Props) => {
                       </span>
                     </p>
                     <p className="d-flex">
-                      <span>Delivery</span>
+                      <span>{t("cart.Banner2.Title3")}</span>
                       <span>0 VND</span>
                     </p>
                     <hr />
                     <p className="d-flex total-price">
-                      <span>Total</span>
+                      <span>{t("cart.Banner2.Title4")}</span>
                       <span>
                         {cartList.length != 0
                           ? moneyFormater(
@@ -201,7 +203,7 @@ const CartInfo = (props: Props) => {
                       className="btn btn-primary py-3 px-4"
                       onClick={hanldeCheckOut}
                     >
-                      Proceed to Checkout
+                      {t("cart.Banner2.Button")}
                     </button>
                   </p>
                   <div>
@@ -223,12 +225,13 @@ const CartInfo = (props: Props) => {
 };
 
 export const EmtyCart = () => {
+  const { t, i18n } = useTranslation();
   return (
     <div className="orderPage-bottom-empty">
       <div className="orderPage-bottom-empty-image">
         <img src={empty} alt="" />
       </div>
-      <h3>Empty Cart</h3>
+      <h3>{t("cart.Banner1.Title3")}</h3>
     </div>
   );
 };
