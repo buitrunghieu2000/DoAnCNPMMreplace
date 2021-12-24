@@ -100,12 +100,12 @@ const OrderManagement = (props: OrderProps) => {
 
   const submit = async (status: number, id: string) => {
     if (status === 3 || status === 4) {
-      notifyError("Failed");
+      notifyError("Thất bại");
     } else {
       const result = await updateStatusOrderApi({ id: id, status: status + 1 });
       if (result.statusCode === 200) {
         dispatch(getAllOrderAsync(payload));
-        notifySuccess("Change Status Succesfully");
+        notifySuccess("Đổi trạng thái thành công");
       }
     }
   };
@@ -114,7 +114,7 @@ const OrderManagement = (props: OrderProps) => {
     const result = await updateStatusOrderApi({ id: id, status: status });
     if (result.statusCode === 200) {
       dispatch(getAllOrderAsync(payload));
-      notifySuccess("Change Status Succesfully");
+      notifySuccess("Đổi trạng thái thành công");
     }
   };
 

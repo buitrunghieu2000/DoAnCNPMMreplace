@@ -26,7 +26,7 @@ const ModalChangeInfo = (props: Props) => {
     e.preventDefault();
     const result = await updateInfomatinApi(data);
     if (result.statusCode === 200) {
-      notifySuccess("Change info successfully");
+      notifySuccess("Đổi thông tin thành công");
       reset();
       props.cancel();
       dispatch(getCurrentUserAsync());

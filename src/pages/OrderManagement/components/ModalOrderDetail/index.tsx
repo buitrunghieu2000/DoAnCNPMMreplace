@@ -27,7 +27,7 @@ const ModalOrderDetail = (props: Props) => {
     const Arr = [data];
     const result = await createRatingApi(Arr);
     if (result.statusCode === 200) {
-      notifySuccess("Rating successfully");
+      notifySuccess("Đánh giá thành công");
       reset();
     }
   };

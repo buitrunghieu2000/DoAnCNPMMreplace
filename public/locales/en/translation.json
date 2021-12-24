@@ -47,6 +47,12 @@
     }
   },
 
+  "forgotPass": {
+    "Title": "Enter your E-mail",
+    "Input": "Mail",
+    "Button": "Submit"
+  },
+
   "homePage": {
     "Banner1": {
       "Title1": "We serve Fresh Vegestables & Fruits",

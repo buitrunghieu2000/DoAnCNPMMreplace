@@ -39,7 +39,7 @@ export const ProfilePage = (props: ProfilePageProps) => {
       const result = await updateAvatarApi({ avatar: file });
       console.log(result);
       if (result.statusCode === 200) {
-        notifySuccess("Update Avatar");
+        notifySuccess("Đã cập nhật ảnh đại diện");
         dispatch(changeUser(result.data));
       }
     }

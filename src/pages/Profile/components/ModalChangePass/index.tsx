@@ -32,9 +32,9 @@ const ModalChangePass = (props: Props) => {
           newPassword: data.newPassword,
         });
         if (result.statusCode === 200) {
-          notifySuccess("Chang Pass Successfully");
+          notifySuccess("Đổi mật khẩu thành công");
         } else if (result.statusCode === 300) {
-          notifyError("Change Pass Fail");
+          notifyError("Đổi mật khẩu thất bại");
         }
         resolve(true);
       }, 2000);

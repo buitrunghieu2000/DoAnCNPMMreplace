@@ -47,6 +47,12 @@
     }
   },
 
+  "forgotPass": {
+    "Title": "Nhập tài khoản mail của bạn",
+    "Input": "Mail",
+    "Button": "Gửi Đi"
+  },
+
   "homePage": {
     "Banner1": {
       "Title1": "Chúng tôi cung cấp rau & trái cây tươi",

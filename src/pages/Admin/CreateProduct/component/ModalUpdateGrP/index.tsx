@@ -30,7 +30,7 @@ const ModalUpdateGrP = (props: Props) => {
     e.preventDefault();
     const result = await createGroupProductApi(data);
     if (result.statusCode === 200) {
-      notifySuccess("Add Successfully");
+      notifySuccess("Thêm loại sản phẩm thành công");
       reset();
       props.cancel();
       dispatch(getAllGroupProductAsync());

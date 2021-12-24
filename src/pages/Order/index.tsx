@@ -103,7 +103,7 @@ const OrderPage = (props: OrderProps) => {
     const result = await updateStatusOrderApi({ id: id, status: status });
     if (result.statusCode === 200) {
       dispatch(getOrderByUserAsync(payload));
-      notifySuccess("Change Status Succesfully");
+      notifySuccess("Đổi trạng thái thành công");
     }
   };
 

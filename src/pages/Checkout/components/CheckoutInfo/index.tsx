@@ -79,7 +79,7 @@ const CheckoutInfo = (props: Props) => {
 
     if (typeOfPayment) {
       if (cartList.length === 0) {
-        notifyError("Cart is empty");
+        notifyError("Giỏ hàng trống");
       } else if (cartList.length != 0 && chooseAdd === true) {
         const result = await createOrder(typeOfPayment);
         console.log("123", result);
@@ -95,12 +95,12 @@ const CheckoutInfo = (props: Props) => {
           history.push("/");
           window.scrollTo(0, 0);
         }
-        notifySuccess("Checkout successfully");
+        notifySuccess("Thanh toán thành công");
       } else {
-        notifyError("Choose address");
+        notifyError("Chọn địa chỉ");
       }
     } else {
-      notifyError("Choose type of payment");
+      notifyError("Chọn hình thức thanh toán");
     }
   };
 

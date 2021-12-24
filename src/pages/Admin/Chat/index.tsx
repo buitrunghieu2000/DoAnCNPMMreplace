@@ -48,21 +48,18 @@ const AdminChat = (props: ChatProps) => {
 
   React.useEffect(() => {
     onMessage();
-    (async () => {
-      dispatch(getCurrentUserAsync());
-      if (curUser.role === 1) {
-        dispatch(getAllRoomAsync());
-      } else if (curUser.role === 0) {
-        dispatch(
-          getAllMessageAsync({ skip: 0, limit: 15, idRoom: curUser._id })
-        );
 
-        chatSocket.joinRoomCSS(baseSocket.socket, { idRoom: curUser._id });
+    dispatch(getCurrentUserAsync());
+    dispatch(getAllMessageAsync({ skip: 0, limit: 15, idRoom: curUser._id }));
+    if (curUser.role === 1) {
+      dispatch(getAllRoomAsync());
+    } else if (curUser.role === 0) {
+      chatSocket.joinRoomCSS(baseSocket.socket, { idRoom: curUser._id });
+      setHistoryRoom(curUser._id);
+    }
 
-        setHistoryRoom(curUser._id);
-      }
-    })();
     return () => {
+      baseSocket.disconnectSocket();
       dispatch(revMessage());
     };
   }, []);

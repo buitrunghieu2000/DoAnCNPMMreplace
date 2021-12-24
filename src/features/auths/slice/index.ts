@@ -19,8 +19,7 @@ export const authSlice = createSlice({
     logoutUser: (state) => {
       state.user = null;
       localStorage.removeItem("token");
-      SocketService.disconnectSocket();
-      notifySuccess("Logout Successfully");
+      notifySuccess("Đăng xuất thành công");
     },
   },
   extraReducers: {
@@ -49,10 +48,10 @@ export const authSlice = createSlice({
       if (data.statusCode === 200) {
         if (data.data.token) {
           localStorage.setItem("token", data.data.token);
-          notifySuccess(data.message);
+          notifySuccess("Đăng nhập thành công");
         }
       } else {
-        notifyError(data.message);
+        notifyError("Đăng nhập thất bại");
       }
     },
     [userLoginAsync.rejected.toString()]: (state) => {
