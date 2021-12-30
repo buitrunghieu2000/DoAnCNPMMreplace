@@ -141,17 +141,16 @@ const OrderManagement = (props: OrderProps) => {
                 )}${moneyFormater(item.totalMoney)}`}</p>
               </div>
               <div className="card-body " style={{ marginTop: "-20px" }}>
-                <button
-                  onClick={() => submit(item.status, item._id)}
-                  type="submit"
-                  className="btn btn-success"
-                  style={{ backgroundColor: "#82ae46" }}
-                >
-                  {t("order.OrderDetail.Button2")}
-                </button>
-
                 {item.status === 0 || item.status === 1 || item.status === 2 ? (
                   <>
+                    <button
+                      onClick={() => submit(item.status, item._id)}
+                      type="submit"
+                      className="btn btn-success"
+                      style={{ backgroundColor: "#82ae46" }}
+                    >
+                      {t("order.OrderDetail.Button2")}
+                    </button>
                     <button
                       onClick={() => cancel(4, item._id)}
                       type="submit"
