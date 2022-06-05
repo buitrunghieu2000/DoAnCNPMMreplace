@@ -7,11 +7,13 @@ import { Link } from "react-router-dom";
 import { logoutUser } from "../../features/auths/slice";
 import { selectCurrentUser } from "../../features/auths/slice/selector";
 import { getCurrentUserAsync } from "../../features/auths/slice/thunk";
+import { useClickOutside } from "../../utils/useClickOutSide";
 import "./style.scss";
 
 function useComponentVisible(initialIsVisible: any) {
   const [isComponentVisible, setIsComponentVisible] =
     useState(initialIsVisible);
+
   const ref = useRef<any>(null);
 
   const handleClickOutside = (event: any) => {
@@ -31,6 +33,11 @@ function useComponentVisible(initialIsVisible: any) {
 }
 
 const Navbar = () => {
+  const domNode = useClickOutside(() => {});
+  const [open, setOpen] = useState(false);
+  const handleOpen = (state: boolean) => {
+    setOpen(state);
+  };
   const { t, i18n } = useTranslation();
 
   const { ref, isComponentVisible, setIsComponentVisible } =
@@ -191,7 +198,7 @@ const Navbar = () => {
                       fontWeight: 400,
                     }}
                   >
-                    {t("navbar.Logout")}
+                    LogOut
                   </a>
                 </li>
 
@@ -239,12 +246,50 @@ const Navbar = () => {
                     </div>
                   )}
                 </li>
-
-                <li className="nav-item active">
-                  <Link to="/usermanagement" className="nav-link">
-                    {t("navbar.UserManagement")}
+                <li className="nav-item dropdown">
+                  <Link
+                    className="nav-link dropdown-toggle active"
+                    onClick={() => handleOpen(true)}
+                    to="#"
+                    id="dropdown04"
+                  >
+                    Management
                   </Link>
+                  {open && (
+                    <div className="dropdown-menu" aria-labelledby="dropdown04">
+                      <Link
+                        className="dropdown-item"
+                        to="/vouchermanagement"
+                        onClick={() => handleOpen(false)}
+                      >
+                        Voucher
+                      </Link>
+                      <Link
+                        className="dropdown-item"
+                        to="/question"
+                        onClick={() => handleOpen(false)}
+                      >
+                        Question
+                      </Link>
+                      <Link
+                        className="dropdown-item"
+                        to="/iebill"
+                        onClick={() => handleOpen(false)}
+                      >
+                        IEBill
+                      </Link>
+
+                      <Link
+                        to="/usermanagement"
+                        className="dropdown-item"
+                        onClick={() => handleOpen(false)}
+                      >
+                        User
+                      </Link>
+                    </div>
+                  )}
                 </li>
+
                 <li className="nav-item active">
                   <Link to="/adminchat" className="nav-link">
                     {t("navbar.Chat")}

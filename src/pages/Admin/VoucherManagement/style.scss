@@ -1,0 +1,97 @@
+@import "../../../style/Variables.scss";
+
+/* ctrl shift 4 */
+
+.container-fluid {
+  width: 100%;
+}
+.voucherManagement-container {
+  width: 1000px;
+  margin: 0 auto;
+}
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+.row > [class*="col-"] {
+  padding: 12px;
+}
+.col-1 {
+  width: 8.33%;
+}
+.col-2 {
+  width: 16.66%;
+}
+.col-3 {
+  width: 25%;
+}
+.col-4 {
+  width: 33.33%;
+}
+.col-5 {
+  width: 41.66%;
+}
+.col-6 {
+  width: 50%;
+}
+.col-7 {
+  width: 58.33%;
+}
+.col-8 {
+  width: 66.66%;
+}
+.col-9 {
+  width: 75%;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}
+.col-10 {
+  width: 83.33%;
+}
+.col-11 {
+  width: 91.66%;
+}
+.col-12 {
+  width: 100%;
+}
+.justify-between {
+  justify-content: space-between;
+}
+.justify-center {
+  justify-content: center;
+}
+.align-center {
+  align-items: center;
+}
+.align-self-center {
+  align-self: center;
+}
+.align-self-end {
+  align-self: flex-end;
+}
+.justify-end {
+  justify-content: flex-end;
+}
+.green {
+  background-color: lightgreen;
+}
+.blue {
+  background-color: lightskyblue;
+}
+.pink {
+  background-color: pink;
+}
+.aqua {
+  background-color: aqua;
+}
+.purple {
+  background-color: plum;
+}
+.yellow {
+  background-color: lemonchiffon;
+}
+.grey {
+  margin-top: 60px;
+  margin-bottom: 60px;
+}

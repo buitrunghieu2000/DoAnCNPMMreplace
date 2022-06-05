@@ -47,6 +47,102 @@
     }
   },
 
+  "notify": {
+    "Success": {
+      "CardProduct": {
+        "Title1": "Add to cart"
+      },
+      "Auth": {
+        "Logout": "Sign out successful",
+        "Signin": "Logged in successfully",
+        "SigninFail": "Login failed"
+      },
+      "CreateProdut": {
+        "Title1": "Create products successful "
+      },
+      "ModalUpdateProduct": {
+        "Title1": "Added successful"
+      },
+      "UpdateProduct": {
+        "Title1": "Update successful"
+      },
+      "CartInfo": {
+        "Title1": "Item has been deleted"
+      },
+      "CheckoutInfo": {
+        "Title1": "Payment success"
+      },
+      "ModalChangeAdd": {
+        "Title1": "Add address successful"
+      },
+      "ForgotPass": {
+        "Title1": "Check your email"
+      },
+      "OrderPage": {
+        "Title1": "Change status successful"
+      },
+      "ModalOrderPage": {
+        "Title1": "Rating successful"
+      },
+      "Profile": {
+        "Title1": "Avtar updated"
+      },
+      "ModalChangePass": {
+        "Title1": "Change password successfully"
+      },
+      "ModalChangeInfo": {
+        "Title1": "Change info successfully"
+      },
+      "Signup": {
+        "Title1": "Successful account registration"
+      }
+    },
+    "Error": {
+      "CardProduct": {
+        "Title1": "You must login",
+        "Title2": "Failed"
+      },
+      "Auth": {
+        "Logout": "Sign out successful",
+        "Signin": "Logged in successfully",
+        "SigninFail": "Login failed"
+      },
+
+      "UpdateProduct": {
+        "Title1": "Update failed"
+      },
+
+      "CheckoutInfo": {
+        "Title1": "Empty cart",
+        "Title2": "Choose an address",
+        "Title3": "Choose type of payment"
+      },
+
+      "ForgotPass": {
+        "Title1": "Wrong email"
+      },
+      "OrderPage": {
+        "Title1": "Failed"
+      },
+      "ModalOrderPage": {
+        "Title1": "rating failed, product has been rated"
+      },
+
+      "ModalChangePass": {
+        "Title1": "Change password failed"
+      },
+
+      "Signup": {
+        "Title1": "Account registration failed"
+      }
+    }
+  },
+
+  "forgotPass": {
+    "Title": "Enter your email account",
+    "Input": "Mail",
+    "Button": "Submit"
+  },
   "homePage": {
     "Banner1": {
       "Title1": "We serve Fresh Vegestables & Fruits",

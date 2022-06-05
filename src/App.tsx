@@ -26,7 +26,7 @@ function App() {
 
   return (
     <div>
-      <Router></Router>
+      <Router />
       <ToastContainer
         position="top-right"
         autoClose={2000}

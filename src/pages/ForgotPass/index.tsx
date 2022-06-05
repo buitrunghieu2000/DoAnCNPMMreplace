@@ -21,9 +21,9 @@ export const ForgotPass = () => {
       setTimeout(async () => {
         const result = await forgotPassAsync({ email: data.email });
         if (result.statusCode === 200) {
-          notifySuccess("Qua mail ma coi");
+          notifySuccess("Check E-mail");
         } else {
-          notifyError("Sai roi ");
+          notifyError("Wrong email");
         }
         res(true);
       }, 2000);

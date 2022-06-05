@@ -33,3 +33,6 @@ button {
 body {
   font-family: "Poppins", sans-serif;
 }
+.hidden {
+  display: none;
+}

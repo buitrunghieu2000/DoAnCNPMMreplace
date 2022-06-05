@@ -19,4 +19,7 @@ export const defaultRoute = {
   ordermanagement: "/ordermanagement",
   detailproduct: "/detailproduct/:id",
   adminchat: "/adminchat",
+  vouchermanagement: "/vouchermanagement",
+  iebill: "/iebill",
+  question: "/question",
 };

@@ -9,9 +9,12 @@ import Analytics from "../pages/Admin/Analytics";
 import AdminChat from "../pages/Admin/Chat";
 import CreateProductPage from "../pages/Admin/CreateProduct";
 import DetailProduct from "../pages/Admin/DetailProduct";
+import IEportBill from "../pages/Admin/IEportBill";
+import Question from "../pages/Admin/Question";
 import UpdateProduct from "../pages/Admin/UpdateProduct";
 import UserManagement from "../pages/Admin/UserManagement";
 import userManagement from "../pages/Admin/UserManagement";
+import VoucherManagement from "../pages/Admin/VoucherManagement";
 
 import { Cart } from "../pages/Cart";
 
@@ -204,6 +207,27 @@ const routesPrivate = [
     option: true,
     roleRoute: [DFRole.Staff],
   },
+  {
+    child: <VoucherManagement />,
+    path: defaultRoute.vouchermanagement,
+    exact: true,
+    option: true,
+    roleRoute: [DFRole.Admin],
+  },
+  {
+    child: <IEportBill />,
+    path: defaultRoute.iebill,
+    exact: true,
+    option: true,
+    roleRoute: [DFRole.Admin],
+  },
+  {
+    child: <Question />,
+    path: defaultRoute.question,
+    exact: true,
+    option: true,
+    roleRoute: [DFRole.Admin],
+  },
 ];
 
 const renderPrivateRoute = (routes: Array<IPrivateRoute>) => {
@@ -214,7 +238,7 @@ const renderPrivateRoute = (routes: Array<IPrivateRoute>) => {
           path={r.path}
           exact
           key={i}
-          option={r.option}
+          option={r?.option}
           roleRoute={r?.roleRoute}
         >
           {r.child}

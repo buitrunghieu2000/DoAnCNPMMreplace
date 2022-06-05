@@ -47,6 +47,107 @@
     }
   },
 
+  "notify": {
+    "Success": {
+      "CardProduct": {
+        "Title1": "Thêm vào giỏ hàng"
+      },
+      "Auth": {
+        "Logout": "Đăng xuất thành công",
+        "Signin": "Đăng nhập thành công",
+        "SigninFail": "Đăng nhập thất bại"
+      },
+      "CreateProdut": {
+        "Title1": "Tạo sản shẩm thành công"
+      },
+      "ModalUpdateProduct": {
+        "Title1": "Thêm thành công"
+      },
+      "UpdateProduct": {
+        "Title1": "Cập nhật thành công"
+      },
+      "CartInfo": {
+        "Title1": "Vật phẩm được xóa"
+      },
+      "CheckoutInfo": {
+        "Title1": "Thanh toán thành công"
+      },
+      "ModalChangeAdd": {
+        "Title1": "Thêm địa chỉ thành công"
+      },
+      "ForgotPass": {
+        "Title1": "Kiểm tra mail của bạn"
+      },
+      "OrderPage": {
+        "Title1": "Đổi trạng thái thành công"
+      },
+      "ModalOrderPage": {
+        "Title1": "Đánh giá thành công"
+      },
+      "Profile": {
+        "Title1": "Đã cập nhật ảnh đại diện"
+      },
+      "ModalChangePass": {
+        "Title1": "Đổi mật khẩu thành công"
+      },
+      "ModalChangeInfo": {
+        "Title1": "Đổi thông tin thành công"
+      },
+      "Signup": {
+        "Title1": "Đăng ký tài khoản thành công"
+      }
+    },
+    "Error": {
+      "CardProduct": {
+        "Title1": "Bạn phải đăng nhập",
+        "Title2": "Không thực hiện được"
+      },
+      "Auth": {
+        "Logout": "Đăng xuất thành công",
+        "Signin": "Đăng nhập thành công",
+        "SigninFail": "Đăng nhập thất bại"
+      },
+
+      "UpdateProduct": {
+        "Title1": "Cập nhật thất bại"
+      },
+
+      "CheckoutInfo": {
+        "Title1": "Giỏ hàng trống",
+        "Title2": "Chọn địa chỉ",
+        "Title3": "Chọn hình thức thanh toán"
+      },
+      "ModalChangeAdd": {
+        "Title1": "Thêm địa chỉ thành công"
+      },
+      "ForgotPass": {
+        "Title1": "Email sai"
+      },
+      "OrderPage": {
+        "Title1": "Thất bại"
+      },
+      "ModalOrderPage": {
+        "Title1": "Đánh giá thất bại, sản phẩm đã được đánh giá"
+      },
+
+      "ModalChangePass": {
+        "Title1": "Đổi mật khẩu thất bại"
+      },
+      "ModalChangeInfo": {
+        "Title1": "Đổi thông tin thành công"
+      },
+      "Signup": {
+        "Title1": "Đăng ký tài khoản thất bại"
+      }
+    }
+  },
+
+  "forgotPass": {
+    "Title": "Nhập tài khoản mail của bạn",
+    "Input": "Mail",
+    "Button": "Gửi Đi"
+  },
+
   "homePage": {
     "Banner1": {
       "Title1": "Chúng tôi cung cấp rau & trái cây tươi",
