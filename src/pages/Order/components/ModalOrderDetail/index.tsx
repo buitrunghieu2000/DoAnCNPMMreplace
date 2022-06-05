@@ -105,10 +105,10 @@ const RatingForm = (props: { orderId: string; productId: string }) => {
     const Arr = [data];
     const result = await createRatingApi(Arr);
     if (result.statusCode === 200) {
-      notifySuccess("Rating successfully");
+      notifySuccess("Đánh giá thành công");
       reset();
     } else {
-      notifyError("Rating Failed, Product has already been rated");
+      notifyError("Đánh giá thất bại, sản phẩm đã được đánh giá");
     }
   };
 

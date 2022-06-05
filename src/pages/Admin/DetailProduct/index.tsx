@@ -48,10 +48,10 @@ const DetailProduct = (props: CreateProductPageProps) => {
     console.log(data);
     const result = await updateProductApi(data);
     if (result.statusCode === 200) {
-      notifySuccess("Update Product Successfully");
+      notifySuccess("Cập nhật sản phẩm thành công");
       history.push("/updateproduct");
     } else {
-      notifyError("Update Product Failed");
+      notifyError("Cập nhật thất bại");
     }
   };
   const dispatch = useDispatch();

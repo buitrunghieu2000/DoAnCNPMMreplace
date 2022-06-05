@@ -14,19 +14,19 @@ const CardProduct = (props: { data?: any }) => {
 
   const handleAddToCart = async () => {
     if (!user) {
-      notifyError("You must sign in");
+      notifyError("Bạn phải đăng nhập");
     } else if (user.role === 0) {
       const result = await createCartAsync({
         productId: props.data?._id,
         quantity: 1,
       });
       if (result.statusCode === 200) {
-        notifySuccess(`Added ${result.data.name} to cart`);
+        notifySuccess(`Thêm ${result.data.name} vào giỏ hàng`);
       }
     } else if (user.role === 1) {
-      notifyError("Admin dont have authorize");
+      notifyError("Không thực hiện được");
     } else if (user.role === 2) {
-      notifyError("Staff dont have authorize");
+      notifyError("Không thực hiện được");
     }
   };
 

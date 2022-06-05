@@ -1,6 +1,7 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { forgotPassAsync } from "../../apis/auths/forgotPass.api";
 import { ButtonSpinner } from "../../components/ButtonSpinner";
 import { notifyError, notifySuccess } from "../../utils/notify";
@@ -8,6 +9,7 @@ import { forgotPassSchema } from "../../validate/auth";
 import "./style.scss";
 
 export const ForgotPass = () => {
+  const { t, i18n } = useTranslation();
   const {
     register,
     handleSubmit,
@@ -43,13 +45,13 @@ export const ForgotPass = () => {
           className="forgotPassPage-form-content"
           onSubmit={handleSubmit(submit)}
         >
-          <p>Enter your email to get your account back</p>
+          <p>{t("forgotPass.Title")}</p>
           <input
             type="email"
             {...register("email")}
             id="email"
             className="form-control"
-            placeholder="Email address"
+            placeholder={t("forgotPass.Input")}
           />
 
           <p className="text-danger">{errors.email?.message}</p>
@@ -59,7 +61,7 @@ export const ForgotPass = () => {
             className="btn btn-block login-btn mb-4"
             disabled={isSubmitting}
           >
-            {!isSubmitting ? "Send" : <ButtonSpinner />}
+            {!isSubmitting ? t("forgotPass.Button") : <ButtonSpinner />}
           </button>
         </form>
       </div>

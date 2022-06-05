@@ -17,7 +17,7 @@ const CartInfo = (props: Props) => {
   const handleRemoveFromCart = async (id: string, index: number) => {
     const result = await deleteCartAsync({ id });
     if (result.statusCode === 200) {
-      notifySuccess("Item removed from cart");
+      notifySuccess("Vật phẩm được xóa");
       const newCartList = cartList.filter((item) => item._id !== id);
       setCartList(newCartList);
     }

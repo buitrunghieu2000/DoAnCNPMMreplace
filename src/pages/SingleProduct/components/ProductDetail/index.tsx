@@ -12,19 +12,19 @@ const ProductDetail = (props: { id: string }) => {
   const [quantity, setQuantity] = useState<any>(1);
   const handleAddToCart = async () => {
     if (!user) {
-      notifyError("You must sign in");
+      notifyError("Bạn phải đăng nhập");
     } else if (user.role === 0) {
       const result = await createCartAsync({
         productId: props.id,
         quantity: quantity,
       });
       if (result.statusCode === 200) {
-        notifySuccess(`Added ${result.data.name} to cart`);
+        notifySuccess(`Thêm ${result.data.name} vào giỏ hàng`);
       }
     } else if (user.role === 1) {
-      notifyError("Admin dont have authorize");
+      notifyError("Không thực hiện được");
     } else if (user.role === 2) {
-      notifyError("Staff dont have authorize");
+      notifyError("Không thực hiện được");
     }
   };
   React.useEffect(() => {

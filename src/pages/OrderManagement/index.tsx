@@ -100,12 +100,12 @@ const OrderManagement = (props: OrderProps) => {
 
   const submit = async (status: number, id: string) => {
     if (status === 3 || status === 4) {
-      notifyError("Failed");
+      notifyError("Thất bại");
     } else {
       const result = await updateStatusOrderApi({ id: id, status: status + 1 });
       if (result.statusCode === 200) {
         dispatch(getAllOrderAsync(payload));
-        notifySuccess("Change Status Succesfully");
+        notifySuccess("Đổi trạng thái thành công");
       }
     }
   };
@@ -114,7 +114,7 @@ const OrderManagement = (props: OrderProps) => {
     const result = await updateStatusOrderApi({ id: id, status: status });
     if (result.statusCode === 200) {
       dispatch(getAllOrderAsync(payload));
-      notifySuccess("Change Status Succesfully");
+      notifySuccess("Đổi trạng thái thành công");
     }
   };
 
@@ -141,17 +141,16 @@ const OrderManagement = (props: OrderProps) => {
                 )}${moneyFormater(item.totalMoney)}`}</p>
               </div>
               <div className="card-body " style={{ marginTop: "-20px" }}>
-                <button
-                  onClick={() => submit(item.status, item._id)}
-                  type="submit"
-                  className="btn btn-success"
-                  style={{ backgroundColor: "#82ae46" }}
-                >
-                  {t("order.OrderDetail.Button2")}
-                </button>
-
                 {item.status === 0 || item.status === 1 || item.status === 2 ? (
                   <>
+                    <button
+                      onClick={() => submit(item.status, item._id)}
+                      type="submit"
+                      className="btn btn-success"
+                      style={{ backgroundColor: "#82ae46" }}
+                    >
+                      {t("order.OrderDetail.Button2")}
+                    </button>
                     <button
                       onClick={() => cancel(4, item._id)}
                       type="submit"

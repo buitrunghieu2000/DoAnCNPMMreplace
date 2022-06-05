@@ -54,11 +54,10 @@ const AdminChat = (props: ChatProps) => {
       dispatch(getAllRoomAsync());
     } else if (curUser.role === 0) {
       chatSocket.joinRoomCSS(baseSocket.socket, { idRoom: curUser._id });
-
       setHistoryRoom(curUser._id);
     }
-
     return () => {
+      baseSocket.disconnectSocket();
       dispatch(revMessage());
       baseSocket.disconnectSocket();
     };

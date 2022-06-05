@@ -39,7 +39,7 @@ const CreateProductPage = (props: CreateProductPageProps) => {
 
     const result = await createProductApi(data);
     if (result.statusCode === 200) {
-      notifySuccess("Create Product Successfully");
+      notifySuccess("Tạo sản phẩm thành công");
       reset();
     }
   };

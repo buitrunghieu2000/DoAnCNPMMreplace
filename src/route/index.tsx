@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { ForbiddenLMS } from "../components/403";
 import { FooterPage } from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { PrivateRoute } from "../components/PrivateRoute";
@@ -284,6 +285,9 @@ const Router = () => {
       <Switch>
         {renderRoute(routes)}
         {renderPrivateRoute(routesPrivate)}
+        <Route path="*">
+          <ForbiddenLMS />
+        </Route>
       </Switch>
       <Subcribe />
       <FooterPage />

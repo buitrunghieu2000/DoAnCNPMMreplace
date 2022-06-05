@@ -29,7 +29,7 @@ const ModalChangeAddress = (props: Props) => {
     data.isMain = true;
     const result = await createAddressAsync(data);
     if (result.statusCode === 200) {
-      notifySuccess("Location added succeccfully");
+      notifySuccess("Thêm địa chỉ thành công");
       reset();
       props.cancel();
       dispatch(getAllAddressAsync());

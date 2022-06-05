@@ -37,11 +37,11 @@ export const SignUp = (props: SignInProps) => {
       localStorage.setItem("token", result.data.token);
       dispatch(getCurrentUserAsync());
       //Thong bao
-      notifySuccess("Sign up success");
+      notifySuccess("Đăng ký thành công");
       //Chuyen trang
       history.push("/");
     } else {
-      notifyError("Sign up fail");
+      notifyError("Đăng ký thất bại");
     }
   };
 
