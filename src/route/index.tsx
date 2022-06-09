@@ -9,6 +9,7 @@ import { DFRole } from "../Constant/DFRole";
 import Analytics from "../pages/Admin/Analytics";
 import AdminChat from "../pages/Admin/Chat";
 import CreateProductPage from "../pages/Admin/CreateProduct";
+import CreateVoucher from "../pages/Admin/CreateVoucher";
 import DetailProduct from "../pages/Admin/DetailProduct";
 import IEportBill from "../pages/Admin/IEportBill";
 import Question from "../pages/Admin/Question";
@@ -225,6 +226,13 @@ const routesPrivate = [
   {
     child: <Question />,
     path: defaultRoute.question,
+    exact: true,
+    option: true,
+    roleRoute: [DFRole.Admin],
+  },
+  {
+    child: <CreateVoucher />,
+    path: defaultRoute.createvoucher,
     exact: true,
     option: true,
     roleRoute: [DFRole.Admin],

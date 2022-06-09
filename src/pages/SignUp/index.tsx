@@ -74,7 +74,7 @@ export const SignUp = (props: SignInProps) => {
             className="form-control"
             placeholder={t("signup.Input2")}
           />
-          <p className="text-danger">{errors.name?.message}</p>
+          <p className="text-danger">{errors.name}</p>
           <input
             type="text"
             id="phone"

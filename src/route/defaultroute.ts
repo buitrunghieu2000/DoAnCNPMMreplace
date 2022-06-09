@@ -22,4 +22,5 @@ export const defaultRoute = {
   vouchermanagement: "/vouchermanagement",
   iebill: "/iebill",
   question: "/question",
+  createvoucher: "/createvoucher",
 };

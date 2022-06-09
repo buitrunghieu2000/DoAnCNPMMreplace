@@ -2,36 +2,24 @@ import React from "react";
 import { Button, Card, Table } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router";
-import { selectAllUser } from "../../../features/user/slice/selector";
-import { getAllUserAsync } from "../../../features/user/slice/thunk";
+
 import "./style.scss";
 
-interface VoucherManagementProps {}
+interface BillDetailProps {}
 
-const VoucherManagement = (props: VoucherManagementProps) => {
-  const dispatch = useDispatch();
-  const history = useHistory();
+const BillDetail = (props: BillDetailProps) => {
+  // const dispatch = useDispatch();
 
-  const allUser = useSelector(selectAllUser) || [];
-  React.useEffect(() => {
-    dispatch(getAllUserAsync({ skip: 1, limit: 10, role: 0 }));
-  }, []);
-
-  const handleChangePage = () => {
-    history.push("/createvoucher");
-  };
+  // const allUser = useSelector(selectAllUser) || [];
+  // React.useEffect(() => {
+  //   dispatch(getAllUserAsync({ skip: 1, limit: 10, role: 0 }));
+  // }, []);
 
   const { t, i18n } = useTranslation();
   return (
-    <div className="voucherManagement container">
+    <div className="BillDetail container">
       <div className="container">
-        <button
-          className="btn btn-primary py-3 px-4"
-          onClick={handleChangePage}
-        >
-          ADD
-        </button>
+        <button className="btn btn-primary py-3 px-4">ADD</button>
         <div className="row">
           <div className="col-3">
             <Card style={{ width: "18rem" }}>
@@ -103,4 +91,4 @@ const VoucherManagement = (props: VoucherManagementProps) => {
   );
 };
 
-export default VoucherManagement;
+export default BillDetail;

@@ -1,26 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Card, Table } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { selectAllUser } from "../../../features/user/slice/selector";
 import { getAllUserAsync } from "../../../features/user/slice/thunk";
+import ModalQuestion from "./components/ModalInfo";
 import "./style.scss";
 
 interface QuestionProps {}
 
 const Question = (props: QuestionProps) => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  const allUser = useSelector(selectAllUser) || [];
-  React.useEffect(() => {
-    dispatch(getAllUserAsync({ skip: 1, limit: 10, role: 0 }));
-  }, []);
+  // const allUser = useSelector(selectAllUser) || [];
+  // React.useEffect(() => {
+  //   dispatch(getAllUserAsync({ skip: 1, limit: 10, role: 0 }));
+  // }, []);
+  const [open, setOpen] = useState(false);
+  const handleCancel = () => {
+    setOpen(false);
+  };
 
   const { t, i18n } = useTranslation();
   return (
     <div className="Question container">
       <div className="container">
-        <button className="btn btn-primary py-3 px-4">ADD</button>
+        <button
+          className="btn btn-primary py-3 px-4"
+          onClick={() => {
+            setOpen(true);
+          }}
+        >
+          ADD
+        </button>
         <div className="row">
           <div className="col-3">
             <Card style={{ width: "18rem" }}>
@@ -34,7 +46,17 @@ const Question = (props: QuestionProps) => {
                   Some quick example text to build on the card title and make up
                   the bulk of the card's content.
                 </Card.Text>
-                <Button variant="primary">Go somewhere</Button>
+                <div className="custom-control custom-switch">
+                  <input
+                    type="checkbox"
+                    className="custom-control-input"
+                    id="customSwitches"
+                  />
+                  <label
+                    className="custom-control-label"
+                    htmlFor="customSwitches"
+                  ></label>
+                </div>
               </Card.Body>
             </Card>
           </div>
@@ -87,6 +109,7 @@ const Question = (props: QuestionProps) => {
             </Card>
           </div>
         </div>
+        <ModalQuestion open={open} cancel={handleCancel} />
       </div>
     </div>
   );
