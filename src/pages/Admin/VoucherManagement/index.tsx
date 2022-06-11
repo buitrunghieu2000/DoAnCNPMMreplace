@@ -64,6 +64,7 @@ const VoucherManagement = (props: VoucherManagementProps) => {
                     Đơn tối thiểu {moneyFormater(item.minimumDiscount)} giảm tối
                     đa {moneyFormater(item.maxDiscount)}
                   </Card.Text>
+                  <p>Số lượng: {item.quantity}</p>
                   <p style={{ color: "GrayText" }}>
                     Hết hạn {dayjs(item.duration).format("DD/MM/YYYY")}
                   </p>

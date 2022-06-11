@@ -33,15 +33,26 @@ function useComponentVisible(initialIsVisible: any) {
 }
 
 const Navbar = () => {
-  const domNode = useClickOutside(() => {});
-  const [open, setOpen] = useState(false);
-  const handleOpen = (state: boolean) => {
-    setOpen(state);
+  const [isClick, setIsClick] = useState(false);
+  const ref2 = useRef<any>(null);
+  const hanldeClickManage = (e: any) => {
+    if (ref2.current && !ref2.current.contains(e.target)) {
+      setIsClick(false);
+    }
   };
+
+  React.useEffect(() => {
+    document.addEventListener("click", hanldeClickManage, true);
+    return () => {
+      document.removeEventListener("click", hanldeClickManage, true);
+    };
+  });
+
   const { t, i18n } = useTranslation();
 
   const { ref, isComponentVisible, setIsComponentVisible } =
     useComponentVisible(false);
+
   const dispatch = useDispatch();
 
   const history = useHistory();
@@ -218,7 +229,7 @@ const Navbar = () => {
                     {t("navbar.Analytics")}
                   </Link>
                 </li>
-                <li className="nav-item dropdown" tabIndex={0} ref={ref}>
+                <li className="nav-item dropdown" ref={ref}>
                   <Link
                     className="nav-link dropdown-toggle active"
                     onClick={() => setIsComponentVisible(true)}
@@ -246,35 +257,36 @@ const Navbar = () => {
                     </div>
                   )}
                 </li>
-                <li className="nav-item dropdown">
+                <li className="nav-item dropdown" ref={ref2}>
                   <Link
                     className="nav-link dropdown-toggle active"
-                    onClick={() => handleOpen(true)}
+                    onClick={() => setIsClick(true)}
                     to="#"
                     id="dropdown04"
                   >
                     Management
                   </Link>
-                  {open && (
+
+                  {isClick && (
                     <div className="dropdown-menu" aria-labelledby="dropdown04">
                       <Link
                         className="dropdown-item"
                         to="/vouchermanagement"
-                        onClick={() => handleOpen(false)}
+                        onClick={() => setIsClick(false)}
                       >
                         Voucher
                       </Link>
                       <Link
                         className="dropdown-item"
                         to="/question"
-                        onClick={() => handleOpen(false)}
+                        onClick={() => setIsClick(false)}
                       >
                         Question
                       </Link>
                       <Link
                         className="dropdown-item"
                         to="/iebill"
-                        onClick={() => handleOpen(false)}
+                        onClick={() => setIsClick(false)}
                       >
                         IEBill
                       </Link>
@@ -282,7 +294,7 @@ const Navbar = () => {
                       <Link
                         to="/usermanagement"
                         className="dropdown-item"
-                        onClick={() => handleOpen(false)}
+                        onClick={() => setIsClick(false)}
                       >
                         User
                       </Link>
