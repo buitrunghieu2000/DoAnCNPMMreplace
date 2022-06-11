@@ -1,102 +1,91 @@
-import React from "react";
-import { Button, Card, Table } from "react-bootstrap";
-import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
+import dayjs from "dayjs";
+import React, { useState } from "react";
+import { Button, Card } from "react-bootstrap";
 import { useHistory } from "react-router";
-import { selectAllUser } from "../../../features/user/slice/selector";
-import { getAllUserAsync } from "../../../features/user/slice/thunk";
+
+import { DeleteVoucherApi } from "../../../apis/discount/deleleVoucher.api";
+import { getAllDiscountApi } from "../../../apis/discount/getAllDisCount.api";
+import { moneyFormater } from "../../../utils/moneyFormater";
+import { notifyError, notifySuccess } from "../../../utils/notify";
 import "./style.scss";
 
 interface VoucherManagementProps {}
 
 const VoucherManagement = (props: VoucherManagementProps) => {
-  const dispatch = useDispatch();
   const history = useHistory();
+  const [discount, setDiscount] = useState<any>([]);
 
-  const allUser = useSelector(selectAllUser) || [];
   React.useEffect(() => {
-    dispatch(getAllUserAsync({ skip: 1, limit: 10, role: 0 }));
-  }, []);
-
-  const handleChangePage = () => {
-    history.push("/createvoucher");
+    (async () => {
+      const result = await getAllDiscountApi();
+      const { data } = result;
+      setDiscount(data);
+    })();
+  }, [discount]);
+  const handleDeleteVoucher = async (id: string) => {
+    const result = await DeleteVoucherApi({ id });
+    if (result.statusCode === 200) {
+      const newListVoucher = discount.map((item: any) => item._id !== item.id);
+      setDiscount(newListVoucher);
+      notifySuccess("Xóa thành công");
+      return;
+    }
+    notifyError("Xóa thất bại");
   };
 
-  const { t, i18n } = useTranslation();
+  const handleChangePage = (number: number, id: string) => {
+    number === 0
+      ? history.push("/createvoucher")
+      : history.push(`/vouchermanagement/updatevoucher/${id}`);
+  };
+
   return (
     <div className="voucherManagement container">
       <div className="container">
         <button
-          className="btn btn-primary py-3 px-4"
-          onClick={handleChangePage}
+          className="btn btn-primary"
+          onClick={() => handleChangePage(0, "")}
         >
           ADD
         </button>
         <div className="row">
-          <div className="col-3">
-            <Card style={{ width: "18rem" }}>
-              <Card.Img
-                variant="top"
-                src="https://img.timviec.com.vn/2020/08/voucher-la-gi-4.jpg"
-              />
-              <Card.Body>
-                <Card.Title>Card Title</Card.Title>
-                <Card.Text>
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </Card.Text>
-                <Button variant="primary">Go somewhere</Button>
-              </Card.Body>
-            </Card>
-          </div>
-          <div className="col-3">
-            <Card style={{ width: "18rem" }}>
-              <Card.Img
-                variant="top"
-                src="https://img.timviec.com.vn/2020/08/voucher-la-gi-4.jpg"
-              />
-              <Card.Body>
-                <Card.Title>Card Title</Card.Title>
-                <Card.Text>
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </Card.Text>
-                <Button variant="primary">Go somewhere</Button>
-              </Card.Body>
-            </Card>
-          </div>
-          <div className="col-3">
-            <Card style={{ width: "18rem" }}>
-              <Card.Img
-                variant="top"
-                src="https://img.timviec.com.vn/2020/08/voucher-la-gi-4.jpg"
-              />
-              <Card.Body>
-                <Card.Title>Card Title</Card.Title>
-                <Card.Text>
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </Card.Text>
-                <Button variant="primary">Go somewhere</Button>
-              </Card.Body>
-            </Card>
-          </div>
-          <div className="col-3">
-            <Card style={{ width: "18rem" }}>
-              <Card.Img
-                variant="top"
-                src="https://img.timviec.com.vn/2020/08/voucher-la-gi-4.jpg"
-              />
-              <Card.Body>
-                <Card.Title>Card Title</Card.Title>
-                <Card.Text>
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </Card.Text>
-                <Button variant="primary">Go somewhere</Button>
-              </Card.Body>
-            </Card>
-          </div>
+          {discount?.map((item: any, index: number) => (
+            <div className="col-3" key={index}>
+              <Card style={{ width: "18rem" }}>
+                <Card.Img
+                  variant="top"
+                  src="https://img.timviec.com.vn/2020/08/voucher-la-gi-4.jpg"
+                />
+                <Card.Body>
+                  <Card.Title style={{ fontWeight: "bolder" }}>
+                    Giảm {item.percentDiscount}%
+                  </Card.Title>
+                  <Card.Text style={{ fontWeight: "bold" }}>
+                    Đơn tối thiểu {moneyFormater(item.minimumDiscount)} giảm tối
+                    đa {moneyFormater(item.maxDiscount)}
+                  </Card.Text>
+                  <p style={{ color: "GrayText" }}>
+                    Hết hạn {dayjs(item.duration).format("DD/MM/YYYY")}
+                  </p>
+                  <div className="buttonVoucher">
+                    {" "}
+                    <Button
+                      variant="primary"
+                      onClick={() => handleChangePage(1, item._id)}
+                    >
+                      Update
+                    </Button>
+                    <Button
+                      onClick={() => handleDeleteVoucher(item._id)}
+                      variant="danger"
+                    >
+                      Delete
+                    </Button>
+                  </div>
+                </Card.Body>
+              </Card>
+            </div>
+          ))}
         </div>
       </div>
     </div>

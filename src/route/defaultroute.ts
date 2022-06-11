@@ -21,6 +21,8 @@ export const defaultRoute = {
   adminchat: "/adminchat",
   vouchermanagement: "/vouchermanagement",
   iebill: "/iebill",
+  createiebill: "/iebill/createiebill",
   question: "/question",
   createvoucher: "/createvoucher",
+  updatevoucher: "/vouchermanagement/updatevoucher/:id",
 };

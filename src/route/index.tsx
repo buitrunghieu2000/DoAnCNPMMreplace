@@ -12,11 +12,13 @@ import CreateProductPage from "../pages/Admin/CreateProduct";
 import CreateVoucher from "../pages/Admin/CreateVoucher";
 import DetailProduct from "../pages/Admin/DetailProduct";
 import IEportBill from "../pages/Admin/IEportBill";
+import CreateIEBill from "../pages/Admin/IEportBill/CreateIEBill";
 import Question from "../pages/Admin/Question";
 import UpdateProduct from "../pages/Admin/UpdateProduct";
 import UserManagement from "../pages/Admin/UserManagement";
 import userManagement from "../pages/Admin/UserManagement";
 import VoucherManagement from "../pages/Admin/VoucherManagement";
+import UpdateVoucher from "../pages/Admin/VoucherManagement/updateVoucher";
 
 import { Cart } from "../pages/Cart";
 
@@ -233,6 +235,20 @@ const routesPrivate = [
   {
     child: <CreateVoucher />,
     path: defaultRoute.createvoucher,
+    exact: true,
+    option: true,
+    roleRoute: [DFRole.Admin],
+  },
+  {
+    child: <UpdateVoucher />,
+    path: defaultRoute.updatevoucher,
+    exact: true,
+    option: true,
+    roleRoute: [DFRole.Admin],
+  },
+  {
+    child: <CreateIEBill />,
+    path: defaultRoute.createiebill,
     exact: true,
     option: true,
     roleRoute: [DFRole.Admin],

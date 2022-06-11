@@ -1,4 +1,4 @@
-@import "../../../style/Variables.scss";
+@import "../../../../style/Variables.scss";
 
 .createProduct {
   background-color: #82ae46;
@@ -10,11 +10,8 @@
     padding: 1rem;
     flex: 1;
   }
-  &-rightCreateVoucher {
+  &-right {
     padding: 1rem;
     flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
   }
 }

@@ -12,7 +12,7 @@ class SocketService {
         rejectUnauthorized: false,
       });
 
-      console.log(this.socket);
+      // console.log(this.socket);
 
       if (!this.socket) return rj();
 

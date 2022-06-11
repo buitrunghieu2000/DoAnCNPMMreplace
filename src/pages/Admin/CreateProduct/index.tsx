@@ -36,12 +36,12 @@ const CreateProductPage = (props: CreateProductPageProps) => {
 
   const submit = async (data: any, e: any) => {
     e.preventDefault();
-
-    const result = await createProductApi(data);
-    if (result.statusCode === 200) {
-      notifySuccess("Tạo sản phẩm thành công");
-      reset();
-    }
+    console.log("Datasubmit", data);
+    // const result = await createProductApi(data);
+    // if (result.statusCode === 200) {
+    //   notifySuccess("Tạo sản phẩm thành công");
+    //   reset();
+    // }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

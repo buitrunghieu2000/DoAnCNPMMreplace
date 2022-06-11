@@ -1,92 +1,111 @@
-import React from "react";
-import { Button, Card, Table } from "react-bootstrap";
-import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
-import { selectAllUser } from "../../../features/user/slice/selector";
-import { getAllUserAsync } from "../../../features/user/slice/thunk";
+import dayjs from "dayjs";
+import React, { useState } from "react";
+import { Card } from "react-bootstrap";
+import { Link, useHistory } from "react-router-dom";
+import { getAllIEBILLApi } from "../../../apis/iebill/getALLIEBill.api";
+import { moneyFormater } from "../../../utils/moneyFormater";
 import "./style.scss";
 
 interface IEportBillProps {}
 
 const IEportBill = (props: IEportBillProps) => {
-  const dispatch = useDispatch();
+  const [bill, setBill] = useState<any>([]);
+  const [billDetail, setBillDetail] = useState<any>(undefined);
+  const history = useHistory();
+  const params = {
+    skip: 1,
+    limit: 15,
+  };
 
-  const allUser = useSelector(selectAllUser) || [];
   React.useEffect(() => {
-    dispatch(getAllUserAsync({ skip: 1, limit: 10, role: 0 }));
+    (async () => {
+      const result = await getAllIEBILLApi(params);
+      setBill(result.data);
+    })();
   }, []);
 
-  const { t, i18n } = useTranslation();
+  const handleChangePage = () => {
+    history.push("/iebill/createiebill");
+  };
   return (
     <div className="IEportBill container">
       <div className="container">
-        <button className="btn btn-primary py-3 px-4">ADD</button>
-        <div className="row">
-          <div className="col-3">
-            <Card style={{ width: "18rem" }}>
-              <Card.Img
-                variant="top"
-                src="https://img.timviec.com.vn/2020/08/voucher-la-gi-4.jpg"
-              />
-              <Card.Body>
-                <Card.Title>Card Title</Card.Title>
-                <Card.Text>
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </Card.Text>
-                <Button variant="primary">Go somewhere</Button>
-              </Card.Body>
-            </Card>
+        {billDetail ? (
+          <div className="">
+            <button
+              className="btn btn-primary"
+              onClick={() => setBillDetail(undefined)}
+            >
+              Back
+            </button>
+            <div className="row">
+              {billDetail.history.map((item: any, index: number) => (
+                <div className="col-3" key={index}>
+                  <Card style={{ width: "18rem" }}>
+                    <Card.Img
+                      variant="top"
+                      src="https://wexpo.vn/wp-content/uploads/2020/06/Amazon-import-export.jpg"
+                    />
+
+                    <Card.Body>
+                      <h5 style={{ fontWeight: "bolder" }}>{item.name}</h5>
+                      <Card.Text>Kho: {item.quantity}</Card.Text>
+                      <Card.Text
+                        style={{
+                          fontWeight: "bold",
+                          textDecoration: "line-through",
+                        }}
+                      >
+                        {moneyFormater(item.price)}
+                      </Card.Text>
+                      <Card.Text
+                        style={{ color: "#006400", fontWeight: "bold" }}
+                      >
+                        {moneyFormater(item.priceDiscount)}
+                      </Card.Text>
+                    </Card.Body>
+                  </Card>
+                </div>
+              ))}
+            </div>
           </div>
-          <div className="col-3">
-            <Card style={{ width: "18rem" }}>
-              <Card.Img
-                variant="top"
-                src="https://img.timviec.com.vn/2020/08/voucher-la-gi-4.jpg"
-              />
-              <Card.Body>
-                <Card.Title>Card Title</Card.Title>
-                <Card.Text>
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </Card.Text>
-                <Button variant="primary">Go somewhere</Button>
-              </Card.Body>
-            </Card>
-          </div>
-          <div className="col-3">
-            <Card style={{ width: "18rem" }}>
-              <Card.Img
-                variant="top"
-                src="https://img.timviec.com.vn/2020/08/voucher-la-gi-4.jpg"
-              />
-              <Card.Body>
-                <Card.Title>Card Title</Card.Title>
-                <Card.Text>
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </Card.Text>
-                <Button variant="primary">Go somewhere</Button>
-              </Card.Body>
-            </Card>
-          </div>
-          <div className="col-3">
-            <Card style={{ width: "18rem" }}>
-              <Card.Img
-                variant="top"
-                src="https://img.timviec.com.vn/2020/08/voucher-la-gi-4.jpg"
-              />
-              <Card.Body>
-                <Card.Title>Card Title</Card.Title>
-                <Card.Text>
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </Card.Text>
-                <Button variant="primary">Go somewhere</Button>
-              </Card.Body>
-            </Card>
-          </div>
-        </div>
+        ) : (
+          <>
+            {" "}
+            <button onClick={handleChangePage} className="btn btn-primary">
+              ADD
+            </button>
+            <div className="row">
+              {bill.map((item: any, index: number) => (
+                <div className="col-3" key={index}>
+                  <Card
+                    style={{ width: "18rem" }}
+                    onClick={() => setBillDetail(item)}
+                  >
+                    {/* <Link to="/"> */}
+                    <Card.Img
+                      variant="top"
+                      src="https://wexpo.vn/wp-content/uploads/2020/06/Amazon-import-export.jpg"
+                    />
+                    {/* </Link> */}
+
+                    <Card.Body>
+                      <h5 style={{ fontWeight: "bolder" }}>
+                        Phiếu nhập/xuất kho
+                      </h5>
+                      <Card.Text>
+                        {dayjs(item.updatedAt).format("HH:mm:ss")}
+                      </Card.Text>
+                      <Card.Text>
+                        {dayjs(item.updatedAt).format("DD/MM/YYYY")}
+                      </Card.Text>
+                    </Card.Body>
+                  </Card>
+                </div>
+              ))}
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

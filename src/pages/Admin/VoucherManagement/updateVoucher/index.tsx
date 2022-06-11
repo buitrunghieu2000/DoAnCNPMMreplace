@@ -1,16 +1,18 @@
 import dayjs from "dayjs";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { FaChessKnight } from "react-icons/fa";
-import { createVoucherApi } from "../../../apis/discount/createVoucher.api";
-import { ButtonSpinner } from "../../../components/ButtonSpinner";
-import { notifyError, notifySuccess } from "../../../utils/notify";
+import { useHistory, useParams } from "react-router";
+import { updateVoucherApi } from "../../../../apis/discount/updateVoucher.api";
+import { ButtonSpinner } from "../../../../components/ButtonSpinner";
+import { notifyError, notifySuccess } from "../../../../utils/notify";
 
 import "./style.scss";
 
-interface CreateVoucherProps {}
+interface UpdateVoucherProps {}
 
-const CreateVoucher = (props: CreateVoucherProps) => {
+const UpdateVoucher = (props: UpdateVoucherProps) => {
+  const { id } = useParams<any>();
+  const history = useHistory();
   const {
     register,
     handleSubmit,
@@ -20,17 +22,17 @@ const CreateVoucher = (props: CreateVoucherProps) => {
 
   const submit = async (data: any, e: any) => {
     e.preventDefault();
-    console.log("data", data);
     const startTime = dayjs(data.startTime).toISOString();
     const duration = dayjs(data.duration).toISOString();
-    const newData = { ...data, startTime, duration };
-    const result = await createVoucherApi(newData);
+    const newData = { ...data, startTime, duration, id };
+    const result = await updateVoucherApi(newData);
     if (result.statusCode === 200) {
-      notifySuccess("Tạo thành công");
+      notifySuccess("Cập nhật thành công");
       reset();
+      history.push("/vouchermanagement");
       return;
     }
-    notifyError("Tạo thất bại");
+    notifyError("Cập nhật thất bại");
   };
 
   const { t, i18n } = useTranslation();
@@ -38,35 +40,11 @@ const CreateVoucher = (props: CreateVoucherProps) => {
     <div className="createProduct container w-50">
       <form onSubmit={handleSubmit(submit)}>
         <p className="navbar-brand" style={{ color: "whitesmoke" }}>
-          ADD VOUCHER
+          UPDATE VOUCHER
         </p>
         <div>
           <div className="d-flex">
             <div className="createProduct-left">
-              <input
-                type="text"
-                id="percentDiscount"
-                {...register("percentDiscount")}
-                className="form-control"
-                placeholder="Phần trăm giảm (%)"
-              />
-              <p></p>
-              <input
-                type="text"
-                id="maxDiscount"
-                {...register("maxDiscount")}
-                className="form-control"
-                placeholder="Giảm tối đa"
-              />
-              <p></p>
-              <input
-                type="text"
-                id="minimumDiscount"
-                {...register("minimumDiscount")}
-                className="form-control"
-                placeholder="Đơn tối thiểu"
-              />
-              <p></p>
               <input
                 type="text"
                 id="quantity"
@@ -77,7 +55,7 @@ const CreateVoucher = (props: CreateVoucherProps) => {
               <p></p>
             </div>
 
-            <div className="createProduct-rightCreateVoucher">
+            <div className="createProduct-rightUpdateVoucher">
               <div>
                 <span>Từ</span> &nbsp;
                 <input
@@ -112,4 +90,4 @@ const CreateVoucher = (props: CreateVoucherProps) => {
   );
 };
 
-export default CreateVoucher;
+export default UpdateVoucher;

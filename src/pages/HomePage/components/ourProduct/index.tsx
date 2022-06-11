@@ -14,7 +14,7 @@ const OurProduct = (props: Props) => {
   React.useEffect(() => {
     const getData = async () => {
       const result = await getProductReccomendAsync();
-      console.log(result);
+      // console.log(result);
       const { data } = result;
       setList(data);
     };
